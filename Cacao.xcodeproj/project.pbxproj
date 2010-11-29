@@ -1,0 +1,791 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		BE021FEA128FAEE900636124 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BE021FE9128FAEE900636124 /* CacaoBigInteger.m */; };
+		BE021FEB128FAEE900636124 /* CacaoBigInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = BE021FE8128FAEE900636124 /* CacaoBigInteger.h */; };
+		BE021FEC128FAEE900636124 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BE021FE9128FAEE900636124 /* CacaoBigInteger.m */; };
+		BE2E8745129259C90048AE63 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2E8744129259C90048AE63 /* libsqlite3.dylib */; };
+		BE2E8746129259C90048AE63 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2E8744129259C90048AE63 /* libsqlite3.dylib */; };
+		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
+		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
+		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
+		BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */; };
+		BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */; };
+		BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */; };
+		BE3BC3161290A5B500ED6ADB /* NSArray+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */; };
+		BE3BC3171290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */; };
+		BE3BC3181290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */; };
+		BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */; };
+		BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */; };
+		BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */; };
+		BE3BC4CB1290BF2400ED6ADB /* CacaoSymbolNotFoundException.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC4C91290BF2400ED6ADB /* CacaoSymbolNotFoundException.h */; };
+		BE3BC4CC1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */; };
+		BE3BC4CD1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */; };
+		BE3BC60C1290CD2400ED6ADB /* CacaoNil.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC60A1290CD2400ED6ADB /* CacaoNil.h */; };
+		BE3BC60D1290CD2400ED6ADB /* CacaoNil.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC60B1290CD2400ED6ADB /* CacaoNil.m */; };
+		BE3BC60E1290CD2400ED6ADB /* CacaoNil.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC60B1290CD2400ED6ADB /* CacaoNil.m */; };
+		BE3BC65E1290CF4900ED6ADB /* CacaoNilNotCallableException.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC65C1290CF4900ED6ADB /* CacaoNilNotCallableException.h */; };
+		BE3BC65F1290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */; };
+		BE3BC6601290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */; };
+		BE3BC6FF1290E58D00ED6ADB /* CacaoVector.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */; };
+		BE3BC7001290E58D00ED6ADB /* CacaoVector.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */; };
+		BE3BC7011290E58D00ED6ADB /* CacaoVector.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */; };
+		BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */ = {isa = PBXBuildFile; fileRef = BE61EF00129B79E200E7A7DD /* CacaoFn.h */; };
+		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
+		BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
+		BEB2936C128EF3350092F199 /* CacaoAST.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2936A128EF3350092F199 /* CacaoAST.h */; };
+		BEB2936D128EF3350092F199 /* CacaoAST.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2936B128EF3350092F199 /* CacaoAST.m */; };
+		BEB2945F128F052E0092F199 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB2945E128F052E0092F199 /* SenTestingKit.framework */; };
+		BEB2967E128F2A0D0092F199 /* CacaoRepl.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2949E128F0AF30092F199 /* CacaoRepl.m */; };
+		BEB29784128F2B340092F199 /* CacaoAST.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2936B128EF3350092F199 /* CacaoAST.m */; };
+		BEB29823128F376B0092F199 /* CacaoSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29822128F376B0092F199 /* CacaoSymbol.m */; };
+		BEB2996D128F52CC0092F199 /* CacaoEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */; };
+		BEB29981128F577B0092F199 /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29980128F577B0092F199 /* NSArray+Functional.m */; };
+		BEB29982128F577B0092F199 /* NSArray+Functional.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2997F128F577B0092F199 /* NSArray+Functional.h */; };
+		BEB29983128F577B0092F199 /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29980128F577B0092F199 /* NSArray+Functional.m */; };
+		BECDF77712A17936006AE86C /* TestMath.m in Sources */ = {isa = PBXBuildFile; fileRef = BECDF77612A17936006AE86C /* TestMath.m */; };
+		BECDF79312A17AF7006AE86C /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
+		BECDF7CA12A18027006AE86C /* CacaoSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB29821128F376B0092F199 /* CacaoSymbol.h */; };
+		BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29822128F376B0092F199 /* CacaoSymbol.m */; };
+		BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */; };
+		BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF5E0370ADEE00C91783 /* Cacao_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cacao_Prefix.pch; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* Cacao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cacao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE021FE8128FAEE900636124 /* CacaoBigInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoBigInteger.h; sourceTree = "<group>"; };
+		BE021FE9128FAEE900636124 /* CacaoBigInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoBigInteger.m; sourceTree = "<group>"; };
+		BE2E8744129259C90048AE63 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /opt/local/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
+		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
+		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
+		BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CacaoPrintable.h"; sourceTree = "<group>"; };
+		BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CacaoPrintable.h"; sourceTree = "<group>"; };
+		BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE3BC4C91290BF2400ED6ADB /* CacaoSymbolNotFoundException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoSymbolNotFoundException.h; sourceTree = "<group>"; };
+		BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoSymbolNotFoundException.m; sourceTree = "<group>"; };
+		BE3BC60A1290CD2400ED6ADB /* CacaoNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoNil.h; sourceTree = "<group>"; };
+		BE3BC60B1290CD2400ED6ADB /* CacaoNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoNil.m; sourceTree = "<group>"; };
+		BE3BC65C1290CF4900ED6ADB /* CacaoNilNotCallableException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoNilNotCallableException.h; sourceTree = "<group>"; };
+		BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoNilNotCallableException.m; sourceTree = "<group>"; };
+		BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoVector.h; sourceTree = "<group>"; };
+		BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoVector.m; sourceTree = "<group>"; };
+		BE61EF00129B79E200E7A7DD /* CacaoFn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoFn.h; sourceTree = "<group>"; };
+		BE61EF01129B79E200E7A7DD /* CacaoFn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoFn.m; sourceTree = "<group>"; };
+		BEB2936A128EF3350092F199 /* CacaoAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoAST.h; sourceTree = "<group>"; };
+		BEB2936B128EF3350092F199 /* CacaoAST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoAST.m; sourceTree = "<group>"; };
+		BEB293A1128EFAD40092F199 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEB293A2128EFAD40092F199 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		BEB2945E128F052E0092F199 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		BEB29497128F0ABA0092F199 /* cacao */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cacao; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEB2949D128F0AF30092F199 /* CacaoRepl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoRepl.h; sourceTree = "<group>"; };
+		BEB2949E128F0AF30092F199 /* CacaoRepl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoRepl.m; sourceTree = "<group>"; };
+		BEB29821128F376B0092F199 /* CacaoSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoSymbol.h; sourceTree = "<group>"; };
+		BEB29822128F376B0092F199 /* CacaoSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoSymbol.m; sourceTree = "<group>"; };
+		BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoEnvironment.h; sourceTree = "<group>"; };
+		BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoEnvironment.m; sourceTree = "<group>"; };
+		BEB2997F128F577B0092F199 /* NSArray+Functional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Functional.h"; sourceTree = "<group>"; };
+		BEB29980128F577B0092F199 /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
+		BECDF77512A17936006AE86C /* TestMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMath.h; sourceTree = "<group>"; };
+		BECDF77612A17936006AE86C /* TestMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMath.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				BE2E8745129259C90048AE63 /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB2939E128EFAD40092F199 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB2945F128F052E0092F199 /* SenTestingKit.framework in Frameworks */,
+				BECDF79312A17AF7006AE86C /* Cacao.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB29495128F0ABA0092F199 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE2E8746129259C90048AE63 /* libsqlite3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* Cacao.framework */,
+				BEB293A1128EFAD40092F199 /* Tests.octest */,
+				BEB29497128F0ABA0092F199 /* cacao */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* Cacao */ = {
+			isa = PBXGroup;
+			children = (
+				BEB29381128EF96C0092F199 /* Tests */,
+				BE265300128DC3F70088DC0A /* Protocols */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = Cacao;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BEB293A2128EFAD40092F199 /* Tests-Info.plist */,
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BE3BC6FC1290E57400ED6ADB /* Datastructures */,
+				BE3BC17A1290972900ED6ADB /* Core */,
+				BE3BC4C81290BF1200ED6ADB /* Exceptions */,
+				BE021FE7128FAECE00636124 /* Multiprecision */,
+				BE3BC17B1290973500ED6ADB /* Support */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				BEB2945E128F052E0092F199 /* SenTestingKit.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE2E8744129259C90048AE63 /* libsqlite3.dylib */,
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* Cacao_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		BE021FE7128FAECE00636124 /* Multiprecision */ = {
+			isa = PBXGroup;
+			children = (
+				BE021FE8128FAEE900636124 /* CacaoBigInteger.h */,
+				BE021FE9128FAEE900636124 /* CacaoBigInteger.m */,
+			);
+			name = Multiprecision;
+			sourceTree = "<group>";
+		};
+		BE265300128DC3F70088DC0A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		BE3BC17A1290972900ED6ADB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BEB2936A128EF3350092F199 /* CacaoAST.h */,
+				BEB2936B128EF3350092F199 /* CacaoAST.m */,
+				BEB2949D128F0AF30092F199 /* CacaoRepl.h */,
+				BEB2949E128F0AF30092F199 /* CacaoRepl.m */,
+				BEB29821128F376B0092F199 /* CacaoSymbol.h */,
+				BEB29822128F376B0092F199 /* CacaoSymbol.m */,
+				BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */,
+				BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */,
+				BE3BC60A1290CD2400ED6ADB /* CacaoNil.h */,
+				BE3BC60B1290CD2400ED6ADB /* CacaoNil.m */,
+				BE61EF00129B79E200E7A7DD /* CacaoFn.h */,
+				BE61EF01129B79E200E7A7DD /* CacaoFn.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		BE3BC17B1290973500ED6ADB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				BEB2997F128F577B0092F199 /* NSArray+Functional.h */,
+				BEB29980128F577B0092F199 /* NSArray+Functional.m */,
+				BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */,
+				BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */,
+				BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */,
+				BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */,
+				BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */,
+				BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */,
+				BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */,
+				BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		BE3BC4C81290BF1200ED6ADB /* Exceptions */ = {
+			isa = PBXGroup;
+			children = (
+				BE3BC4C91290BF2400ED6ADB /* CacaoSymbolNotFoundException.h */,
+				BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */,
+				BE3BC65C1290CF4900ED6ADB /* CacaoNilNotCallableException.h */,
+				BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */,
+			);
+			name = Exceptions;
+			sourceTree = "<group>";
+		};
+		BE3BC6FC1290E57400ED6ADB /* Datastructures */ = {
+			isa = PBXGroup;
+			children = (
+				BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */,
+				BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */,
+			);
+			name = Datastructures;
+			sourceTree = "<group>";
+		};
+		BEB29381128EF96C0092F199 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BECDF77512A17936006AE86C /* TestMath.h */,
+				BECDF77612A17936006AE86C /* TestMath.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB2936C128EF3350092F199 /* CacaoAST.h in Headers */,
+				BEB29982128F577B0092F199 /* NSArray+Functional.h in Headers */,
+				BE021FEB128FAEE900636124 /* CacaoBigInteger.h in Headers */,
+				BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */,
+				BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoPrintable.h in Headers */,
+				BE3BC3161290A5B500ED6ADB /* NSArray+CacaoPrintable.h in Headers */,
+				BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoPrintable.h in Headers */,
+				BE3BC4CB1290BF2400ED6ADB /* CacaoSymbolNotFoundException.h in Headers */,
+				BE3BC60C1290CD2400ED6ADB /* CacaoNil.h in Headers */,
+				BE3BC65E1290CF4900ED6ADB /* CacaoNilNotCallableException.h in Headers */,
+				BE3BC6FF1290E58D00ED6ADB /* CacaoVector.h in Headers */,
+				BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */,
+				BECDF7CA12A18027006AE86C /* CacaoSymbol.h in Headers */,
+				BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* Cacao */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Cacao" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cacao;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = Cacao;
+			productReference = 8DC2EF5B0486A6940098B216 /* Cacao.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BEB293A0128EFAD40092F199 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEB293A5128EFAD40092F199 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				BEB2939C128EFAD40092F199 /* Resources */,
+				BEB2939D128EFAD40092F199 /* Sources */,
+				BEB2939E128EFAD40092F199 /* Frameworks */,
+				BEB2939F128EFAD40092F199 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = BEB293A1128EFAD40092F199 /* Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		BEB29496128F0ABA0092F199 /* Repl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEB294A0128F0AF30092F199 /* Build configuration list for PBXNativeTarget "Repl" */;
+			buildPhases = (
+				BEB297B7128F2D150092F199 /* Resources */,
+				BEB29494128F0ABA0092F199 /* Sources */,
+				BEB29495128F0ABA0092F199 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Repl;
+			productName = Repl;
+			productReference = BEB29497128F0ABA0092F199 /* cacao */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				ORGANIZATIONNAME = "Joubert Nel";
+			};
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Cacao" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* Cacao */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* Cacao */,
+				BEB293A0128EFAD40092F199 /* Tests */,
+				BEB29496128F0ABA0092F199 /* Repl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB2939C128EFAD40092F199 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB297B7128F2D150092F199 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BEB2939F128EFAD40092F199 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB2936D128EF3350092F199 /* CacaoAST.m in Sources */,
+				BEB29983128F577B0092F199 /* NSArray+Functional.m in Sources */,
+				BE021FEC128FAEE900636124 /* CacaoBigInteger.m in Sources */,
+				BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
+				BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
+				BE3BC3171290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
+				BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */,
+				BE3BC4CC1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */,
+				BE3BC60D1290CD2400ED6ADB /* CacaoNil.m in Sources */,
+				BE3BC65F1290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
+				BE3BC7001290E58D00ED6ADB /* CacaoVector.m in Sources */,
+				BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */,
+				BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */,
+				BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB2939D128EFAD40092F199 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BECDF77712A17936006AE86C /* TestMath.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEB29494128F0ABA0092F199 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB2967E128F2A0D0092F199 /* CacaoRepl.m in Sources */,
+				BEB29784128F2B340092F199 /* CacaoAST.m in Sources */,
+				BEB29823128F376B0092F199 /* CacaoSymbol.m in Sources */,
+				BEB2996D128F52CC0092F199 /* CacaoEnvironment.m in Sources */,
+				BEB29981128F577B0092F199 /* NSArray+Functional.m in Sources */,
+				BE021FEA128FAEE900636124 /* CacaoBigInteger.m in Sources */,
+				BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
+				BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
+				BE3BC3181290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
+				BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */,
+				BE3BC4CD1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */,
+				BE3BC60E1290CD2400ED6ADB /* CacaoNil.m in Sources */,
+				BE3BC6601290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
+				BE3BC7011290E58D00ED6ADB /* CacaoVector.m in Sources */,
+				BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = Cacao;
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = Cacao;
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		BEB293A3128EFAD40092F199 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				BUNDLE_LOADER = "${BUILT_PRODUCTS_DIR}/Cacao.framework/Versions/A/Cacao";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = required;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				MACH_O_TYPE = mh_bundle;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		BEB293A4128EFAD40092F199 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				BUNDLE_LOADER = "";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				MACH_O_TYPE = mh_bundle;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		BEB29499128F0ABA0092F199 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GENERATE_PKGINFO_FILE = NO;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				LLVM_LTO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-fgnu89-inline";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = cacao;
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		BEB2949A128F0ABA0092F199 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				LLVM_LTO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = cacao;
+				VALID_ARCHS = x86_64;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Cacao" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Cacao" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BEB293A5128EFAD40092F199 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEB293A3128EFAD40092F199 /* Debug */,
+				BEB293A4128EFAD40092F199 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BEB294A0128F0AF30092F199 /* Build configuration list for PBXNativeTarget "Repl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEB29499128F0ABA0092F199 /* Debug */,
+				BEB2949A128F0ABA0092F199 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
