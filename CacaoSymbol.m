@@ -39,7 +39,7 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     CacaoSymbol * aCopy = [CacaoSymbol symbolWithName:[self name]];
-    return aCopy;
+    return [aCopy retain];
 }
 
 

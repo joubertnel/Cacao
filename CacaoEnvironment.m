@@ -9,6 +9,9 @@
 #import "CacaoEnvironment.h"
 
 static NSString * restParamDelimeter = @"&";
+const short fnParamsIndex = 1; // index of function args in a 'fn' form
+const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
+
 
 @implementation CacaoEnvironment
 
@@ -16,8 +19,6 @@ static NSString * restParamDelimeter = @"&";
 @synthesize outer;
 
 #pragma mark Lifecycle
-
-
 
 + (NSDictionary *)defaultGlobalMappings
 {
@@ -30,7 +31,7 @@ static NSString * restParamDelimeter = @"&";
         for (NSNumber * number in params)
             if (number)
                 sum += [number intValue];
-        return (NSObject *)[NSString stringWithFormat:@"%d", sum];
+        return [NSNumber numberWithInt:sum];
     }];
     
     CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*"];
@@ -38,7 +39,7 @@ static NSString * restParamDelimeter = @"&";
         int answer = 1;
         for (NSNumber * number in params)
             answer *= [number intValue];
-        return (NSObject *)[NSString stringWithFormat:@"%d", answer];
+        return [NSNumber numberWithInt:answer];
     }];    
     
     CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-"];
@@ -48,7 +49,7 @@ static NSString * restParamDelimeter = @"&";
         int answer = [firstNumber intValue];
         for (NSNumber * number in remainingNumbers)
             answer -= [number intValue];
-        return (NSObject *)[NSString stringWithFormat:@"%d", answer];
+        return [NSNumber numberWithInt:answer];
     }];
     
     CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/"];
@@ -58,10 +59,8 @@ static NSString * restParamDelimeter = @"&";
         int answer = [firstNumber intValue];
         for (NSNumber * number in remainingNumbers)
             answer /= [number intValue];
-        return (NSObject *)[NSString stringWithFormat:@"%d", answer];
-    }];
-    
-    
+        return [NSNumber numberWithInt:answer];
+    }];    
       
     NSDictionary * globalMappings = [NSDictionary dictionaryWithObjectsAndKeys:
                                      [NSNumber numberWithBool:YES], yesSymbol,
@@ -213,13 +212,13 @@ static NSString * restParamDelimeter = @"&";
         return [NSNumber numberWithBool:isEqual];
     }
     else if ([firstX.stringValue isEqualToString:@"fn"])
-    {
+    {        
         NSRange bodyRange;
-        bodyRange.location = 3;
+        bodyRange.location = fnBodyIndex;
         bodyRange.length = expression.count - bodyRange.location;
         NSArray *body = [expression subarrayWithRange:bodyRange];
         
-        CacaoVector *params = (CacaoVector *)[expression objectAtIndex:2];
+        CacaoVector *params = (CacaoVector *)[expression objectAtIndex:fnParamsIndex];
         CacaoSymbol *restParam = nil;
         NSArray * positionalParams = [params elements];
         NSUInteger positionalArgsCount = [positionalParams count];

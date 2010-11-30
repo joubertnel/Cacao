@@ -29,6 +29,7 @@
 - (void)tokenize;
 - (void)parse;
 - (CacaoAST *)initWithText:(NSString *)theText;
++ (CacaoAST *)astWithText:(NSString *)theText;
 - (void)explore;
 - (NSString *)toString;
 

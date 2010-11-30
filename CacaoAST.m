@@ -38,7 +38,9 @@
 {
     NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    return [numberFormatter numberFromString:token];
+    NSNumber * theNumber = [numberFormatter numberFromString:token];
+    [numberFormatter release];
+    return theNumber;
 }
 
 + (id)atomFrom:(NSString *)token
@@ -147,6 +149,12 @@
         [self parse];
     }
     return self;
+}
+
++ (CacaoAST *)astWithText:(NSString *)theText
+{
+    CacaoAST * ast = [[CacaoAST alloc] initWithText:theText];
+    return [ast autorelease];
 }
 
 - (NSString *)toString

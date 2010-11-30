@@ -8,12 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
-		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		BE021FEA128FAEE900636124 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BE021FE9128FAEE900636124 /* CacaoBigInteger.m */; };
-		BE021FEB128FAEE900636124 /* CacaoBigInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = BE021FE8128FAEE900636124 /* CacaoBigInteger.h */; };
-		BE021FEC128FAEE900636124 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BE021FE9128FAEE900636124 /* CacaoBigInteger.m */; };
-		BE2E8745129259C90048AE63 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2E8744129259C90048AE63 /* libsqlite3.dylib */; };
-		BE2E8746129259C90048AE63 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE2E8744129259C90048AE63 /* libsqlite3.dylib */; };
+		BE296A8212A4184200229132 /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
 		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
 		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
 		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
@@ -38,6 +33,18 @@
 		BE3BC6FF1290E58D00ED6ADB /* CacaoVector.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */; };
 		BE3BC7001290E58D00ED6ADB /* CacaoVector.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */; };
 		BE3BC7011290E58D00ED6ADB /* CacaoVector.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */; };
+		BE445FB712A57EDF00D1E47C /* BigInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDDE09E12A444AC00B0EF6C /* BigInteger.h */; };
+		BE445FB812A57EDF00D1E47C /* BigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE09F12A444AC00B0EF6C /* BigInteger.m */; };
+		BE445FB912A57EDF00D1E47C /* BigDecimal.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDDE0A012A444AC00B0EF6C /* BigDecimal.h */; };
+		BE445FBA12A57EDF00D1E47C /* BigDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */; };
+		BE445FBB12A57EDF00D1E47C /* GMPRational.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDDE0A212A444AC00B0EF6C /* GMPRational.h */; };
+		BE445FBC12A57EDF00D1E47C /* GMPRational.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A312A444AC00B0EF6C /* GMPRational.m */; };
+		BE445FBD12A57EF000D1E47C /* BigDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */; };
+		BE445FBE12A57EF100D1E47C /* BigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE09F12A444AC00B0EF6C /* BigInteger.m */; };
+		BE445FBF12A57EF100D1E47C /* GMPRational.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A312A444AC00B0EF6C /* GMPRational.m */; };
+		BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
+		BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BBBF12A59D3C00EE904A /* Cocoa.framework */; };
+		BE46BBD112A59DB300EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
 		BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */ = {isa = PBXBuildFile; fileRef = BE61EF00129B79E200E7A7DD /* CacaoFn.h */; };
 		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
 		BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
@@ -52,12 +59,21 @@
 		BEB29982128F577B0092F199 /* NSArray+Functional.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2997F128F577B0092F199 /* NSArray+Functional.h */; };
 		BEB29983128F577B0092F199 /* NSArray+Functional.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29980128F577B0092F199 /* NSArray+Functional.m */; };
 		BECDF77712A17936006AE86C /* TestMath.m in Sources */ = {isa = PBXBuildFile; fileRef = BECDF77612A17936006AE86C /* TestMath.m */; };
-		BECDF79312A17AF7006AE86C /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
 		BECDF7CA12A18027006AE86C /* CacaoSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB29821128F376B0092F199 /* CacaoSymbol.h */; };
 		BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29822128F376B0092F199 /* CacaoSymbol.m */; };
 		BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */; };
 		BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE46BC6112A5AA3300EE904A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Cacao */;
+			remoteInfo = Cacao;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -67,9 +83,6 @@
 		32DBCF5E0370ADEE00C91783 /* Cacao_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cacao_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Cacao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cacao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE021FE8128FAEE900636124 /* CacaoBigInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoBigInteger.h; sourceTree = "<group>"; };
-		BE021FE9128FAEE900636124 /* CacaoBigInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoBigInteger.m; sourceTree = "<group>"; };
-		BE2E8744129259C90048AE63 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /opt/local/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
 		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
@@ -86,6 +99,8 @@
 		BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoNilNotCallableException.m; sourceTree = "<group>"; };
 		BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoVector.h; sourceTree = "<group>"; };
 		BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoVector.m; sourceTree = "<group>"; };
+		BE46BB9712A59B6400EE904A /* libgmp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgmp.dylib; path = usr/local/lib/libgmp.dylib; sourceTree = SDKROOT; };
+		BE46BBBF12A59D3C00EE904A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BE61EF00129B79E200E7A7DD /* CacaoFn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoFn.h; sourceTree = "<group>"; };
 		BE61EF01129B79E200E7A7DD /* CacaoFn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoFn.m; sourceTree = "<group>"; };
 		BEB2936A128EF3350092F199 /* CacaoAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoAST.h; sourceTree = "<group>"; };
@@ -104,6 +119,12 @@
 		BEB29980128F577B0092F199 /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
 		BECDF77512A17936006AE86C /* TestMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMath.h; sourceTree = "<group>"; };
 		BECDF77612A17936006AE86C /* TestMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMath.m; sourceTree = "<group>"; };
+		BEDDE09E12A444AC00B0EF6C /* BigInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigInteger.h; sourceTree = "<group>"; };
+		BEDDE09F12A444AC00B0EF6C /* BigInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigInteger.m; sourceTree = "<group>"; };
+		BEDDE0A012A444AC00B0EF6C /* BigDecimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDecimal.h; sourceTree = "<group>"; };
+		BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigDecimal.m; sourceTree = "<group>"; };
+		BEDDE0A212A444AC00B0EF6C /* GMPRational.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMPRational.h; sourceTree = "<group>"; };
+		BEDDE0A312A444AC00B0EF6C /* GMPRational.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMPRational.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +132,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
-				BE2E8745129259C90048AE63 /* libsqlite3.dylib in Frameworks */,
+				BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */,
+				BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB2945F128F052E0092F199 /* SenTestingKit.framework in Frameworks */,
-				BECDF79312A17AF7006AE86C /* Cacao.framework in Frameworks */,
+				BE296A8212A4184200229132 /* Cacao.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE2E8746129259C90048AE63 /* libsqlite3.dylib in Frameworks */,
+				BE46BBD112A59DB300EE904A /* libgmp.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +177,8 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				BE46BB9712A59B6400EE904A /* libgmp.dylib */,
+				BE46BBBF12A59D3C00EE904A /* Cocoa.framework */,
 			);
 			name = Cacao;
 			sourceTree = "<group>";
@@ -203,7 +226,6 @@
 		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BE2E8744129259C90048AE63 /* libsqlite3.dylib */,
 				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
@@ -221,8 +243,12 @@
 		BE021FE7128FAECE00636124 /* Multiprecision */ = {
 			isa = PBXGroup;
 			children = (
-				BE021FE8128FAEE900636124 /* CacaoBigInteger.h */,
-				BE021FE9128FAEE900636124 /* CacaoBigInteger.m */,
+				BEDDE09E12A444AC00B0EF6C /* BigInteger.h */,
+				BEDDE09F12A444AC00B0EF6C /* BigInteger.m */,
+				BEDDE0A012A444AC00B0EF6C /* BigDecimal.h */,
+				BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */,
+				BEDDE0A212A444AC00B0EF6C /* GMPRational.h */,
+				BEDDE0A312A444AC00B0EF6C /* GMPRational.m */,
 			);
 			name = Multiprecision;
 			sourceTree = "<group>";
@@ -308,7 +334,6 @@
 			files = (
 				BEB2936C128EF3350092F199 /* CacaoAST.h in Headers */,
 				BEB29982128F577B0092F199 /* NSArray+Functional.h in Headers */,
-				BE021FEB128FAEE900636124 /* CacaoBigInteger.h in Headers */,
 				BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */,
 				BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoPrintable.h in Headers */,
 				BE3BC3161290A5B500ED6ADB /* NSArray+CacaoPrintable.h in Headers */,
@@ -320,6 +345,9 @@
 				BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */,
 				BECDF7CA12A18027006AE86C /* CacaoSymbol.h in Headers */,
 				BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */,
+				BE445FB712A57EDF00D1E47C /* BigInteger.h in Headers */,
+				BE445FB912A57EDF00D1E47C /* BigDecimal.h in Headers */,
+				BE445FBB12A57EDF00D1E47C /* GMPRational.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +385,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				BE46BC6212A5AA3300EE904A /* PBXTargetDependency */,
 			);
 			name = Tests;
 			productName = Tests;
@@ -459,7 +488,6 @@
 			files = (
 				BEB2936D128EF3350092F199 /* CacaoAST.m in Sources */,
 				BEB29983128F577B0092F199 /* NSArray+Functional.m in Sources */,
-				BE021FEC128FAEE900636124 /* CacaoBigInteger.m in Sources */,
 				BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
 				BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
 				BE3BC3171290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
@@ -471,6 +499,9 @@
 				BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */,
 				BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */,
 				BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */,
+				BE445FB812A57EDF00D1E47C /* BigInteger.m in Sources */,
+				BE445FBA12A57EDF00D1E47C /* BigDecimal.m in Sources */,
+				BE445FBC12A57EDF00D1E47C /* GMPRational.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +522,6 @@
 				BEB29823128F376B0092F199 /* CacaoSymbol.m in Sources */,
 				BEB2996D128F52CC0092F199 /* CacaoEnvironment.m in Sources */,
 				BEB29981128F577B0092F199 /* NSArray+Functional.m in Sources */,
-				BE021FEA128FAEE900636124 /* CacaoBigInteger.m in Sources */,
 				BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
 				BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
 				BE3BC3181290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
@@ -501,10 +531,21 @@
 				BE3BC6601290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
 				BE3BC7011290E58D00ED6ADB /* CacaoVector.m in Sources */,
 				BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */,
+				BE445FBD12A57EF000D1E47C /* BigDecimal.m in Sources */,
+				BE445FBE12A57EF100D1E47C /* BigInteger.m in Sources */,
+				BE445FBF12A57EF100D1E47C /* GMPRational.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE46BC6212A5AA3300EE904A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* Cacao */;
+			targetProxy = BE46BC6112A5AA3300EE904A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
@@ -524,6 +565,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -536,13 +578,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/opt/local/lib,
-				);
-				ONLY_ACTIVE_ARCH = NO;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cacao;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = framework;
@@ -559,7 +601,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = required;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
@@ -570,6 +612,7 @@
 					"$(inherited)",
 					/opt/local/lib,
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Cacao;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = framework;
@@ -579,7 +622,7 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -587,18 +630,21 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -607,9 +653,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				BUNDLE_LOADER = "${BUILT_PRODUCTS_DIR}/Cacao.framework/Versions/A/Cacao";
+				BUNDLE_LOADER = "";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(CONFIGURATION_BUILD_DIR)/**",
+					"$(HOME_DIR)/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -622,9 +672,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LD_GENERATE_MAP_FILE = NO;
+				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_bundle;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
 					"-framework",
 					Cocoa,
 					"-framework",
@@ -642,7 +696,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				BUNDLE_LOADER = "";
+				BUNDLE_LOADER = "${BUILT_PRODUCTS_DIR}/Cacao.framework/Versions/Current/Cacao";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
@@ -654,8 +708,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LD_GENERATE_MAP_FILE = YES;
 				MACH_O_TYPE = mh_bundle;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
@@ -690,12 +745,12 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GENERATE_PKGINFO_FILE = NO;
-				HEADER_SEARCH_PATHS = /opt/local/include;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /usr/local/bin;
-				LIBRARY_SEARCH_PATHS = /opt/local/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				LLVM_LTO = NO;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fgnu89-inline";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -732,7 +787,7 @@
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				LLVM_LTO = NO;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,

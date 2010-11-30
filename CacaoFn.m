@@ -17,7 +17,7 @@
 {
     CacaoFn * fn = [[CacaoFn alloc] init];
     [fn setFunc:theFunc];
-    return fn;
+    return [fn autorelease];
 }
 
 - (id)invokeWithParams:(NSArray *)theParams
