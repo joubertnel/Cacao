@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -180,6 +180,7 @@
 				BE46BB9712A59B6400EE904A /* libgmp.dylib */,
 				BE46BBBF12A59D3C00EE904A /* Cocoa.framework */,
 			);
+			comments = "Copyright 2010, Joubert Nel. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are\npermitted provided that the following conditions are met:\n\n   1. Redistributions of source code must retain the above copyright notice, this list of\n      conditions and the following disclaimer.\n\n   2. Redistributions in binary form must reproduce the above copyright notice, this list\n      of conditions and the following disclaimer in the documentation and/or other materials\n      provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY JOUBERT NEL \"AS IS'' AND ANY EXPRESS OR IMPLIED\nWARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND\nFITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JOUBERT NEL OR\nCONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\nCONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON\nANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\nNEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF\nADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nThe views and conclusions contained in the software and documentation are those of the\nauthors and should not be interpreted as representing official policies, either expressed\nor implied, of Joubert Nel.";
 			name = Cacao;
 			sourceTree = "<group>";
 		};
@@ -419,7 +420,7 @@
 				ORGANIZATIONNAME = "Joubert Nel";
 			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Cacao" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
