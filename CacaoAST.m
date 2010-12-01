@@ -46,12 +46,14 @@
    
     if (tokenRepresentsString)
     {
+        NSRange valueBetweenQuotes;
+        valueBetweenQuotes.location = 1;
+        valueBetweenQuotes.length = [token length] - 2;
         if ([token hasSuffix:@"\n"])
         {
-            int butlastIndex = [token length] - 1;
-            return [token substringToIndex:butlastIndex];
+            valueBetweenQuotes.length--;
         }
-        else return token;
+        return [token substringWithRange:valueBetweenQuotes];
     }
     else return nil;
 }
@@ -130,6 +132,7 @@
         NSString * spacedForParens = [spacedForLeftParen stringByReplacingOccurrencesOfString:@")" withString:@" ) "];   
         NSString * spacedForLeftBrackets = [spacedForParens stringByReplacingOccurrencesOfString:@"[" withString:@" [ "];
         NSString * spacedForBrackets = [spacedForLeftBrackets stringByReplacingOccurrencesOfString:@"]" withString:@" ] "];
+        
         NSMutableArray * possibleTokens = [NSMutableArray arrayWithArray:[spacedForBrackets componentsSeparatedByString:@" "]];
         NSMutableArray * indexesOfEmptyTokens = [NSMutableArray array];
         

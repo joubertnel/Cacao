@@ -28,6 +28,7 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
+#import <objc/objc-runtime.h>
 #import "CacaoEnvironment.h"
 
 static NSString * restParamDelimeter = @"&";
@@ -232,6 +233,79 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
                              inEnvironment:env];
         BOOL isEqual = [first isEqual:second];
         return [NSNumber numberWithBool:isEqual];
+    }
+    else if ([firstX.stringValue isEqualToString:@"new"])
+    {
+        NSString * cocoaClassName = [expression objectAtIndex:1];
+        id cocoaObject = [[NSClassFromString(cocoaClassName) alloc] init];
+        return [cocoaObject autorelease];
+    }
+    else if ([[firstX.stringValue substringToIndex:1] isEqualToString:@"."])
+    {
+        id cocoaInstance = [expression objectAtIndex:1];
+        NSString * methodName = [firstX.stringValue substringFromIndex:1];                
+        
+        SEL methodSelector = NSSelectorFromString(methodName);
+        if ([cocoaInstance respondsToSelector:methodSelector])
+        {               
+            NSMethodSignature * methodSignature = [[cocoaInstance class] instanceMethodSignatureForSelector:methodSelector];
+            Method method = class_getInstanceMethod([cocoaInstance class], methodSelector);
+            
+            NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+            [invocation setSelector:methodSelector];
+            [invocation setTarget:cocoaInstance];
+            
+            NSRange paramsRange;
+            paramsRange.location = 2;
+            paramsRange.length = expression.count - paramsRange.location;
+            NSArray * params = [expression subarrayWithRange:paramsRange];
+            
+            [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
+                char const *argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
+                if (argType[0] == 'Q')
+                {
+                    NSUInteger theVal = [obj longLongValue];
+                    [invocation setArgument:&theVal atIndex:argumentIndex];
+                }
+                
+            }];
+            
+             
+            
+            [invocation invoke];
+            
+            char returnType[1];
+            memset(returnType, 1, 1);
+            
+            method_getReturnType(method, returnType, 1);
+            
+            if (returnType[0] == '@')
+            {
+                id result;
+                [invocation getReturnValue:&result];
+                return result;
+            }
+            else
+            {
+                NSUInteger length = [[invocation methodSignature] methodReturnLength];
+                int *invocationResultBuffer = (void *)malloc(length);
+                [invocation getReturnValue:invocationResultBuffer];            
+                switch (returnType[0]) 
+                {
+                    case 'q':
+                        return [NSNumber numberWithLongLong:(NSInteger)*invocationResultBuffer];                    
+                    case 'Q':                    
+                        return [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
+                    case 'S':
+                        return [NSString stringWithCString:invocationResultBuffer encoding:NSUTF8StringEncoding];
+                    default:
+                        return nil;
+                }
+                
+            }            
+        }
+        return nil;
     }
     else if ([firstX.stringValue isEqualToString:@"fn"])
     {        
