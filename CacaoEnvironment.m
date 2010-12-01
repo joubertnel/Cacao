@@ -271,8 +271,6 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
                 
             }];
             
-             
-            
             [invocation invoke];
             
             char returnType[1];
