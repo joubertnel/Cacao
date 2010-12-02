@@ -1,5 +1,5 @@
 //
-//  CacaoFn.h
+//  TestBase.h
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,23 +28,15 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
 
-#import "CacaoVector.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "CacaoAST.h"
+#import "CacaoEnvironment.h"
+#import "CacaoSymbol.h"
 
-typedef NSObject * (^DispatchFunction)(NSArray * params);
+@interface TestBase : SenTestCase {
+    CacaoEnvironment * env;
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
 }
-
-@property (copy) DispatchFunction func;
-
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
-
-
-- (id)invokeWithParams:(NSArray *)theParams;
-
-
 
 @end

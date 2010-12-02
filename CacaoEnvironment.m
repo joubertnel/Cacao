@@ -36,6 +36,7 @@ const short fnParamsIndex = 1; // index of function args in a 'fn' form
 const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
 
+
 @implementation CacaoEnvironment
 
 @synthesize mappingTable;
@@ -188,181 +189,39 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     else if (![x isKindOfClass:[NSArray class]])
         return x;    
     
+    
     // Special Forms    
+    
     NSArray * expression = (NSArray *)x;
     CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
+    
     if ([firstX.stringValue isEqualToString:@"def"])
     {
-        CacaoSymbol * symbol = [expression objectAtIndex:1];
-        id subExpression = [expression objectAtIndex:2];
-        [env setVar:symbol to:[self eval:subExpression inEnvironment:env]];
-        return nil;
+        return [CacaoEnvironment evalDefExpression:expression inEnvironment:env];
     }
     else if ([firstX.stringValue isEqualToString:@"let"])
     {        
-        CacaoVector *bindings = [CacaoVector vectorWithArray:[expression objectAtIndex:1]];
-        NSRange bodyRange;
-        bodyRange.location = 2;
-        bodyRange.length = expression.count - bodyRange.location;
-        NSArray *body = [expression subarrayWithRange:bodyRange];
-        CacaoEnvironment * subEnv = [CacaoEnvironment environmentFromVector:bindings
-                                                           outerEnvironment:env]; 
-        id returnVal = nil;
-        for (id bodyExpr in body) {
-            returnVal = [CacaoEnvironment eval:bodyExpr inEnvironment:subEnv];
-        }
-        return returnVal;
+        return [CacaoEnvironment evalLetExpression:expression inEnvironment:env];
     }
     else if ([firstX.stringValue isEqualToString:@"if"])
     {
-        id testExpression = [expression objectAtIndex:1];
-        id thenExpresison = [expression objectAtIndex:2];
-        id elseExpression = [expression objectAtIndex:3];
-        BOOL testResult = [[CacaoEnvironment eval:testExpression inEnvironment:env] boolValue];
-        if (testResult)
-            return [CacaoEnvironment eval:thenExpresison inEnvironment:env];
-        else 
-            return [CacaoEnvironment eval:elseExpression inEnvironment:env];
-        
+        return [CacaoEnvironment evalIfExpression:expression inEnvironment:env];        
     }
     else if ([firstX.stringValue isEqualToString:@"="])
     {
-        id first = [CacaoEnvironment eval:[expression objectAtIndex:1]
-                            inEnvironment:env];
-        id second = [CacaoEnvironment eval:[expression objectAtIndex:2]
-                             inEnvironment:env];
-        BOOL isEqual = [first isEqual:second];
-        return [NSNumber numberWithBool:isEqual];
+        return [CacaoEnvironment evalBooleanExpression:expression inEnvironment:env];
     }
     else if ([firstX.stringValue isEqualToString:@"new"])
     {
-        NSString * cocoaClassName = [expression objectAtIndex:1];
-        id cocoaObject = [[NSClassFromString(cocoaClassName) alloc] init];
-        return [cocoaObject autorelease];
+        return [CacaoEnvironment evalCocoaInstancingExpression:expression inEnvironment:env];
     }
     else if ([[firstX.stringValue substringToIndex:1] isEqualToString:@"."])
     {
-        id cocoaInstance = [expression objectAtIndex:1];
-        NSString * methodName = [firstX.stringValue substringFromIndex:1];                
-        
-        SEL methodSelector = NSSelectorFromString(methodName);
-        if ([cocoaInstance respondsToSelector:methodSelector])
-        {               
-            NSMethodSignature * methodSignature = [[cocoaInstance class] instanceMethodSignatureForSelector:methodSelector];
-            Method method = class_getInstanceMethod([cocoaInstance class], methodSelector);
-            
-            NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
-            [invocation setSelector:methodSelector];
-            [invocation setTarget:cocoaInstance];
-            
-            NSRange paramsRange;
-            paramsRange.location = 2;
-            paramsRange.length = expression.count - paramsRange.location;
-            NSArray * params = [expression subarrayWithRange:paramsRange];
-            
-            [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
-                char const *argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
-                if (argType[0] == 'Q')
-                {
-                    NSUInteger theVal = [obj longLongValue];
-                    [invocation setArgument:&theVal atIndex:argumentIndex];
-                }
-                
-            }];
-            
-            [invocation invoke];
-            
-            char returnType[1];
-            memset(returnType, 1, 1);
-            
-            method_getReturnType(method, returnType, 1);
-            
-            if (returnType[0] == '@')
-            {
-                id result;
-                [invocation getReturnValue:&result];
-                return result;
-            }
-            else
-            {
-                NSUInteger length = [[invocation methodSignature] methodReturnLength];
-                int *invocationResultBuffer = (void *)malloc(length);
-                [invocation getReturnValue:invocationResultBuffer];            
-                switch (returnType[0]) 
-                {
-                    case 'q':
-                        return [NSNumber numberWithLongLong:(NSInteger)*invocationResultBuffer];                    
-                    case 'Q':                    
-                        return [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
-                    case 'S':
-                        return [NSString stringWithCString:invocationResultBuffer encoding:NSUTF8StringEncoding];
-                    default:
-                        return nil;
-                }
-                
-            }            
-        }
-        return nil;
+        return [CacaoEnvironment evalCocoaMethodCallExpression:expression inEnvironment:env];
     }
     else if ([firstX.stringValue isEqualToString:@"fn"])
     {        
-        NSRange bodyRange;
-        bodyRange.location = fnBodyIndex;
-        bodyRange.length = expression.count - bodyRange.location;
-        NSArray *body = [expression subarrayWithRange:bodyRange];
-        
-        CacaoVector *params = (CacaoVector *)[expression objectAtIndex:fnParamsIndex];
-        CacaoSymbol *restParam = nil;
-        NSArray * positionalParams = [params elements];
-        NSUInteger positionalArgsCount = [positionalParams count];
-        NSInteger butLastParamIndex = [positionalParams count] - 2;
-        
-        if (butLastParamIndex >= 0)
-        {
-            CacaoSymbol *butLastParam = [positionalParams objectAtIndex:butLastParamIndex];
-            if ([[butLastParam name] isEqualToString:restParamDelimeter])
-            {                
-                restParam = [positionalParams objectAtIndex:butLastParamIndex+1];                                
-                positionalArgsCount = positionalArgsCount - 2;
-                NSRange positionalArgsRange;
-                positionalArgsRange.location = 0;
-                positionalArgsRange.length = positionalArgsCount;
-                positionalParams = [positionalParams subarrayWithRange:positionalArgsRange];
-            }
-        }
-        
-        DispatchFunction fnOp = ^(NSArray * args) {
-            NSMutableDictionary * paramsAndArgs = nil;
-            if ([positionalParams count] > 0)
-                paramsAndArgs = [NSMutableDictionary dictionaryWithObjects:args forKeys:positionalParams];
-            else
-                paramsAndArgs = [NSMutableDictionary dictionaryWithCapacity:1];
-            
-            if (restParam != nil)
-            {
-                NSRange restRange = NSMakeRange(positionalArgsCount, [args count] - positionalArgsCount);
-                NSArray *restArgs = [args subarrayWithRange:restRange];
-                [paramsAndArgs setObject:restArgs forKey:restParam];
-            }
-
-            CacaoEnvironment * subEnv = [CacaoEnvironment environmentWith:paramsAndArgs outerEnvironment:env];
-            __block NSObject * result;
-            NSUInteger lastExpressionIndex = [body count] - 1;
-            [body enumerateObjectsUsingBlock:^(id bodyExpression, NSUInteger idx, BOOL *stop) {
-                if (idx == lastExpressionIndex) {
-                    result = (NSObject *)[CacaoEnvironment eval:bodyExpression inEnvironment:subEnv];                    
-                }
-                else {
-                    [CacaoEnvironment eval:bodyExpression inEnvironment:subEnv];
-                }
-            }];
-            
-            return result;
-        };        
-        
-        CacaoFn *fn = [CacaoFn fnWithDispatchFunction:fnOp];
-        return fn;
+        return [CacaoEnvironment fnFromExpression:expression inEnvironment:env];
     }
     else
     {
@@ -379,6 +238,193 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
         CacaoFn *funcBlock = (CacaoFn *)func;
         return [funcBlock invokeWithParams:remainingExpressions];
     }
+}
+
+#pragma mark Evaluation helpers
+
++ (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    CacaoSymbol * symbol = [expression objectAtIndex:1];
+    id subExpression = [expression objectAtIndex:2];
+    [env setVar:symbol to:[self eval:subExpression inEnvironment:env]];
+    return nil;
+}
+
++ (id)evalLetExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    CacaoVector *bindings = [CacaoVector vectorWithArray:[expression objectAtIndex:1]];
+    NSRange bodyRange;
+    bodyRange.location = 2;
+    bodyRange.length = expression.count - bodyRange.location;
+    NSArray *body = [expression subarrayWithRange:bodyRange];
+    CacaoEnvironment * subEnv = [CacaoEnvironment environmentFromVector:bindings
+                                                       outerEnvironment:env]; 
+    id returnVal = nil;
+    for (id bodyExpr in body) {
+        returnVal = [CacaoEnvironment eval:bodyExpr inEnvironment:subEnv];
+    }
+    return returnVal;    
+}
+
++ (id)evalIfExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    id testExpression = [expression objectAtIndex:1];
+    id thenExpresison = [expression objectAtIndex:2];
+    id elseExpression = [expression objectAtIndex:3];
+    BOOL testResult = [[CacaoEnvironment eval:testExpression inEnvironment:env] boolValue];
+    if (testResult)
+        return [CacaoEnvironment eval:thenExpresison inEnvironment:env];
+    else 
+        return [CacaoEnvironment eval:elseExpression inEnvironment:env];
+}
+
++ (NSNumber *)evalBooleanExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    id first = [CacaoEnvironment eval:[expression objectAtIndex:1]
+                        inEnvironment:env];
+    id second = [CacaoEnvironment eval:[expression objectAtIndex:2]
+                         inEnvironment:env];
+    BOOL isEqual = [first isEqual:second];
+    return [NSNumber numberWithBool:isEqual];
+}
+
++ (CacaoFn *)fnFromExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    NSRange bodyRange;
+    bodyRange.location = fnBodyIndex;
+    bodyRange.length = expression.count - bodyRange.location;
+    NSArray * body = [expression subarrayWithRange:bodyRange];
+    
+    CacaoVector * params = (CacaoVector *)[expression objectAtIndex:fnParamsIndex];
+    CacaoSymbol * restParam = nil;
+    NSArray * positionalParams = [params elements];
+    NSUInteger positionalArgsCount = [positionalParams count];
+    NSInteger butLastParamIndex = [positionalParams count] - 2;
+    
+    if (butLastParamIndex >= 0)
+    {
+        CacaoSymbol * butLastParam = [positionalParams objectAtIndex:butLastParamIndex];
+        if ([[butLastParam name] isEqualToString:restParamDelimeter])
+        {
+            restParam = [positionalParams objectAtIndex:butLastParamIndex + 1];
+            positionalArgsCount = positionalArgsCount - 2;
+            NSRange positionalArgsRange;
+            positionalArgsRange.location = 0;
+            positionalArgsRange.length = positionalArgsCount;
+            positionalParams = [positionalParams subarrayWithRange:positionalArgsRange];
+        }
+    }
+    
+    DispatchFunction fnOp = ^(NSArray * args) {
+        NSMutableDictionary * paramsAndArgs = nil;
+        if ([positionalParams count] > 0)
+            paramsAndArgs = [NSMutableDictionary dictionaryWithObjects:args forKeys:positionalParams];
+        else
+            paramsAndArgs = [NSMutableDictionary dictionaryWithCapacity:1];
+        
+        if (restParam != nil)
+        {
+            NSRange restRange = NSMakeRange(positionalArgsCount, [args count] - positionalArgsCount);
+            NSArray * restArgs = [args subarrayWithRange:restRange];
+            [paramsAndArgs setObject:restArgs forKey:restParam];
+        }
+        
+        CacaoEnvironment * subEnv = [CacaoEnvironment environmentWith:paramsAndArgs outerEnvironment:env];
+        __block NSObject * result;
+        NSUInteger lastExpressionIndex = [body count] - 1;
+        [body enumerateObjectsUsingBlock:^(id bodyExpression, NSUInteger idx, BOOL *stop) {
+            if (idx == lastExpressionIndex)
+            {
+                result = (NSObject *)[CacaoEnvironment eval:bodyExpression inEnvironment:subEnv];
+            }
+            else {
+                [CacaoEnvironment eval:bodyExpression inEnvironment:subEnv];
+            }
+
+        }];
+        
+        return result;
+    };
+    
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:fnOp];
+    return fn;
+}
+
++ (id)evalCocoaMethodCallExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
+    id cocoaInstance = [expression objectAtIndex:1];
+    NSString * methodName = [firstX.stringValue substringFromIndex:1];                
+    
+    SEL methodSelector = NSSelectorFromString(methodName);
+    if ([cocoaInstance respondsToSelector:methodSelector])
+    {               
+        NSMethodSignature * methodSignature = [[cocoaInstance class] instanceMethodSignatureForSelector:methodSelector];
+        Method method = class_getInstanceMethod([cocoaInstance class], methodSelector);
+        
+        NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+        [invocation setSelector:methodSelector];
+        [invocation setTarget:cocoaInstance];
+        
+        NSRange paramsRange;
+        paramsRange.location = 2;
+        paramsRange.length = expression.count - paramsRange.location;
+        NSArray * params = [expression subarrayWithRange:paramsRange];
+        
+        [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
+            char const *argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
+            
+            if (argType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
+            {
+                NSUInteger theVal = [obj longLongValue];
+                [invocation setArgument:&theVal atIndex:argumentIndex];
+            }
+            
+        }];
+        
+        [invocation invoke];
+        
+        char returnType[1];
+        memset(returnType, 1, 1);
+        
+        method_getReturnType(method, returnType, 1);
+        
+        if (returnType[0] == '@')
+        {
+            id result;
+            [invocation getReturnValue:&result];
+            return result;
+        }
+        else
+        {
+            NSUInteger length = [[invocation methodSignature] methodReturnLength];
+            int *invocationResultBuffer = (void *)malloc(length);
+            [invocation getReturnValue:invocationResultBuffer];            
+            if (returnType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
+            {
+                return [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
+            } 
+            switch (returnType[0]) 
+            {
+                case 'q':
+                    return [NSNumber numberWithLongLong:(NSInteger)*invocationResultBuffer];                    
+                case 'S':
+                    return [NSString stringWithCString:invocationResultBuffer encoding:NSUTF8StringEncoding];
+                default:
+                    return nil;
+            }
+            
+        }            
+    }
+    return nil;    
+}
+
++ (id)evalCocoaInstancingExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
+{
+    NSString * cocoaClassName = [expression objectAtIndex:1];
+    id cocoaObject = [[NSClassFromString(cocoaClassName) alloc] init];
+    return [cocoaObject autorelease];
 }
 
 

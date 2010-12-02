@@ -30,12 +30,11 @@
 
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "CacaoAST.h"
-#import "CacaoEnvironment.h"
-#import "CacaoSymbol.h"
+#import "TestBase.h"
 
-@interface TestMath : SenTestCase {
-    CacaoEnvironment *env;
+
+@interface TestMath : TestBase {
+
 }
 
 @end

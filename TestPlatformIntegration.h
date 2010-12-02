@@ -29,11 +29,10 @@
 //    or implied, of Joubert Nel.
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "CacaoAST.h"
-#import "CacaoEnvironment.h"
+#import "TestBase.h"
 
-@interface TestPlatformIntegration : SenTestCase {
-    CacaoEnvironment * env;
+@interface TestPlatformIntegration : TestBase {
+
 
 }
 

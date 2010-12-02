@@ -1,5 +1,5 @@
 //
-//  CacaoFn.h
+//  TestCore.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,23 +28,18 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
 
-#import "CacaoVector.h"
+#import "TestCore.h"
 
-typedef NSObject * (^DispatchFunction)(NSArray * params);
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
+@implementation TestCore
+
+- (void)testFnBasic
+{
+    CacaoAST * ast = [CacaoAST astWithText:@"(let [echo-func (fn [x] x)] (echo-func \"test\"))"];
+    NSString * result = (NSString *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    STAssertTrue([result isEqualToString:@"test"], nil);
+    
 }
-
-@property (copy) DispatchFunction func;
-
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
-
-
-- (id)invokeWithParams:(NSArray *)theParams;
-
-
 
 @end

@@ -33,15 +33,6 @@
 
 @implementation TestMath
 
-- (void)setUp
-{
-    env = [CacaoEnvironment globalEnvironment];
-}
-
-- (void)tearDown
-{
-    [env release];
-}
 
 - (void)testIntegerEquality
 {

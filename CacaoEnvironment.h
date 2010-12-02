@@ -39,6 +39,19 @@
 #import "CacaoNilNotCallableException.h"
 #import "CacaoSymbolNotFoundException.h"
 
+//char * const OBJC_ENC_TYPE_CHAR = @encode(char);
+//char * const OBJC_ENC_TYPE_INT = @encode(int);
+//char const OBJC_ENC_TYPE_SHORT = 's';
+//char const OBJC_ENC_TYPE_LONG = 'l';
+//char const OBJC_ENC_TYPE_LONGLONG = 'q';
+//char const OBJC_ENC_TYPE_UNSIGNED_CHAR = 'C';
+//char const OBJC_ENC_TYPE_UNSIGNED_INT = 'I';
+//char const OBJC_ENC_TYPE_UNSIGNED_SHORT = 'S';
+//char const OBJC_ENC_TYPE_UNSIGNED_LONG = 'L';
+static char const OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
+//char const OBJC_ENC_TYPE_UNSIGNED_FLOAT = 'F';
+
+
 
 @interface CacaoEnvironment : NSObject {
     NSMutableDictionary * mappingTable;
@@ -58,7 +71,13 @@
 
 
 + (id)eval:(id)expression inEnvironment:(CacaoEnvironment *)env;
-
++ (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (id)evalLetExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (id)evalIfExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (NSNumber *)evalBooleanExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (CacaoFn *)fnFromExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (id)evalCocoaMethodCallExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (id)evalCocoaInstancingExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 
 
 @end

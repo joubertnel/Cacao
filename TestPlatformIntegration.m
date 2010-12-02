@@ -33,21 +33,18 @@
 
 @implementation TestPlatformIntegration
 
-- (void)setUp
-{
-    env = [CacaoEnvironment globalEnvironment];
-}
-
-- (void)tearDown
-{
-    [env release];
-}
-
 - (void)testMethodThatReturnsLongLongAndTakesNoArgs
 {
     CacaoAST * ast = [CacaoAST astWithText:@"(.length \"distribution\")"];
     NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
     STAssertEquals([result longLongValue], 12LL, nil, nil);
+}
+
+- (void)testMethodThatReturnsCharAndTakesOneNumberArg
+{
+    CacaoAST * ast = [CacaoAST astWithText:@"(= \"l\" (.characterAtIndex: \"voila\" 3))"];
+    NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
 }
 
 @end

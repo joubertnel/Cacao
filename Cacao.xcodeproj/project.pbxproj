@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		BE0F240B12A6A8CD005E9444 /* TestPlatformIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F240A12A6A8CD005E9444 /* TestPlatformIntegration.m */; };
+		BE0F24D812A72436005E9444 /* TestCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24D712A72436005E9444 /* TestCore.m */; };
+		BE0F24DC12A72475005E9444 /* TestBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24DB12A72475005E9444 /* TestBase.m */; };
 		BE296A8212A4184200229132 /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
 		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
 		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
@@ -86,6 +88,10 @@
 		8DC2EF5B0486A6940098B216 /* Cacao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cacao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0F240912A6A8CD005E9444 /* TestPlatformIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPlatformIntegration.h; sourceTree = "<group>"; };
 		BE0F240A12A6A8CD005E9444 /* TestPlatformIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlatformIntegration.m; sourceTree = "<group>"; };
+		BE0F24D612A72436005E9444 /* TestCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCore.h; sourceTree = "<group>"; };
+		BE0F24D712A72436005E9444 /* TestCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCore.m; sourceTree = "<group>"; };
+		BE0F24DA12A72475005E9444 /* TestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestBase.h; sourceTree = "<group>"; };
+		BE0F24DB12A72475005E9444 /* TestBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestBase.m; sourceTree = "<group>"; };
 		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
@@ -327,6 +333,10 @@
 				BECDF77612A17936006AE86C /* TestMath.m */,
 				BE0F240912A6A8CD005E9444 /* TestPlatformIntegration.h */,
 				BE0F240A12A6A8CD005E9444 /* TestPlatformIntegration.m */,
+				BE0F24D612A72436005E9444 /* TestCore.h */,
+				BE0F24D712A72436005E9444 /* TestCore.m */,
+				BE0F24DA12A72475005E9444 /* TestBase.h */,
+				BE0F24DB12A72475005E9444 /* TestBase.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -517,6 +527,8 @@
 			files = (
 				BECDF77712A17936006AE86C /* TestMath.m in Sources */,
 				BE0F240B12A6A8CD005E9444 /* TestPlatformIntegration.m in Sources */,
+				BE0F24D812A72436005E9444 /* TestCore.m in Sources */,
+				BE0F24DC12A72475005E9444 /* TestBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
