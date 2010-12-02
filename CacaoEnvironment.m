@@ -31,10 +31,36 @@
 #import <objc/objc-runtime.h>
 #import "CacaoEnvironment.h"
 
-static NSString * restParamDelimeter = @"&";
+ NSString * restParamDelimeter = @"&";
 const short fnParamsIndex = 1; // index of function args in a 'fn' form
 const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
+// Objective-C Runtime Type Encodings: 
+// http://developer.apple.com/library/ios/#documentation/cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
+const char OBJC_ENC_TYPE_CHAR = 'c';
+const char OBJC_ENC_TYPE_INT = 'i';
+const char OBJC_ENC_TYPE_SHORT = 's';
+const char OBJC_ENC_TYPE_LONG = 'l';
+const char OBJC_ENC_TYPE_LONGLONG = 'q';
+const char OBJC_ENC_TYPE_UNSIGNED_CHAR = 'C';
+const char OBJC_ENC_TYPE_UNSIGNED_INT = 'I';
+const char OBJC_ENC_TYPE_UNSIGNED_SHORT = 'S';
+const char OBJC_ENC_TYPE_UNSIGNED_LONG = 'L';
+const char OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
+const char OBJC_ENC_TYPE_FLOAT = 'f';
+const char OBJC_ENC_TYPE_DOUBLE = 'd';
+const char OBJC_ENC_TYPE_BOOLEAN = 'B';
+const char OBJC_ENC_TYPE_VOID = 'v';
+const char OBJC_ENC_TYPE_CHARSTRING = '*';
+const char OBJC_ENC_TYPE_OBJECT = '@';
+const char OBJC_ENC_TYPE_CLASSOBJECT = '#';
+const char OBJC_ENC_TYPE_METHODSELECTOR = ':';
+const char OBJC_ENC_TYPE_ARRAY = '[';
+const char OBJC_ENC_TYPE_STRUCTURE = '{';
+const char OBJC_ENC_TYPE_UNION = '(';
+const char OBJC_ENC_TYPE_BITFIELD = 'b';
+const char OBJC_ENC_TYPE_POINTER = '^';
+const char OBJC_ENC_TYPE_UNKOWN = '?';
 
 
 @implementation CacaoEnvironment
@@ -138,26 +164,28 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
 #pragma mark Locate symbols in the environment
 
-- (id)find:(id)theVar
+- (id)find:(CacaoSymbol *)theVar
 {
     id val = [self getMappingValue:theVar];
     if (val == nil)
-    {
+    {        
         if (self.outer)
             return [self.outer find:theVar];  
         else {
             // theVar hasn't been found in the environment or any of its parent environments
+        
             NSString * errorMessage = [NSString stringWithFormat:@"'%@' not found in the environment.", [theVar printable]];
             [CacaoSymbolNotFoundException raise:[CacaoSymbolNotFoundException name]
                                          format:errorMessage];
             return nil;
+        
         }
     }
     else return self;
 }
 
-- (id)getMappingValue:(id)theVar
-{
+- (id)getMappingValue:(CacaoSymbol *)theVar
+{        
     __block id val = nil;
     
     [self.mappingTable enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
@@ -187,13 +215,26 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     if ([x isKindOfClass:[CacaoSymbol class]])
         return [[env find:x] getMappingValue:x];
     else if (![x isKindOfClass:[NSArray class]])
-        return x;    
-    
-    
+        return x;      
+   
     // Special Forms    
     
     NSArray * expression = (NSArray *)x;
     CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
+    
+    // Test whether firstX refers to a Cocoa static class method
+    NSArray * qualifiedClassMethod = [[firstX stringValue] pathComponents];
+    if ([qualifiedClassMethod count] == 2)
+    {
+        Class theClass = NSClassFromString([qualifiedClassMethod objectAtIndex:0]);
+        if (theClass != nil)
+        {
+            return [CacaoEnvironment evalCocoaStaticMethod:[qualifiedClassMethod objectAtIndex:1]
+                                                  forClass:theClass
+                                                expression:expression 
+                                             inEnvironment:env];
+        }
+    }
     
     if ([firstX.stringValue isEqualToString:@"def"])
     {
@@ -357,11 +398,10 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     NSString * methodName = [firstX.stringValue substringFromIndex:1];                
     
     SEL methodSelector = NSSelectorFromString(methodName);
-    if ([cocoaInstance respondsToSelector:methodSelector])
+    if (YES) //[cocoaInstance respondsToSelector:methodSelector])
     {               
-        NSMethodSignature * methodSignature = [[cocoaInstance class] instanceMethodSignatureForSelector:methodSelector];
-        Method method = class_getInstanceMethod([cocoaInstance class], methodSelector);
-        
+        NSMethodSignature * methodSignature = [cocoaInstance methodSignatureForSelector:methodSelector];
+                
         NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
         [invocation setSelector:methodSelector];
         [invocation setTarget:cocoaInstance];
@@ -371,51 +411,8 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
         paramsRange.length = expression.count - paramsRange.location;
         NSArray * params = [expression subarrayWithRange:paramsRange];
         
-        [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
-            char const *argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
-            
-            if (argType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
-            {
-                NSUInteger theVal = [obj longLongValue];
-                [invocation setArgument:&theVal atIndex:argumentIndex];
-            }
-            
-        }];
-        
-        [invocation invoke];
-        
-        char returnType[1];
-        memset(returnType, 1, 1);
-        
-        method_getReturnType(method, returnType, 1);
-        
-        if (returnType[0] == '@')
-        {
-            id result;
-            [invocation getReturnValue:&result];
-            return result;
-        }
-        else
-        {
-            NSUInteger length = [[invocation methodSignature] methodReturnLength];
-            int *invocationResultBuffer = (void *)malloc(length);
-            [invocation getReturnValue:invocationResultBuffer];            
-            if (returnType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
-            {
-                return [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
-            } 
-            switch (returnType[0]) 
-            {
-                case 'q':
-                    return [NSNumber numberWithLongLong:(NSInteger)*invocationResultBuffer];                    
-                case 'S':
-                    return [NSString stringWithCString:invocationResultBuffer encoding:NSUTF8StringEncoding];
-                default:
-                    return nil;
-            }
-            
-        }            
+        [CacaoEnvironment addParams:params toInvocation:invocation];        
+        return [CacaoEnvironment invokeAndGetResultFrom:invocation];
     }
     return nil;    
 }
@@ -428,5 +425,73 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     return [cocoaObject autorelease];
 }
 
++ (id)evalCocoaStaticMethod:(NSString *)methodName forClass:(Class)theClass expression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
+{
+    SEL methodSelector = NSSelectorFromString(methodName);
+    NSMethodSignature * methodSignature = [theClass methodSignatureForSelector:methodSelector];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+    [invocation setSelector:methodSelector];
+    [invocation setTarget:theClass];
+    NSRange paramsRange;
+    paramsRange.location = 1;
+    paramsRange.length = expression.count - paramsRange.location;
+    NSArray * params = [expression subarrayWithRange:paramsRange];
+    
+    [CacaoEnvironment addParams:params toInvocation:invocation];
+    return [CacaoEnvironment invokeAndGetResultFrom:invocation];
+}
+
+#pragma mark Cocoa integration support
+
++ (void)addParams:(NSArray *)params toInvocation:(NSInvocation *)invocation
+{
+    NSMethodSignature * methodSignature = [invocation methodSignature];
+    [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
+        char const * argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
+        if (argType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
+        {
+            NSUInteger theVal = [obj longLongValue];
+            [invocation setArgument:&theVal atIndex:argumentIndex];
+        } 
+        else if (argType[0] == OBJC_ENC_TYPE_OBJECT)
+        {
+            [invocation setArgument:&obj atIndex:argumentIndex];
+        }
+    }];    
+}
+
++ (id)invokeAndGetResultFrom:(NSInvocation *)invocation
+{
+    id result = nil;
+    [invocation invoke];
+    const char * returnType = [[invocation methodSignature] methodReturnType];
+    if (returnType[0] == OBJC_ENC_TYPE_OBJECT)
+    {
+        [invocation getReturnValue:&result];
+    }
+    else
+    {
+        NSUInteger length = [[invocation methodSignature] methodReturnLength];
+        int *invocationResultBuffer = (void *)malloc(length);
+        [invocation getReturnValue:invocationResultBuffer];  
+        id result = nil;
+        switch (returnType[0]) {
+            case OBJC_ENC_TYPE_UNSIGNED_LONGLONG:
+                result = [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
+                break;
+            case OBJC_ENC_TYPE_UNSIGNED_SHORT:
+                result = [NSString stringWithCString:(char const *)invocationResultBuffer encoding:NSUTF8StringEncoding];
+                break;
+            default:
+                break;
+        }
+        
+        free(invocationResultBuffer);
+        return result;
+    }            
+    
+    return result;
+}
 
 @end

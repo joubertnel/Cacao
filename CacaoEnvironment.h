@@ -39,19 +39,6 @@
 #import "CacaoNilNotCallableException.h"
 #import "CacaoSymbolNotFoundException.h"
 
-//char * const OBJC_ENC_TYPE_CHAR = @encode(char);
-//char * const OBJC_ENC_TYPE_INT = @encode(int);
-//char const OBJC_ENC_TYPE_SHORT = 's';
-//char const OBJC_ENC_TYPE_LONG = 'l';
-//char const OBJC_ENC_TYPE_LONGLONG = 'q';
-//char const OBJC_ENC_TYPE_UNSIGNED_CHAR = 'C';
-//char const OBJC_ENC_TYPE_UNSIGNED_INT = 'I';
-//char const OBJC_ENC_TYPE_UNSIGNED_SHORT = 'S';
-//char const OBJC_ENC_TYPE_UNSIGNED_LONG = 'L';
-static char const OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
-//char const OBJC_ENC_TYPE_UNSIGNED_FLOAT = 'F';
-
-
 
 @interface CacaoEnvironment : NSObject {
     NSMutableDictionary * mappingTable;
@@ -65,8 +52,8 @@ static char const OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
 + (CacaoEnvironment *)environmentFromVector:(CacaoVector *)bindings 
                            outerEnvironment:(CacaoEnvironment *)theOuter;
 + (CacaoEnvironment *)globalEnvironment;
-- (CacaoEnvironment *)find:(id)theVar;
-- (id)getMappingValue:(id)theVar;
+- (CacaoEnvironment *)find:(CacaoSymbol *)theVar;
+- (id)getMappingValue:(CacaoSymbol *)theVar;
 - (void)setVar:(id)theVar to:(id)theValue;
 
 
@@ -78,6 +65,8 @@ static char const OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
 + (CacaoFn *)fnFromExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalCocoaMethodCallExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalCocoaInstancingExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
-
++ (id)evalCocoaStaticMethod:(NSString *)method forClass:(Class)theClass expression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
++ (void)addParams:(NSArray *)params toInvocation:(NSInvocation *)invocation;
++ (id)invokeAndGetResultFrom:(NSInvocation *)invocation;
 
 @end

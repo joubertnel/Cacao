@@ -47,4 +47,11 @@
     STAssertTrue([result boolValue], nil);
 }
 
+- (void)testSimpleInstancingAndMethodCall
+{
+    CacaoAST * ast = [CacaoAST astWithText:@"(= 5 (.length (NSString/stringWithString: \"hello\")))"];
+    NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
 @end
