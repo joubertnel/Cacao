@@ -42,7 +42,8 @@
 
 + (id)bigIntegerWithValue:(NSString *)theValue base:(int)theBase
 {
-	return [[BigInteger alloc] init:theValue base:theBase];
+    BigInteger * bigInteger = [[BigInteger alloc] init:theValue base:theBase];
+    return [bigInteger autorelease];
 }
 
 
@@ -85,7 +86,7 @@
 	mpz_neg (tempNegatedGMPInteger, theNumber);
 	BigInteger *negatedBigInteger = [[BigInteger alloc] initWithGMPInteger:tempNegatedGMPInteger];
 	mpz_clear (tempNegatedGMPInteger);
-	return negatedBigInteger;
+	return [negatedBigInteger autorelease];
 }
 
 - (void)dealloc
@@ -125,7 +126,8 @@
 
 - (NSString *)stringValue
 {
-	return [[NSString alloc] initWithCString:mpz_get_str (NULL, base, theNumber)];
+    NSString * valueAsString = [[NSString alloc] initWithCString:mpz_get_str (NULL, base, theNumber)];
+    return [valueAsString autorelease];
 }
 
 #pragma mark Comparison

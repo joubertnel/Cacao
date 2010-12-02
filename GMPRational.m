@@ -40,7 +40,8 @@
 
 + (id)rationalWithValue:(NSString *)theValue base:(int)theBase
 {
-	return [[GMPRational alloc] init:theValue base:theBase];
+    GMPRational * rational = [[GMPRational alloc] init:theValue base:theBase];
+    return [rational autorelease];
 }
 
 #pragma mark Conversion

@@ -30,16 +30,39 @@
 
 #import "CacaoFn.h"
 
+NSString * const FnIdentityPrefix = @"Fn_";
+
 
 @implementation CacaoFn
 
+@synthesize identity;
+
 @synthesize func;
+
+- (CacaoFn *)init
+{
+    self = [super init];
+
+    // Create a string representation of the Fn object
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef uuidString = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
+    [self setIdentity:[NSString stringWithFormat:@"%@%@", FnIdentityPrefix, (NSString *)uuidString]];        
+    CFRelease(uuidString);
+    CFRelease(uuidRef);
+
+    return self;
+}
 
 + (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
 {
     CacaoFn * fn = [[CacaoFn alloc] init];
     [fn setFunc:theFunc];
     return [fn autorelease];
+}
+
+- (NSString *)printable
+{
+    return identity;    
 }
 
 - (id)invokeWithParams:(NSArray *)theParams

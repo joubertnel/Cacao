@@ -67,7 +67,8 @@
 
 + (id)bigDecimalWithValue:(NSString *)theValue base:(int)theBase
 {
-	return [[BigDecimal alloc] init:theValue base:theBase];
+	BigDecimal * bigDecimal = [[BigDecimal alloc] init:theValue base:theBase];
+    return [bigDecimal autorelease];
 }
 
 - (id)init:(NSString *)theValue base:(int)theBase

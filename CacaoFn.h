@@ -29,20 +29,22 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-
 #import "CacaoVector.h"
 
 typedef NSObject * (^DispatchFunction)(NSArray * params);
+extern NSString * const FnIdentityPrefix;
 
 @interface CacaoFn : NSObject {
     DispatchFunction func;
+    NSString * identity;
 }
 
 @property (copy) DispatchFunction func;
+@property (nonatomic, retain) NSString * identity;
 
 + (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
 
-
+- (NSString *)printable;
 - (id)invokeWithParams:(NSArray *)theParams;
 
 
