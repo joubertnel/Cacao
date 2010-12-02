@@ -353,7 +353,7 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 + (id)evalCocoaMethodCallExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
 {
     CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
-    id cocoaInstance = [expression objectAtIndex:1];
+    id cocoaInstance = [CacaoEnvironment eval:[expression objectAtIndex:1] inEnvironment:env];
     NSString * methodName = [firstX.stringValue substringFromIndex:1];                
     
     SEL methodSelector = NSSelectorFromString(methodName);
@@ -422,7 +422,8 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
 + (id)evalCocoaInstancingExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
 {
-    NSString * cocoaClassName = [expression objectAtIndex:1];
+    CacaoSymbol * cocoaClassNameSymbol = [expression objectAtIndex:1];
+    NSString * cocoaClassName = [cocoaClassNameSymbol name];
     id cocoaObject = [[NSClassFromString(cocoaClassName) alloc] init];
     return [cocoaObject autorelease];
 }
