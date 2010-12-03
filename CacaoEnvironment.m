@@ -31,36 +31,9 @@
 #import <objc/objc-runtime.h>
 #import "CacaoEnvironment.h"
 
- NSString * restParamDelimeter = @"&";
+NSString * restParamDelimeter = @"&";
 const short fnParamsIndex = 1; // index of function args in a 'fn' form
 const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
-
-// Objective-C Runtime Type Encodings: 
-// http://developer.apple.com/library/ios/#documentation/cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
-const char OBJC_ENC_TYPE_CHAR = 'c';
-const char OBJC_ENC_TYPE_INT = 'i';
-const char OBJC_ENC_TYPE_SHORT = 's';
-const char OBJC_ENC_TYPE_LONG = 'l';
-const char OBJC_ENC_TYPE_LONGLONG = 'q';
-const char OBJC_ENC_TYPE_UNSIGNED_CHAR = 'C';
-const char OBJC_ENC_TYPE_UNSIGNED_INT = 'I';
-const char OBJC_ENC_TYPE_UNSIGNED_SHORT = 'S';
-const char OBJC_ENC_TYPE_UNSIGNED_LONG = 'L';
-const char OBJC_ENC_TYPE_UNSIGNED_LONGLONG = 'Q';
-const char OBJC_ENC_TYPE_FLOAT = 'f';
-const char OBJC_ENC_TYPE_DOUBLE = 'd';
-const char OBJC_ENC_TYPE_BOOLEAN = 'B';
-const char OBJC_ENC_TYPE_VOID = 'v';
-const char OBJC_ENC_TYPE_CHARSTRING = '*';
-const char OBJC_ENC_TYPE_OBJECT = '@';
-const char OBJC_ENC_TYPE_CLASSOBJECT = '#';
-const char OBJC_ENC_TYPE_METHODSELECTOR = ':';
-const char OBJC_ENC_TYPE_ARRAY = '[';
-const char OBJC_ENC_TYPE_STRUCTURE = '{';
-const char OBJC_ENC_TYPE_UNION = '(';
-const char OBJC_ENC_TYPE_BITFIELD = 'b';
-const char OBJC_ENC_TYPE_POINTER = '^';
-const char OBJC_ENC_TYPE_UNKOWN = '?';
 
 
 @implementation CacaoEnvironment
@@ -209,6 +182,12 @@ const char OBJC_ENC_TYPE_UNKOWN = '?';
 
 
 #pragma mark Evaluation
+
++ (id)evalText:(NSString *)x inEnvironment:(CacaoEnvironment *)env
+{
+    CacaoAST * ast = [CacaoAST astWithText:x];
+    return [CacaoEnvironment eval:ast.tree inEnvironment:env];
+}
 
 + (id)eval:(id)x inEnvironment:(CacaoEnvironment *)env
 {
@@ -449,12 +428,12 @@ const char OBJC_ENC_TYPE_UNKOWN = '?';
     [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
         char const * argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
-        if (argType[0] == OBJC_ENC_TYPE_UNSIGNED_LONGLONG)
+        if (strcmp(argType, @encode(unsigned long long)) == 0)
         {
             NSUInteger theVal = [obj longLongValue];
             [invocation setArgument:&theVal atIndex:argumentIndex];
-        } 
-        else if (argType[0] == OBJC_ENC_TYPE_OBJECT)
+        }
+        else if (strcmp(argType, @encode(id)) == 0)
         {
             [invocation setArgument:&obj atIndex:argumentIndex];
         }
@@ -466,28 +445,58 @@ const char OBJC_ENC_TYPE_UNKOWN = '?';
     id result = nil;
     [invocation invoke];
     const char * returnType = [[invocation methodSignature] methodReturnType];
-    if (returnType[0] == OBJC_ENC_TYPE_OBJECT)
+    if (strcmp(returnType, @encode(id)) == 0)
     {
         [invocation getReturnValue:&result];
     }
     else
     {
-        NSUInteger length = [[invocation methodSignature] methodReturnLength];
-        int *invocationResultBuffer = (void *)malloc(length);
-        [invocation getReturnValue:invocationResultBuffer];  
         id result = nil;
-        switch (returnType[0]) {
-            case OBJC_ENC_TYPE_UNSIGNED_LONGLONG:
-                result = [NSNumber numberWithUnsignedLongLong:(NSUInteger)*invocationResultBuffer];
-                break;
-            case OBJC_ENC_TYPE_UNSIGNED_SHORT:
-                result = [NSString stringWithCString:(char const *)invocationResultBuffer encoding:NSUTF8StringEncoding];
-                break;
-            default:
-                break;
-        }
         
-        free(invocationResultBuffer);
+        if (strcmp(returnType, @encode(long long)) == 0)
+        {
+            NSInteger returnValue;
+            [invocation getReturnValue:&returnValue];
+            result = [NSNumber numberWithLongLong:returnValue];
+        }
+        else if (strcmp(returnType, @encode(unichar)) == 0)
+        {
+            char * returnValue = malloc(2);
+            [invocation getReturnValue:returnValue];
+            result = [NSString stringWithCString:returnValue encoding:NSUTF8StringEncoding];
+            free(returnValue);
+        }
+        else if (strcmp(returnType, @encode(unsigned long long)) == 0)
+        {
+            NSUInteger returnValue;
+            [invocation getReturnValue:&returnValue];
+            result = [NSNumber numberWithUnsignedLongLong:returnValue];            
+        }
+        else if (strcmp(returnType, @encode(double)) == 0)
+        {
+            double returnValue;
+            [invocation getReturnValue:&returnValue];
+            result = [NSNumber numberWithDouble:returnValue];
+        }
+        else if (strcmp(returnType, @encode(float)) == 0)
+        {
+            float retVal;
+            [invocation getReturnValue:&retVal];
+            result = [NSNumber numberWithFloat:retVal];
+        }
+        else if (strcmp(returnType, @encode(char)) == 0)
+        {
+            char retVal;
+            [invocation getReturnValue:&retVal];
+            result = [NSNumber numberWithChar:retVal];
+        }
+        else if (strcmp(returnType, @encode(NSRange)) == 0)
+        {
+            NSRange retVal;
+            [invocation getReturnValue:&retVal];
+            result = [NSValue valueWithRange:retVal];
+        }
+
         return result;
     }            
     

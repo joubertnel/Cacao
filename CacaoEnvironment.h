@@ -31,6 +31,7 @@
 #import <Cocoa/Cocoa.h>
 #import "sqlite3.h"
 
+#import "CacaoAST.h"
 #import "CacaoFn.h"
 #import "CacaoNil.h"
 #import "CacaoSymbol.h"
@@ -56,8 +57,9 @@
 - (id)getMappingValue:(CacaoSymbol *)theVar;
 - (void)setVar:(id)theVar to:(id)theValue;
 
-
++ (id)evalText:(NSString *)x inEnvironment:(CacaoEnvironment *)env;
 + (id)eval:(id)expression inEnvironment:(CacaoEnvironment *)env;
+
 + (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalLetExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalIfExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;

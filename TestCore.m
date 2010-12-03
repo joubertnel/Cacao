@@ -36,8 +36,8 @@
 
 - (void)testFnBasic
 {
-    CacaoAST * ast = [CacaoAST astWithText:@"(let [echo-func (fn [x] x)] (echo-func \"test\"))"];
-    NSString * result = (NSString *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    NSString * test = @"(let [echo-func (fn [x] x)] (echo-func \"test\"))";
+    NSString * result = (NSString *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result isEqualToString:@"test"], nil);
     
 }

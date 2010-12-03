@@ -33,24 +33,52 @@
 
 @implementation TestPlatformIntegration
 
-- (void)testMethodThatReturnsLongLongAndTakesNoArgs
+- (void)testMethodThatReturnsLongLong
 {
-    CacaoAST * ast = [CacaoAST astWithText:@"(.length \"distribution\")"];
-    NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    NSString * test = @"(.length \"distribution\")";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertEquals([result longLongValue], 12LL, nil, nil);
+}
+
+- (void)testMethodThatReturnsLong
+{
+    NSString * test = @"(= 123 (.integerValue \"123\"))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
+- (void)testMethodThatReturnsDouble
+{
+    NSString * test = @"(= 3.4 (.doubleValue \"3.4\"))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
+- (void)testMethodThatReturnsFloat
+{
+    NSString * test = @"(= (.floatValue \"2.23\") (.floatValue \"2.23\"))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
 }
 
 - (void)testMethodThatReturnsCharAndTakesOneNumberArg
 {
-    CacaoAST * ast = [CacaoAST astWithText:@"(= \"l\" (.characterAtIndex: \"voila\" 3))"];
-    NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    NSString * test = @"(= \"l\" (.characterAtIndex: \"voila\" 3))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
+- (void)testMethodThatTakesOneStringArg
+{
+    NSString * test = @"(= \"hello_there\" (.stringByAppendingString: \"hello\" \"_there\"))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 
 - (void)testSimpleInstancingAndMethodCall
 {
-    CacaoAST * ast = [CacaoAST astWithText:@"(= 5 (.length (NSString/stringWithString: \"hello\")))"];
-    NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
+    NSString * test = @"(= 5 (.length (NSString/stringWithString: \"hello\")))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 

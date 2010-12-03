@@ -33,7 +33,7 @@
 
 @implementation NSString (CacaoPrintable)
 
-- (NSString *)printable;
+- (NSString *)printable
 {
     return self;
 }
