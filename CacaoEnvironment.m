@@ -2,6 +2,10 @@
 //  CacaoEnvironment.m
 //  Cacao
 //
+//  Provides lexical scope and evaluation of forms (forms and expressions).
+//
+////////////////////////////////////////////////////////////////////////////////////
+//
 //    Copyright 2010, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
@@ -31,9 +35,22 @@
 #import <objc/objc-runtime.h>
 #import "CacaoEnvironment.h"
 
-NSString * restParamDelimeter = @"&";
-const short fnParamsIndex = 1; // index of function args in a 'fn' form
-const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
+
+static NSString * REST_PARAM_DELIMETER = @"&";
+
+static NSString * SYMBOL_NAME_YES = @"YES";
+static NSString * SYMBOL_NAME_NO = @"NO";
+
+static NSString * SPECIAL_FORM_TEXT_DEF = @"def";
+static NSString * SPECIAL_FORM_TEXT_LET = @"let";
+static NSString * SPECIAL_FORM_TEXT_IF = @"if";
+static NSString * SPECIAL_FORM_TEXT_EQUALS = @"=";
+static NSString * SPECIAL_FORM_TEXT_INSTANCING = @"new";
+static NSString * SPECIAL_FORM_TEXT_MEMBERACCESS = @".";
+static NSString * SPECIAL_FORM_TEXT_FN = @"fn";
+
+static const short fnParamsIndex = 1; // index of function args in a 'fn' form
+static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
 
 @implementation CacaoEnvironment
@@ -41,12 +58,13 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 @synthesize mappingTable;
 @synthesize outer;
 
+
 #pragma mark Lifecycle
 
 + (NSDictionary *)defaultGlobalMappings
 {
-    CacaoSymbol * yesSymbol = [CacaoSymbol symbolWithName:@"YES"];
-    CacaoSymbol * noSymbol = [CacaoSymbol symbolWithName:@"NO"];
+    CacaoSymbol * yesSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_YES];
+    CacaoSymbol * noSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_NO];
     
     CacaoSymbol * sumOpSymbol = [CacaoSymbol symbolWithName:@"+"];
     CacaoFn * sumFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
@@ -215,31 +233,31 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
         }
     }
     
-    if ([firstX.stringValue isEqualToString:@"def"])
+    if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_DEF])
     {
         return [CacaoEnvironment evalDefExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:@"let"])
+    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_LET])
     {        
         return [CacaoEnvironment evalLetExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:@"if"])
+    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_IF])
     {
         return [CacaoEnvironment evalIfExpression:expression inEnvironment:env];        
     }
-    else if ([firstX.stringValue isEqualToString:@"="])
+    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_EQUALS])
     {
         return [CacaoEnvironment evalBooleanExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:@"new"])
+    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_INSTANCING])
     {
         return [CacaoEnvironment evalCocoaInstancingExpression:expression inEnvironment:env];
     }
-    else if ([[firstX.stringValue substringToIndex:1] isEqualToString:@"."])
+    else if ([[firstX.stringValue substringToIndex:1] isEqualToString:SPECIAL_FORM_TEXT_MEMBERACCESS])
     {
         return [CacaoEnvironment evalCocoaMethodCallExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:@"fn"])
+    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_FN])
     {        
         return [CacaoEnvironment fnFromExpression:expression inEnvironment:env];
     }
@@ -260,7 +278,8 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     }
 }
 
-#pragma mark Evaluation helpers
+
+#pragma mark Evaluation helpers 
 
 + (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
 {
@@ -324,7 +343,7 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     if (butLastParamIndex >= 0)
     {
         CacaoSymbol * butLastParam = [positionalParams objectAtIndex:butLastParamIndex];
-        if ([[butLastParam name] isEqualToString:restParamDelimeter])
+        if ([[butLastParam name] isEqualToString:REST_PARAM_DELIMETER])
         {
             restParam = [positionalParams objectAtIndex:butLastParamIndex + 1];
             positionalArgsCount = positionalArgsCount - 2;
@@ -360,7 +379,6 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
             else {
                 [CacaoEnvironment eval:bodyExpression inEnvironment:subEnv];
             }
-
         }];
         
         return result;
@@ -420,14 +438,17 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     return [CacaoEnvironment invokeAndGetResultFrom:invocation];
 }
 
+
 #pragma mark Cocoa integration support
 
 + (void)addParams:(NSArray *)params toInvocation:(NSInvocation *)invocation
 {
     NSMethodSignature * methodSignature = [invocation methodSignature];
+    
     [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         int argumentIndex = idx + 2; //self and _cmd are at 0 and 1
         char const * argType = [methodSignature getArgumentTypeAtIndex:argumentIndex];
+        
         if (strcmp(argType, @encode(unsigned long long)) == 0)
         {
             NSUInteger theVal = [obj longLongValue];
@@ -445,6 +466,7 @@ const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
     id result = nil;
     [invocation invoke];
     const char * returnType = [[invocation methodSignature] methodReturnType];
+    
     if (strcmp(returnType, @encode(id)) == 0)
     {
         [invocation getReturnValue:&result];

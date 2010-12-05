@@ -54,6 +54,9 @@
 		BE62163612A8A04900F4D142 /* NSValue+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE62163412A8A04900F4D142 /* NSValue+CacaoPrintable.h */; };
 		BE62163712A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */; };
 		BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */; };
+		BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */; };
+		BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
+		BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
 		BEB2936C128EF3350092F199 /* CacaoAST.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2936A128EF3350092F199 /* CacaoAST.h */; };
 		BEB2936D128EF3350092F199 /* CacaoAST.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2936B128EF3350092F199 /* CacaoAST.m */; };
 		BEB2945F128F052E0092F199 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB2945E128F052E0092F199 /* SenTestingKit.framework */; };
@@ -117,6 +120,8 @@
 		BE61EF01129B79E200E7A7DD /* CacaoFn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoFn.m; sourceTree = "<group>"; };
 		BE62163412A8A04900F4D142 /* NSValue+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushbackReader.h; sourceTree = "<group>"; };
+		BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushbackReader.m; sourceTree = "<group>"; };
 		BEB2936A128EF3350092F199 /* CacaoAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoAST.h; sourceTree = "<group>"; };
 		BEB2936B128EF3350092F199 /* CacaoAST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoAST.m; sourceTree = "<group>"; };
 		BEB293A1128EFAD40092F199 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +302,8 @@
 		BE3BC17B1290973500ED6ADB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */,
+				BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */,
 				BEB2997F128F577B0092F199 /* NSArray+Functional.h */,
 				BEB29980128F577B0092F199 /* NSArray+Functional.m */,
 				BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */,
@@ -372,6 +379,7 @@
 				BE445FB912A57EDF00D1E47C /* BigDecimal.h in Headers */,
 				BE445FBB12A57EDF00D1E47C /* GMPRational.h in Headers */,
 				BE62163612A8A04900F4D142 /* NSValue+CacaoPrintable.h in Headers */,
+				BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +535,7 @@
 				BE445FBA12A57EDF00D1E47C /* BigDecimal.m in Sources */,
 				BE445FBC12A57EDF00D1E47C /* GMPRational.m in Sources */,
 				BE62163712A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
+				BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +572,7 @@
 				BE445FBE12A57EF100D1E47C /* BigInteger.m in Sources */,
 				BE445FBF12A57EF100D1E47C /* GMPRational.m in Sources */,
 				BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
+				BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

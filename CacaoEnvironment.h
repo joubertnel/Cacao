@@ -2,6 +2,10 @@
 //  CacaoEnvironment.h
 //  Cacao
 //
+//  Provides lexical scope and evaluation of forms (forms and expressions).
+//
+////////////////////////////////////////////////////////////////////////////////////
+//
 //    Copyright 2010, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
@@ -29,7 +33,6 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "sqlite3.h"
 
 #import "CacaoAST.h"
 #import "CacaoFn.h"
