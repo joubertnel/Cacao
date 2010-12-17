@@ -32,6 +32,7 @@
 
 
 @implementation PushbackReader
+@synthesize stream;
 
 - (int)pop
 {
@@ -83,7 +84,7 @@
 {
 	[super init];
 	
-	stream = theStream;	
+	[self setStream:theStream];	
 	history = [NSMutableArray arrayWithCapacity:MAX_HISTORY];
 	mustReturnFromHistory = NO;
 	currentHistoryPosition = 0;

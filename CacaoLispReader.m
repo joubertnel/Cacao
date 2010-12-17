@@ -1,5 +1,5 @@
 //
-//  CacaoRepl.h
+//  CacaoLispReader.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,15 +28,59 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
-#import "CacaoAST.h"
-#import "CacaoEnvironment.h"
-#import "NSObject+CacaoPrintable.h"
 #import "CacaoLispReader.h"
+#import "CacaoStringReader.h"
 
-@interface CacaoRepl : NSObject {
+static NSDictionary * macroDispatch = nil;
 
+
+@implementation CacaoLispReader
+
+
++ (void)initialize
+{
+    macroDispatch = [NSDictionary dictionaryWithObjectsAndKeys:
+                     [[CacaoStringReader alloc] init], @"\"",
+                     nil];
 }
 
++ (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue
+{
+    do {        
+        int ch = [reader read];
+        
+        while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:ch])
+            ch = [reader read];
+        
+        if (ch == -1)
+            return eofValue;
+        
+        if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) {
+            id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
+            return number;
+        }
+        
+        unichar theCharArray[1];
+        theCharArray[0] = ch;
+        NSString * theCharAsString = [NSString stringWithCharacters:theCharArray length:1];
+        NSString * macroDispatcher = nil;
+        macroDispatcher = [macroDispatch objectForKey:theCharAsString];
+        if (macroDispatcher) {
+            id ret = [macroDispatcher performSelector:@selector(invokeOn:withCharacter:)
+                                           withObject:[reader stream]
+                                           withObject:theCharAsString];
+                                           
+            if (ret == reader)
+                continue;
+            return ret;
+        }      
+            
+    } while (YES);
+}
+
++ (id)readNumberFrom:(PushbackReader *)reader firstDigit:(int)digit
+{
+    return nil;
+}
 
 @end

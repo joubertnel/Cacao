@@ -1,5 +1,5 @@
 //
-//  CacaoRepl.h
+//  CacaoLispReader.h
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -29,14 +29,13 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "CacaoAST.h"
-#import "CacaoEnvironment.h"
-#import "NSObject+CacaoPrintable.h"
-#import "CacaoLispReader.h"
+#import "PushbackReader.h"
 
-@interface CacaoRepl : NSObject {
+@interface CacaoLispReader : NSObject {
 
 }
 
++ (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue;
++ (id)readNumberFrom:(PushbackReader *)reader firstDigit:(int)digit;
 
 @end

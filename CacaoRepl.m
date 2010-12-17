@@ -69,8 +69,14 @@ int main(int argc, char* argv[])
             NSString * cacaoReplInput = [NSString stringWithCString:repl_input encoding:NSUTF8StringEncoding];
             if ([cacaoReplInput length] > 0)
             {
-                CacaoAST *ast = [[CacaoAST alloc] initWithText:cacaoReplInput];
-                NSObject * result = [CacaoEnvironment eval:ast.tree inEnvironment:globalEnvironment];                    
+                NSData * inputData = [cacaoReplInput dataUsingEncoding:NSUTF8StringEncoding];
+                NSInputStream * stream = [NSInputStream inputStreamWithData:inputData];
+                [stream open];
+                PushbackReader * pushbackReader = [[PushbackReader alloc] init:stream];
+                NSObject * result = [CacaoLispReader readFrom:pushbackReader eofValue:nil];
+                [pushbackReader release];
+                [stream close];
+                 
                 NSString * printable = @"";
                 if ([result respondsToSelector:@selector(printable)])
                     printable = [result performSelector:@selector(printable)];

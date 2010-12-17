@@ -40,6 +40,8 @@
 	NSInputStream	*stream;
 }
 
+@property (nonatomic, retain) NSInputStream * stream;
+
 - (int)read;
 - (void)unread;
 

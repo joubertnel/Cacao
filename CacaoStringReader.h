@@ -1,5 +1,5 @@
 //
-//  CacaoRepl.h
+//  CacaoStringReader.h
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -29,14 +29,12 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "CacaoAST.h"
-#import "CacaoEnvironment.h"
-#import "NSObject+CacaoPrintable.h"
-#import "CacaoLispReader.h"
 
-@interface CacaoRepl : NSObject {
+
+@interface CacaoStringReader : NSObject {
 
 }
 
+- (id)invokeOn:(NSInputStream *)theStream withCharacter:(NSString *)theCharacter;
 
 @end
