@@ -30,8 +30,13 @@
 
 #import "CacaoLispReader.h"
 #import "CacaoStringReader.h"
+#import "BigInteger.h"
+#import "BigDecimal.h"
+#import "GMPRational.h"
+#import "RegexKitLite.h"
 
 static NSDictionary * macroDispatch = nil;
+static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 
 @implementation CacaoLispReader
@@ -40,8 +45,19 @@ static NSDictionary * macroDispatch = nil;
 + (void)initialize
 {
     macroDispatch = [NSDictionary dictionaryWithObjectsAndKeys:
-                     [[CacaoStringReader alloc] init], @"\"",
+                     [[CacaoStringReader alloc] init],                  @"\"",
                      nil];
+    
+    additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+}
+
++ (BOOL)isWhiteSpace:(unichar)theCharacter
+{
+    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:theCharacter] ||
+        [additionalWhitespaceCharacterSet characterIsMember:theCharacter])
+        return YES;
+    else
+        return NO;
 }
 
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue
@@ -78,9 +94,93 @@ static NSDictionary * macroDispatch = nil;
     } while (YES);
 }
 
++ (NSObject *)matchNumber:(NSString *)theString
+{
+	// Use regex instead of Cocoa's NSScanner, because the latter
+	// has numeric semantics different from what we want
+	
+	NSRange		searchRange		= NSMakeRange(0, [theString length]);
+	NSRange		matchedRange	= NSMakeRange(NSNotFound, 0);
+	NSError		*error			= nil;
+	
+    
+	
+	matchedRange = [theString rangeOfRegex:intPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
+	if (matchedRange.length == searchRange.length)
+	{
+		if ([theString stringByMatching:intPat capture:2] != nil)
+            return [NSNumber numberWithInteger:0];
+		
+        NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
+		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
+		NSString *n;
+		int base = 10;
+		if ((n = [theString stringByMatching:intPat capture:3]) != nil)
+			base = 10;
+		else if ((n = [theString stringByMatching:intPat capture:4]) != nil)
+			base = 16;
+		else if ((n = [theString stringByMatching:intPat capture:5]) != nil)
+			base = 8;
+		else if ((n = [theString stringByMatching:intPat capture:7]) != nil)
+			base = [[theString stringByMatching:intPat capture:6] intValue];		
+		if (n == nil)
+			return nil;
+		BigInteger *bn = [BigInteger bigIntegerWithValue:n base:base];
+		if (negate) bn = [bn negate];
+		return bn;			
+	}
+    
+    matchedRange = [theString rangeOfRegex:ratioPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
+	if (matchedRange.location != NSNotFound)
+	{
+		NSString *numerator = [theString stringByMatching:ratioPat capture:1];
+		NSString *denominator = [theString stringByMatching:ratioPat capture:2];
+		GMPRational *ratio = [GMPRational rationalWithValue:[numerator stringByAppendingFormat:@"/%@", denominator]];
+		return ratio;
+	}
+	
+	
+	matchedRange = [theString rangeOfRegex:floatPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
+	if (matchedRange.location != NSNotFound)
+	{
+		if ([[theString substringFromIndex:[theString length] -1] isEqualToString:@"M"])
+			return [BigDecimal bigDecimalWithValue:theString];
+		else
+			return [NSNumber numberWithDouble:[theString doubleValue]];
+	}
+    
+	
+	
+	return nil;
+}
+
+
 + (id)readNumberFrom:(PushbackReader *)reader firstDigit:(int)digit
 {
-    return nil;
+    NSMutableString * numberString = [NSMutableString string];
+    unichar charArray[1];
+    charArray[0] = digit;
+    [numberString appendString:[NSString stringWithCharacters:charArray length:1]];
+    
+    while (YES) {
+        int ch = [reader read];
+        if (ch == -1 || [CacaoLispReader isWhiteSpace:ch])
+        {
+            [reader unread];
+            break;
+        }
+        
+        charArray[0] = ch;
+        [numberString appendString:[NSString stringWithCharacters:charArray length:1]];
+    }
+    
+    NSObject * theNumber = nil;
+    theNumber = [CacaoLispReader matchNumber:numberString];
+    if (theNumber == nil)
+        @throw [NSException exceptionWithName:@"NumberFormatException" 
+                                       reason:[NSString stringWithFormat:@"Invalid number: %s", numberString]
+                                     userInfo:nil];
+    return theNumber;
 }
 
 @end

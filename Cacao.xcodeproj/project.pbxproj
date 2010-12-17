@@ -60,6 +60,9 @@
 		BE93F7D112BC0166007A4826 /* CacaoStringReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F7CF12BC0166007A4826 /* CacaoStringReader.h */; };
 		BE93F7D212BC0166007A4826 /* CacaoStringReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F7D012BC0166007A4826 /* CacaoStringReader.m */; };
 		BE93F7D312BC0166007A4826 /* CacaoStringReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F7D012BC0166007A4826 /* CacaoStringReader.m */; };
+		BE93F94812BC163D007A4826 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F94612BC163D007A4826 /* RegexKitLite.h */; };
+		BE93F94912BC163D007A4826 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F94712BC163D007A4826 /* RegexKitLite.m */; };
+		BE93F94A12BC163D007A4826 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F94712BC163D007A4826 /* RegexKitLite.m */; };
 		BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */; };
 		BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
 		BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
@@ -130,6 +133,8 @@
 		BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoLispReader.m; sourceTree = "<group>"; };
 		BE93F7CF12BC0166007A4826 /* CacaoStringReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoStringReader.h; sourceTree = "<group>"; };
 		BE93F7D012BC0166007A4826 /* CacaoStringReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoStringReader.m; sourceTree = "<group>"; };
+		BE93F94612BC163D007A4826 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		BE93F94712BC163D007A4826 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushbackReader.h; sourceTree = "<group>"; };
 		BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushbackReader.m; sourceTree = "<group>"; };
 		BEB2936A128EF3350092F199 /* CacaoAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoAST.h; sourceTree = "<group>"; };
@@ -313,6 +318,8 @@
 		BE3BC17B1290973500ED6ADB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				BE93F94612BC163D007A4826 /* RegexKitLite.h */,
+				BE93F94712BC163D007A4826 /* RegexKitLite.m */,
 				BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */,
 				BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */,
 				BEB2997F128F577B0092F199 /* NSArray+Functional.h */,
@@ -404,6 +411,7 @@
 				BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */,
 				BE93F79312BBE3AD007A4826 /* CacaoLispReader.h in Headers */,
 				BE93F7D112BC0166007A4826 /* CacaoStringReader.h in Headers */,
+				BE93F94812BC163D007A4826 /* RegexKitLite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +570,7 @@
 				BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79412BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
 				BE93F7D212BC0166007A4826 /* CacaoStringReader.m in Sources */,
+				BE93F94912BC163D007A4826 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +610,7 @@
 				BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
 				BE93F7D312BC0166007A4826 /* CacaoStringReader.m in Sources */,
+				BE93F94A12BC163D007A4826 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +661,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = Cacao;
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = framework;
@@ -820,6 +830,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fgnu89-inline";
 				OTHER_LDFLAGS = (
+					"-licucore",
 					"-framework",
 					Foundation,
 					"-framework",

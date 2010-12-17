@@ -59,6 +59,7 @@ typedef enum {
 - (unsigned long)unsignedLongValue;
 
 
+
 - (id)init:(NSString *)theValue base:(int)theBase;
 - (id)init:(NSString *)theValue;
 - (id)init;
