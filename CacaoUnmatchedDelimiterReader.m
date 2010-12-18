@@ -1,5 +1,5 @@
 //
-//  NSArray+Printable.h
+//  CacaoUnmatchedDelimiterReader.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,13 +28,17 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
+#import "CacaoUnmatchedDelimiterReader.h"
 
-extern int const CACAO_PRINTABLE_INDENTATION;
 
-@interface NSArray (CacaoPrintable)
+@implementation CacaoUnmatchedDelimiterReader
 
-- (NSString *)printableWithIndentation:(int)indent;
-- (NSString *)printable;
 
+- (id)invokeOn:(PushbackReader *)reader withCharacter:(NSString *)theCharacter
+{
+    @throw [NSException exceptionWithName:@"UnreadableFormException"
+                                   reason:@"Unreadable form"
+                                 userInfo:nil];
+    return nil;
+}
 @end

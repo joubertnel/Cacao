@@ -1,5 +1,5 @@
 //
-//  NSArray+Printable.h
+//  CacaoListReader.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,13 +28,15 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
+#import "CacaoListReader.h"
+#import "CacaoLispReader.h"
 
-extern int const CACAO_PRINTABLE_INDENTATION;
+@implementation CacaoListReader
 
-@interface NSArray (CacaoPrintable)
-
-- (NSString *)printableWithIndentation:(int)indent;
-- (NSString *)printable;
+- (id)invokeOn:(PushbackReader *)reader withCharacter:(NSString *)theCharacter
+{
+    NSArray * theList = [CacaoLispReader readListDelimitedWith:')' from:reader];
+    return theList;
+}
 
 @end

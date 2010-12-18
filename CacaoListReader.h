@@ -1,5 +1,5 @@
 //
-//  NSArray+Printable.h
+//  CacaoListReader.h
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -29,12 +29,12 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "PushbackReader.h"
 
-extern int const CACAO_PRINTABLE_INDENTATION;
+@interface CacaoListReader : NSObject {
 
-@interface NSArray (CacaoPrintable)
+}
 
-- (NSString *)printableWithIndentation:(int)indent;
-- (NSString *)printable;
+- (id)invokeOn:(PushbackReader *)reader withCharacter:(NSString *)theCharacter;
 
 @end

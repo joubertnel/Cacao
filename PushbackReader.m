@@ -34,50 +34,28 @@
 @implementation PushbackReader
 @synthesize stream;
 
-- (int)pop
-{
-	NSNumber *wrappedChar = [history objectAtIndex:0];
-	[history removeObjectAtIndex:0];
-	return [wrappedChar intValue];
-}
-
-- (void)push:(int)theChar
-{
-	NSNumber *wrappedChar = [NSNumber numberWithInt:theChar];
-	[history insertObject:wrappedChar atIndex:0];
-}
 
 - (int)read
 {
-	if (mustReturnFromHistory)
+	if (mustReadFromHistory)
 	{
-		if (currentHistoryPosition == 0)
-		{
-			int theChar = [self pop];			
-			mustReturnFromHistory = NO; 
-			return theChar;
-		}
-		
-		NSNumber *wrappedChar = (NSNumber *)[history objectAtIndex:currentHistoryPosition];
-		int theChar = [wrappedChar intValue];
-		currentHistoryPosition--;
-		return theChar;		
+        int ch = [[history lastObject] intValue];
+        mustReadFromHistory = NO;
+        return ch;
 	}
 	else {
 		uint8_t aChar;
 		[stream read:&aChar maxLength:1];
-		[self push:aChar];
 		return aChar;		
 	}
 }
 
-- (void)unread 
+
+- (void)unreadSoThatNextCharIs:(int)nextChar
 {
-	mustReturnFromHistory = YES;
-	
-	// cannot move further back in history than history depth
-	if (currentHistoryPosition < ([history count] - 1))
-		currentHistoryPosition++;
+    NSNumber * wrappedChar = [NSNumber numberWithInt:nextChar];
+    [history setArray:[NSArray arrayWithObject:wrappedChar]];
+    mustReadFromHistory = YES;
 }
 
 - (id)init:(NSInputStream *)theStream
@@ -85,9 +63,8 @@
 	[super init];
 	
 	[self setStream:theStream];	
-	history = [NSMutableArray arrayWithCapacity:MAX_HISTORY];
-	mustReturnFromHistory = NO;
-	currentHistoryPosition = 0;
+	history = [NSMutableArray arrayWithCapacity:1];
+    mustReadFromHistory = NO;
 	
 	return self;
 }

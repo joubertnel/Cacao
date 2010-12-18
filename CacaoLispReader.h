@@ -43,5 +43,6 @@
 + (BOOL)isWhiteSpace:(unichar)theCharacter;
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue;
 + (id)readNumberFrom:(PushbackReader *)reader firstDigit:(int)digit;
++ (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader;
 
 @end

@@ -33,53 +33,53 @@
 
 @implementation CacaoStringReader
 
-- (id)invokeOn:(NSInputStream *)theStream withCharacter:(NSString *)theCharacter
+- (id)invokeOn:(PushbackReader *)reader withCharacter:(NSValue *)wrappedChar
 {
     NSMutableString * theString = [NSMutableString string];
-    uint8_t theChar;
-    while ([theStream hasBytesAvailable])
+    for (int ch = [reader read]; ch != '"'; ch = [reader read])
     {
-        int numberOfCharsRead = [theStream read:&theChar maxLength:1];
-        if ((numberOfCharsRead > 0) && (theChar != '"'))
+        if (ch == -1)
+            @throw [NSException exceptionWithName:@"EOFException"
+                                           reason:@"EOF while reading string"
+                                         userInfo:nil];
+        
+        if (ch == '\\')
         {
-            if (theChar == '\\')
-            {
-                numberOfCharsRead = [theStream read:&theChar maxLength:1];
-                if (theChar == -1)
-                    @throw [NSException exceptionWithName:@"EOFException"
-                                                   reason:@"End-of-file marker reached"
-                                                 userInfo:nil];
-                switch (theChar) {
-                    case 't':
-                        theChar = '\t';
-                        break;
-                    case 'r':
-                        theChar = '\r';
-                        break;
-                    case 'n':
-                        theChar = '\n';
-                        break;
-                    case '\\':
-                        break;
-                    case '"':
-                        break;
-                    case 'b':
-                        theChar = '\b';
-                        break;
-                    case 'f':
-                        theChar = '\f';
-                        break;
-                    default:
-                        break;
-                }
-                
+            ch = [reader read];
+
+            if (ch == -1)
+                @throw [NSException exceptionWithName:@"EOFException"
+                                               reason:@"EOF while reading string"
+                                             userInfo:nil];
+            switch (ch) {
+                case 't':
+                    ch = '\t';
+                    break;
+                case 'r':
+                    ch = '\r';
+                    break;
+                case 'n':
+                    ch = '\n';
+                    break;
+                case '\\':
+                    break;
+                case '"':
+                    break;
+                case 'b':
+                    ch = '\b';
+                    break;
+                case 'f':
+                    ch = '\f';
+                    break;
+                default:
+                    break;
             }
-            
-            unichar charArray[1];
-            charArray[0] = theChar;
-            [theString appendString:[NSString stringWithCharacters:charArray
-                                                            length:1]];
         }
+                    
+        unichar charArray[1];
+        charArray[0] = ch;
+        [theString appendString:[NSString stringWithCharacters:charArray
+                                                        length:1]];        
     }
     
     return theString;

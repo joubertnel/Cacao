@@ -53,4 +53,9 @@ int const CACAO_PRINTABLE_INDENTATION = 2;
     return printable;
 }
 
+- (NSString *)printable
+{
+    return [self printableWithIndentation:4];
+}
+
 @end

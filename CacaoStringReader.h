@@ -29,12 +29,12 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-
+#import "PushbackReader.h"
 
 @interface CacaoStringReader : NSObject {
 
 }
 
-- (id)invokeOn:(NSInputStream *)theStream withCharacter:(NSString *)theCharacter;
+- (id)invokeOn:(PushbackReader *)reader withCharacter:(NSValue *)wrappedCharacter;
 
 @end

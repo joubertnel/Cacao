@@ -29,11 +29,15 @@
 //    or implied, of Joubert Nel.
 
 #import "CacaoLispReader.h"
-#import "CacaoStringReader.h"
 #import "BigInteger.h"
 #import "BigDecimal.h"
 #import "GMPRational.h"
 #import "RegexKitLite.h"
+
+// Readers
+#import "CacaoStringReader.h"
+#import "CacaoListReader.h"
+#import "CacaoUnmatchedDelimiterReader.h"
 
 static NSDictionary * macroDispatch = nil;
 static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
@@ -44,9 +48,19 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 + (void)initialize
 {
+    CacaoStringReader * stringReader = [[CacaoStringReader alloc] init];
+    CacaoListReader * listReader = [[CacaoListReader alloc] init];
+    CacaoUnmatchedDelimiterReader * unmatchedDelimiterReader = [[CacaoUnmatchedDelimiterReader alloc] init];
+    
     macroDispatch = [NSDictionary dictionaryWithObjectsAndKeys:
-                     [[CacaoStringReader alloc] init],                  @"\"",
+                     stringReader,                  @"\"",
+                     listReader,                    @"(",
+                     unmatchedDelimiterReader,      @")",
                      nil];
+    
+    [macroDispatch enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
+        [obj release];
+    }];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
 }
@@ -59,6 +73,22 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     else
         return NO;
 }
+
++ (id)macroDispatcherForChar:(int)macroChar
+{
+    unichar theCharArray[1];
+    theCharArray[0] = macroChar;
+    NSString * theCharAsString = [NSString stringWithCharacters:theCharArray length:1];
+    id macroDispatcher = nil;
+    macroDispatcher = [macroDispatch objectForKey:theCharAsString];
+    return macroDispatcher;
+}
+
++ (BOOL)isMacro:(int)theChar
+{
+    return [CacaoLispReader macroDispatcherForChar:theChar] != nil;
+}
+
 
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue
 {
@@ -76,23 +106,32 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
             return number;
         }
         
-        unichar theCharArray[1];
-        theCharArray[0] = ch;
-        NSString * theCharAsString = [NSString stringWithCharacters:theCharArray length:1];
-        NSString * macroDispatcher = nil;
-        macroDispatcher = [macroDispatch objectForKey:theCharAsString];
-        if (macroDispatcher) {
+        id macroDispatcher = [CacaoLispReader macroDispatcherForChar:ch];        
+        if (macroDispatcher != nil) {
+            NSValue * wrappedChar = [NSValue value:&ch withObjCType:@encode(int)];
             id ret = [macroDispatcher performSelector:@selector(invokeOn:withCharacter:)
-                                           withObject:[reader stream]
-                                           withObject:theCharAsString];
+                                           withObject:reader
+                                           withObject:wrappedChar];
                                            
             if (ret == reader)
                 continue;
             return ret;
         }      
+        
+        if (ch == '+' || ch == '-')
+        {
+            int ch2 = [reader read];
+            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
+            {
+                id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
+                return number;
+            }
+        }
             
     } while (YES);
 }
+
+#pragma mark Read numbers
 
 + (NSObject *)matchNumber:(NSString *)theString
 {
@@ -100,7 +139,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 	// has numeric semantics different from what we want
 	
 	NSRange		searchRange		= NSMakeRange(0, [theString length]);
-	NSRange		matchedRange	= NSMakeRange(NSNotFound, 0);
+	NSRange		matchedRange;
 	NSError		*error			= nil;
 	
     
@@ -148,8 +187,6 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 		else
 			return [NSNumber numberWithDouble:[theString doubleValue]];
 	}
-    
-	
 	
 	return nil;
 }
@@ -164,9 +201,9 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     
     while (YES) {
         int ch = [reader read];
-        if (ch == -1 || [CacaoLispReader isWhiteSpace:ch])
+        if (ch == -1 || [CacaoLispReader isWhiteSpace:ch] || [CacaoLispReader isMacro:ch])
         {
-            [reader unread];
+            [reader unreadSoThatNextCharIs:ch];
             break;
         }
         
@@ -181,6 +218,47 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
                                        reason:[NSString stringWithFormat:@"Invalid number: %s", numberString]
                                      userInfo:nil];
     return theNumber;
+}
+
+#pragma mark Support
+
++ (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader
+{
+    NSMutableArray * theList = [NSMutableArray array];
+    while (YES) {
+        int ch = [reader read];
+        while([CacaoLispReader isWhiteSpace:ch])
+            ch = [reader read];
+        
+        if (ch == -1)
+            @throw [NSException exceptionWithName:@"EOFException"
+                                           reason:@"EOF while reading"
+                                         userInfo:nil];
+        if (ch == delim)
+            break;
+        
+        id macroDispatcher = [CacaoLispReader macroDispatcherForChar:ch];
+        if (macroDispatcher != nil)
+        {
+            NSValue * wrappedChar = [NSValue value:&ch withObjCType:@encode(int)];
+            id macroRet = [macroDispatcher performSelector:@selector(invokeOn:withCharacter:)
+                                                withObject:reader
+                                                withObject:wrappedChar];
+            // no op macros return the reader
+            if (macroRet != reader)
+                    [theList addObject:macroRet];                      
+        }
+        else {
+            [reader unreadSoThatNextCharIs:ch];
+            id nextItem = [CacaoLispReader readFrom:reader eofValue:nil];
+            if (nextItem != reader)
+                [theList addObject:nextItem];
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:theList];
+    
 }
 
 @end

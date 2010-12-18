@@ -29,12 +29,10 @@
 //    or implied, of Joubert Nel.
 
 
-#define MAX_HISTORY 20
 
 
 @interface PushbackReader : NSObject {
-	BOOL			mustReturnFromHistory;
-	unsigned short	currentHistoryPosition;
+    BOOL mustReadFromHistory;
 	
 	NSMutableArray	*history;
 	NSInputStream	*stream;
@@ -43,7 +41,7 @@
 @property (nonatomic, retain) NSInputStream * stream;
 
 - (int)read;
-- (void)unread;
+- (void)unreadSoThatNextCharIs:(int)nextChar;
 
 - (id)init:(NSInputStream *)theStream;
 
