@@ -31,11 +31,11 @@
 #import "PushbackReader.h"
 #import "CacaoLispReader.h"
 
-typedef NSObject * (^ReaderMacro)(PushbackReader *reader, int firstCharacter);
+typedef NSObject * (^ReaderMacro)(PushbackReader *reader, unichar firstCharacter);
 
-ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, int firstCharacter) {
+ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstCharacter) {
     NSMutableString * theString = [NSMutableString string];
-    for (int ch = [reader read]; ch != '"'; ch = [reader read])
+    for (unichar ch = [reader read]; ch != '"'; ch = [reader read])
     {
         if (ch == -1)
             @throw [NSException exceptionWithName:@"EOFException"
@@ -84,12 +84,12 @@ ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, int firstCharacte
     return theString;       
 };
 
-ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, int firstCharacter) {
+ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
     NSArray * theList = [CacaoLispReader readListDelimitedWith:')' from:reader];
     return theList;
 };
 
-ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, int firstCharacter) {
+ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
     @throw [NSException exceptionWithName:@"UnreadableFormException"
                                    reason:@"Unreadable form"
                                  userInfo:nil];

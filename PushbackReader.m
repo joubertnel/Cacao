@@ -35,26 +35,25 @@
 @synthesize stream;
 
 
-- (int)read
+- (unichar)read
 {
 	if (mustReadFromHistory)
 	{
-        int ch = [[history lastObject] intValue];
+        unichar ch = history[0];
         mustReadFromHistory = NO;
         return ch;
 	}
 	else {
 		uint8_t aChar;
 		[stream read:&aChar maxLength:1];
-		return aChar;		
+		return (unichar)aChar;		
 	}
 }
 
 
-- (void)unreadSoThatNextCharIs:(int)nextChar
+- (void)unreadSoThatNextCharIs:(unichar)nextChar
 {
-    NSNumber * wrappedChar = [NSNumber numberWithInt:nextChar];
-    [history setArray:[NSArray arrayWithObject:wrappedChar]];
+    history[0] = nextChar;
     mustReadFromHistory = YES;
 }
 
@@ -63,7 +62,7 @@
 	[super init];
 	
 	[self setStream:theStream];	
-	history = [NSMutableArray arrayWithCapacity:1];
+    history[0] = '\0'; // set the history to empty
     mustReadFromHistory = NO;
 	
 	return self;

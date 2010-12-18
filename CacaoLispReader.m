@@ -44,38 +44,53 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 @implementation CacaoLispReader
 
+#pragma mark Setup
 
 + (void)initialize
 {                
     readerMacros = [NSDictionary dictionaryWithObjectsAndKeys:
-                     cacaoStringReaderMacro,                [NSNumber numberWithInt:(int)'"'],
-                     cacaoListReaderMacro,                  [NSNumber numberWithInt:(int)'('],
-                     cacaoUnmatchedDelimiterReaderMacro,    [NSNumber numberWithInt:(int)')'],    
+                     cacaoStringReaderMacro,                [NSNumber numberWithUnsignedShort:(unichar)'"'],
+                     cacaoListReaderMacro,                  [NSNumber numberWithUnsignedShort:(unichar)'('],
+                     cacaoUnmatchedDelimiterReaderMacro,    [NSNumber numberWithUnsignedShort:(unichar)')'],    
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
 }
 
-+ (BOOL)isWhiteSpace:(unichar)theCharacter
++ (ReaderMacro)readerMacroForChar:(unichar)macroChar
 {
-    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:theCharacter] ||
-        [additionalWhitespaceCharacterSet characterIsMember:theCharacter])
+    ReaderMacro macroDispatcher = nil;
+    macroDispatcher = [readerMacros objectForKey:[NSNumber numberWithUnsignedShort:macroChar]];
+    return macroDispatcher;
+}
+
+
+#pragma mark Character checks
+
++ (BOOL)isWhiteSpace:(unichar)ch
+{
+    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:ch] ||
+        [additionalWhitespaceCharacterSet characterIsMember:ch])
         return YES;
     else
         return NO;
 }
 
-+ (ReaderMacro)readerMacroForChar:(int)macroChar
++ (BOOL)isMacro:(unichar)ch
 {
-    ReaderMacro macroDispatcher = nil;
-    macroDispatcher = [readerMacros objectForKey:[NSValue value:&macroChar withObjCType:@encode(int)]];
-    return macroDispatcher;
+    return [CacaoLispReader readerMacroForChar:ch] != nil;
 }
 
-+ (BOOL)isMacro:(int)theChar
++ (BOOL)isTerminatingMacro:(unichar)ch
 {
-    return [CacaoLispReader readerMacroForChar:theChar] != nil;
+    return ((ch != '#') && [CacaoLispReader isMacro:ch]);
 }
+
+
+
+
+
+#pragma mark Symbols
 
 + (id)matchSymbol:(NSString *)token
 {
@@ -120,12 +135,9 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
         
 }
 
-+ (BOOL)isTerminatingMacro:(int)ch
-{
-    return ((ch != '#') && [CacaoLispReader isMacro:ch]);
-}
 
-+ (NSString *)readTokenFrom:(PushbackReader *)reader firstCharacter:(int)ch
+
++ (NSString *)readTokenFrom:(PushbackReader *)reader firstCharacter:(unichar)ch
 {
     NSMutableString * token = [NSMutableString string];
     unichar charArray[1];
@@ -242,7 +254,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue
 {
     do {        
-        int ch = [reader read];
+        unichar ch = [reader read];
         
         while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:ch])
             ch = [reader read];
@@ -265,7 +277,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
         
         if (ch == '+' || ch == '-')
         {
-            int ch2 = [reader read];
+            unichar ch2 = [reader read];
             if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
             {
                 id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
