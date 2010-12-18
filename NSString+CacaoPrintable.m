@@ -35,7 +35,7 @@
 
 - (NSString *)printable
 {
-    return self;
+    return [NSString stringWithFormat:@"\"%@\"", self];
 }
 
 @end
