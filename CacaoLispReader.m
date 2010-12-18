@@ -38,7 +38,7 @@
 #import "CacaoReaderMacroInvokers.h"
 
 
-static NSDictionary * macroDispatch = nil;
+static NSDictionary * readerMacros = nil;
 static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 
@@ -46,11 +46,11 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 
 + (void)initialize
-{            
-    macroDispatch = [NSDictionary dictionaryWithObjectsAndKeys:
-                     cacaoStringReaderMacro,                @"\"",
-                     cacaoListReaderMacro,                  @"(",
-                     cacaoUnmatchedDelimiterReaderMacro,    @")",    
+{                
+    readerMacros = [NSDictionary dictionaryWithObjectsAndKeys:
+                     cacaoStringReaderMacro,                [NSNumber numberWithInt:(int)'"'],
+                     cacaoListReaderMacro,                  [NSNumber numberWithInt:(int)'('],
+                     cacaoUnmatchedDelimiterReaderMacro,    [NSNumber numberWithInt:(int)')'],    
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
@@ -65,19 +65,16 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
         return NO;
 }
 
-+ (id)macroDispatcherForChar:(int)macroChar
++ (ReaderMacro)readerMacroForChar:(int)macroChar
 {
-    unichar theCharArray[1];
-    theCharArray[0] = macroChar;
-    NSString * theCharAsString = [NSString stringWithCharacters:theCharArray length:1];
-    id macroDispatcher = nil;
-    macroDispatcher = [macroDispatch objectForKey:theCharAsString];
+    ReaderMacro macroDispatcher = nil;
+    macroDispatcher = [readerMacros objectForKey:[NSValue value:&macroChar withObjCType:@encode(int)]];
     return macroDispatcher;
 }
 
 + (BOOL)isMacro:(int)theChar
 {
-    return [CacaoLispReader macroDispatcherForChar:theChar] != nil;
+    return [CacaoLispReader readerMacroForChar:theChar] != nil;
 }
 
 + (id)matchSymbol:(NSString *)token
@@ -90,20 +87,9 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     matches = [token captureComponentsMatchedByRegex:symbolPat];
     if (matches != nil)
     {
-        NSString * ns = nil;
-        NSString * name = nil;
-        if ([matches count] == 1)
-        {
-            
-        }
+        NSString * ns = nil;       
+        NSString * name = nil;            
     }
-
-    
-    //matchedRange = [token rangeOfRegex:symbolPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
-//    if (matchedRange.length == searchRange.length)
-//    {
-//        
-//    }
     
     return nil;
 }
@@ -269,7 +255,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
             return number;
         }
         
-        ReaderMacro macroDispatcher = [CacaoLispReader macroDispatcherForChar:ch];        
+        ReaderMacro macroDispatcher = [CacaoLispReader readerMacroForChar:ch];        
         if (macroDispatcher != nil) {
             NSObject * ret = macroDispatcher(reader, ch);           
             if (ret == reader)
@@ -311,7 +297,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
         if (ch == delim)
             break;
         
-        ReaderMacro macroDispatcher = [CacaoLispReader macroDispatcherForChar:ch];
+        ReaderMacro macroDispatcher = [CacaoLispReader readerMacroForChar:ch];
         if (macroDispatcher != nil)
         {
             id macroRet = macroDispatcher(reader, ch);
