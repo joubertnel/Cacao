@@ -57,18 +57,10 @@
 		BE93F79312BBE3AD007A4826 /* CacaoLispReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F79112BBE3AD007A4826 /* CacaoLispReader.h */; };
 		BE93F79412BBE3AD007A4826 /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
 		BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
-		BE93F7D112BC0166007A4826 /* CacaoStringReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F7CF12BC0166007A4826 /* CacaoStringReader.h */; };
-		BE93F7D212BC0166007A4826 /* CacaoStringReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F7D012BC0166007A4826 /* CacaoStringReader.m */; };
-		BE93F7D312BC0166007A4826 /* CacaoStringReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F7D012BC0166007A4826 /* CacaoStringReader.m */; };
 		BE93F94812BC163D007A4826 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F94612BC163D007A4826 /* RegexKitLite.h */; };
 		BE93F94912BC163D007A4826 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F94712BC163D007A4826 /* RegexKitLite.m */; };
 		BE93F94A12BC163D007A4826 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F94712BC163D007A4826 /* RegexKitLite.m */; };
-		BE93FA4512BC2ADE007A4826 /* CacaoListReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93FA4312BC2ADE007A4826 /* CacaoListReader.h */; };
-		BE93FA4612BC2ADE007A4826 /* CacaoListReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93FA4412BC2ADE007A4826 /* CacaoListReader.m */; };
-		BE93FA4712BC2ADE007A4826 /* CacaoListReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93FA4412BC2ADE007A4826 /* CacaoListReader.m */; };
-		BE93FEEF12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93FEED12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.h */; };
-		BE93FEF012BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93FEEE12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m */; };
-		BE93FEF112BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93FEEE12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m */; };
+		BE93FFEC12BD0D7A007A4826 /* CacaoReaderMacroInvokers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93FFEB12BD0D7A007A4826 /* CacaoReaderMacroInvokers.h */; };
 		BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */; };
 		BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
 		BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
@@ -137,14 +129,9 @@
 		BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE93F79112BBE3AD007A4826 /* CacaoLispReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoLispReader.h; sourceTree = "<group>"; };
 		BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoLispReader.m; sourceTree = "<group>"; };
-		BE93F7CF12BC0166007A4826 /* CacaoStringReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoStringReader.h; sourceTree = "<group>"; };
-		BE93F7D012BC0166007A4826 /* CacaoStringReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoStringReader.m; sourceTree = "<group>"; };
 		BE93F94612BC163D007A4826 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		BE93F94712BC163D007A4826 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
-		BE93FA4312BC2ADE007A4826 /* CacaoListReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoListReader.h; sourceTree = "<group>"; };
-		BE93FA4412BC2ADE007A4826 /* CacaoListReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoListReader.m; sourceTree = "<group>"; };
-		BE93FEED12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoUnmatchedDelimiterReader.h; sourceTree = "<group>"; };
-		BE93FEEE12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoUnmatchedDelimiterReader.m; sourceTree = "<group>"; };
+		BE93FFEB12BD0D7A007A4826 /* CacaoReaderMacroInvokers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoReaderMacroInvokers.h; sourceTree = "<group>"; };
 		BE98F04712AB0EBA0056DCD1 /* PushbackReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushbackReader.h; sourceTree = "<group>"; };
 		BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushbackReader.m; sourceTree = "<group>"; };
 		BEB2936A128EF3350092F199 /* CacaoAST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoAST.h; sourceTree = "<group>"; };
@@ -371,14 +358,9 @@
 		BE93F79012BBE395007A4826 /* Readers */ = {
 			isa = PBXGroup;
 			children = (
+				BE93FFEB12BD0D7A007A4826 /* CacaoReaderMacroInvokers.h */,
 				BE93F79112BBE3AD007A4826 /* CacaoLispReader.h */,
 				BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */,
-				BE93F7CF12BC0166007A4826 /* CacaoStringReader.h */,
-				BE93F7D012BC0166007A4826 /* CacaoStringReader.m */,
-				BE93FA4312BC2ADE007A4826 /* CacaoListReader.h */,
-				BE93FA4412BC2ADE007A4826 /* CacaoListReader.m */,
-				BE93FEED12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.h */,
-				BE93FEEE12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m */,
 			);
 			name = Readers;
 			sourceTree = "<group>";
@@ -424,10 +406,8 @@
 				BE62163612A8A04900F4D142 /* NSValue+CacaoPrintable.h in Headers */,
 				BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */,
 				BE93F79312BBE3AD007A4826 /* CacaoLispReader.h in Headers */,
-				BE93F7D112BC0166007A4826 /* CacaoStringReader.h in Headers */,
 				BE93F94812BC163D007A4826 /* RegexKitLite.h in Headers */,
-				BE93FA4512BC2ADE007A4826 /* CacaoListReader.h in Headers */,
-				BE93FEEF12BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.h in Headers */,
+				BE93FFEC12BD0D7A007A4826 /* CacaoReaderMacroInvokers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,10 +565,7 @@
 				BE62163712A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
 				BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79412BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
-				BE93F7D212BC0166007A4826 /* CacaoStringReader.m in Sources */,
 				BE93F94912BC163D007A4826 /* RegexKitLite.m in Sources */,
-				BE93FA4612BC2ADE007A4826 /* CacaoListReader.m in Sources */,
-				BE93FEF012BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,10 +604,7 @@
 				BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
 				BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
-				BE93F7D312BC0166007A4826 /* CacaoStringReader.m in Sources */,
 				BE93F94A12BC163D007A4826 /* RegexKitLite.m in Sources */,
-				BE93FA4712BC2ADE007A4826 /* CacaoListReader.m in Sources */,
-				BE93FEF112BC5BBE007A4826 /* CacaoUnmatchedDelimiterReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

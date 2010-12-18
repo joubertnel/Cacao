@@ -36,13 +36,13 @@
 #define ratioPat	@"([-+]?[0-9]+)/([0-9]+)"
 #define floatPat	@"[-+]?[0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?[M]?"
 
+
+
 @interface CacaoLispReader : NSObject {
 
 }
 
-+ (BOOL)isWhiteSpace:(unichar)theCharacter;
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue;
-+ (id)readNumberFrom:(PushbackReader *)reader firstDigit:(int)digit;
 + (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader;
 
 @end
