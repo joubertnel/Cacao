@@ -29,6 +29,7 @@
 //    or implied, of Joubert Nel.
 
 #import "CacaoRepl.h"
+#import "CacaoEnvironment.h"
 #import <stdio.h>
 
 
@@ -58,10 +59,10 @@ int main(int argc, char* argv[])
     pool = [[NSAutoreleasePool alloc] init];    
     
     [CacaoRepl displayWelcome];
-
-    CacaoEnvironment * globalEnvironment = [CacaoEnvironment globalEnvironment];
-    
+   
     char repl_input[MAX_LEN + 1];
+    
+    CacaoEnvironment * globalEnv = [CacaoEnvironment globalEnvironment];
     
     do {        
         @try 
@@ -73,7 +74,8 @@ int main(int argc, char* argv[])
                 NSInputStream * stream = [NSInputStream inputStreamWithData:inputData];
                 [stream open];
                 PushbackReader * pushbackReader = [[PushbackReader alloc] init:stream];
-                NSObject * result = [CacaoLispReader readFrom:pushbackReader eofValue:nil];
+                NSObject * readerOutput = [CacaoLispReader readFrom:pushbackReader eofValue:nil];
+                NSObject * result = [CacaoEnvironment eval:readerOutput inEnvironment:globalEnv];
                 [pushbackReader release];
                 [stream close];
                  

@@ -29,15 +29,17 @@
 //    or implied, of Joubert Nel.
 
 #import "CacaoFn.h"
+#import "CacaoArgumentName.h"
+#import "CacaoSymbol.h"
 
 NSString * const FnIdentityPrefix = @"Fn_";
 
 
 @implementation CacaoFn
 
+@synthesize func;
 @synthesize identity;
 
-@synthesize func;
 
 - (CacaoFn *)init
 {
@@ -60,14 +62,23 @@ NSString * const FnIdentityPrefix = @"Fn_";
     return [fn autorelease];
 }
 
+
 - (NSString *)printable
 {
     return identity;    
 }
 
-- (id)invokeWithParams:(NSArray *)theParams
+
+- (id)invokeWithArgsAndVals:(NSArray *)argsAndVals
 {
-    return func(theParams);
+    short pairCount = [argsAndVals count]/2;
+    NSMutableDictionary * av = [NSMutableDictionary dictionaryWithCapacity:pairCount];
+    for (int i=0; i<pairCount; i = i + 2) {
+        CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
+        NSObject * argVal = [argsAndVals objectAtIndex:i+1];
+        [av setObject:argVal forKey:arg];
+    }
+    return func(av);
 }
 
 @end

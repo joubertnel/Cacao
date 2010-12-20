@@ -182,6 +182,11 @@
     return [ast autorelease];
 }
 
++ (CacaoAST *)astWithTokens:(NSArray *)theTokens
+{
+    
+}
+
 - (NSString *)toString
 {
     return [self source];

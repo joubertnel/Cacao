@@ -1,5 +1,5 @@
 //
-//  CacaoFn.h
+//  CacaoUtil.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,27 +28,23 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
-#import "CacaoSymbol.h"
-#import "CacaoVector.h"
+#import "CacaoUtil.h"
 
-typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
-extern NSString * const FnIdentityPrefix;
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
-    NSString * identity;
-    
+@implementation CacaoUtil
+
++ (int)hash:(id)theObject
+{
+//    if (theObject == nil)
+//        return 0;
+    return [theObject hash];
 }
 
-@property (copy) DispatchFunction func;
-@property (nonatomic, retain) NSString * identity;
-
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
-
-- (NSString *)printable;
-- (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;
-
-
++ (int)hashFromHash:(int)hash withSeed:(int)seed
+{
+    // a la boost
+    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    return seed;
+}
 
 @end

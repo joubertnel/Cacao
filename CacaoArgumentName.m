@@ -1,5 +1,5 @@
 //
-//  CacaoFn.h
+//  CacaoArgumentName.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,27 +28,41 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
-#import "CacaoSymbol.h"
-#import "CacaoVector.h"
+#import "CacaoArgumentName.h"
 
-typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
-extern NSString * const FnIdentityPrefix;
+static NSMutableDictionary * table = nil;
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
-    NSString * identity;
-    
+@implementation CacaoArgumentName
+
+@synthesize symbol;
+
++ (void)initialize
+{
+    table = [NSMutableDictionary dictionary];
 }
 
-@property (copy) DispatchFunction func;
-@property (nonatomic, retain) NSString * identity;
++ (CacaoArgumentName *)argumentNameFromSymbol:(CacaoSymbol *)sym
+{
+    CacaoArgumentName * argumentName = [[CacaoArgumentName alloc] init];
+    [argumentName setSymbol:sym];
+    return [argumentName autorelease];
+}
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
+#pragma mark Public interface
 
-- (NSString *)printable;
-- (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;
++ (CacaoArgumentName *)argumentNameInternedFromSymbol:(CacaoSymbol *)sym
+{
+    CacaoArgumentName * existingArgumentNameInTable = nil;
+    existingArgumentNameInTable = [table objectForKey:sym];
+    if (existingArgumentNameInTable == nil)
+        return [CacaoArgumentName argumentNameFromSymbol:sym];
+    else
+        return existingArgumentNameInTable;
+}
 
-
+- (NSString *)name
+{
+    return [symbol name];
+}
 
 @end

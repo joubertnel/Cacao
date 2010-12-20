@@ -1,5 +1,5 @@
 //
-//  CacaoFn.h
+//  CacaoKeyword.m
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -28,27 +28,43 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
-#import "CacaoSymbol.h"
-#import "CacaoVector.h"
+#import "CacaoKeyword.h"
 
-typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
-extern NSString * const FnIdentityPrefix;
+static NSMutableDictionary * table = nil;
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
-    NSString * identity;
-    
+
+@implementation CacaoKeyword
+
+@synthesize symbol;
+
++ (void)initialize
+{
+    table = [NSMutableDictionary dictionary];
 }
 
-@property (copy) DispatchFunction func;
-@property (nonatomic, retain) NSString * identity;
++ (CacaoKeyword *)keywordFromSymbol:(CacaoSymbol *)sym
+{
+    CacaoKeyword * keyword = [[CacaoKeyword alloc] init];
+    [keyword setSymbol:sym];  
+    return [keyword autorelease];
+}
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
 
-- (NSString *)printable;
-- (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;
+#pragma mark Public interface
 
++ (CacaoKeyword *)keywordInternedFromSymbol:(CacaoSymbol *)sym
+{
+    CacaoKeyword * existingKeywordInTable = nil;
+    existingKeywordInTable = [table objectForKey:sym];
+    if (existingKeywordInTable == nil)
+        return [CacaoKeyword keywordFromSymbol:sym];
+    else
+        return existingKeywordInTable;
+}
 
+- (NSString *)printable
+{
+    return [NSString stringWithFormat:@":%@", [symbol printable]];
+}
 
 @end

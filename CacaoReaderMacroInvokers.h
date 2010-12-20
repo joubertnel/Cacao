@@ -30,6 +30,7 @@
 
 #import "PushbackReader.h"
 #import "CacaoLispReader.h"
+#import "CacaoVector.h"
 
 typedef NSObject * (^ReaderMacro)(PushbackReader *reader, unichar firstCharacter);
 
@@ -95,4 +96,10 @@ ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unic
                                  userInfo:nil];
     id nothing = nil;
     return nothing;
+};
+
+ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
+    NSArray * elements = [CacaoLispReader readListDelimitedWith:']' from:reader];
+    CacaoVector * vector = [CacaoVector vectorWithArray:elements];
+    return vector;
 };

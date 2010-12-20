@@ -36,6 +36,8 @@
 #import "CacaoEnvironment.h"
 
 
+static NSString * GLOBAL_NAMESPACE = @"cacao";
+
 static NSString * REST_PARAM_DELIMETER = @"&";
 
 static NSString * SYMBOL_NAME_YES = @"YES";
@@ -63,55 +65,56 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (NSDictionary *)defaultGlobalMappings
 {
-    CacaoSymbol * yesSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_YES];
-    CacaoSymbol * noSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_NO];
-    
-    CacaoSymbol * sumOpSymbol = [CacaoSymbol symbolWithName:@"+"];
-    CacaoFn * sumFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-        int sum = 0;
-        for (NSNumber * number in params)
-            if (number)
-                sum += [number intValue];
-        return [NSNumber numberWithInt:sum];
-    }];
-    
-    CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*"];
-    CacaoFn * multiplyFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-        int answer = 1;
-        for (NSNumber * number in params)
-            answer *= [number intValue];
-        return [NSNumber numberWithInt:answer];
-    }];    
-    
-    CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-"];
-    CacaoFn * subtractFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-        NSNumber * firstNumber;
-        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-        int answer = [firstNumber intValue];
-        for (NSNumber * number in remainingNumbers)
-            answer -= [number intValue];
-        return [NSNumber numberWithInt:answer];
-    }];
-    
-    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/"];
-    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-        NSNumber * firstNumber;
-        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-        int answer = [firstNumber intValue];
-        for (NSNumber * number in remainingNumbers)
-            answer /= [number intValue];
-        return [NSNumber numberWithInt:answer];
-    }];    
-      
-    NSDictionary * globalMappings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithBool:YES], yesSymbol,
-                                     [NSNumber numberWithBool:NO], noSymbol,
-                                     sumFn, sumOpSymbol, 
-                                     multiplyFn, multiplyOpSymbol,
-                                     subtractFn, subtractOpSymbol,
-                                     divideFn, divideOpSym,
-                                     nil];
-    return globalMappings;
+//    CacaoSymbol * yesSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_YES inNamespace:GLOBAL_NAMESPACE];
+//    CacaoSymbol * noSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_NO inNamespace:GLOBAL_NAMESPACE];
+//    
+//    CacaoSymbol * sumOpSymbol = [CacaoSymbol symbolWithName:@"+" inNamespace:GLOBAL_NAMESPACE];
+//    CacaoFn * sumFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
+//        int sum = 0;
+//        for (NSNumber * number in params)
+//            if (number)
+//                sum += [number intValue];
+//        return [NSNumber numberWithInt:sum];
+//    }];
+//    
+//    CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
+//    CacaoFn * multiplyFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
+//        int answer = 1;
+//        for (NSNumber * number in params)
+//            answer *= [number intValue];
+//        return [NSNumber numberWithInt:answer];
+//    }];    
+//    
+//    CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-" inNamespace:GLOBAL_NAMESPACE];
+//    CacaoFn * subtractFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
+//        NSNumber * firstNumber;
+//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
+//        int answer = [firstNumber intValue];
+//        for (NSNumber * number in remainingNumbers)
+//            answer -= [number intValue];
+//        return [NSNumber numberWithInt:answer];
+//    }];
+//    
+//    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
+//    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
+//        NSNumber * firstNumber;
+//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
+//        int answer = [firstNumber intValue];
+//        for (NSNumber * number in remainingNumbers)
+//            answer /= [number intValue];
+//        return [NSNumber numberWithInt:answer];
+//    }];    
+//      
+//    NSDictionary * globalMappings = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                     [NSNumber numberWithBool:YES], yesSymbol,
+//                                     [NSNumber numberWithBool:NO], noSymbol,
+//                                     sumFn, sumOpSymbol, 
+//                                     multiplyFn, multiplyOpSymbol,
+//                                     subtractFn, subtractOpSymbol,
+//                                     divideFn, divideOpSym,
+//                                     nil];
+//    return globalMappings;
+    return nil;
 }
 
 
@@ -274,7 +277,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
             [CacaoNilNotCallableException raise:[CacaoNilNotCallableException name] format:@"Can't call nil'"];
         
         CacaoFn *funcBlock = (CacaoFn *)func;
-        return [funcBlock invokeWithParams:remainingExpressions];
+        return [funcBlock invokeWithArgsAndVals:remainingExpressions];
     }
 }
 
@@ -354,21 +357,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         }
     }
     
-    DispatchFunction fnOp = ^(NSArray * args) {
-        NSMutableDictionary * paramsAndArgs = nil;
-        if ([positionalParams count] > 0)
-            paramsAndArgs = [NSMutableDictionary dictionaryWithObjects:args forKeys:positionalParams];
-        else
-            paramsAndArgs = [NSMutableDictionary dictionaryWithCapacity:1];
-        
-        if (restParam != nil)
-        {
-            NSRange restRange = NSMakeRange(positionalArgsCount, [args count] - positionalArgsCount);
-            NSArray * restArgs = [args subarrayWithRange:restRange];
-            [paramsAndArgs setObject:restArgs forKey:restParam];
-        }
-        
-        CacaoEnvironment * subEnv = [CacaoEnvironment environmentWith:paramsAndArgs outerEnvironment:env];
+    DispatchFunction fnOp = ^(NSDictionary * argsAndVals) {        
+        CacaoEnvironment * subEnv = [CacaoEnvironment environmentWith:argsAndVals outerEnvironment:env];
         __block NSObject * result;
         NSUInteger lastExpressionIndex = [body count] - 1;
         [body enumerateObjectsUsingBlock:^(id bodyExpression, NSUInteger idx, BOOL *stop) {

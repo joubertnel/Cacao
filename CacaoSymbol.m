@@ -29,23 +29,42 @@
 //    or implied, of Joubert Nel.
 
 #import "CacaoSymbol.h"
+#import "CacaoUtil.h"
 
 
 @implementation CacaoSymbol
 
 @synthesize name;
 @synthesize ns;
+@synthesize cacaoHash;
 
-+ (CacaoSymbol *)symbolWithName:(NSString *)theName
+#pragma mark Lifecycle
++ (CacaoSymbol *)symbolWithName:(NSString *)theName inNamespace:(NSString *)theNamespace
 {
     CacaoSymbol * symbol = [[CacaoSymbol alloc] init];
     [symbol setName:theName];
+    [symbol setNs:theNamespace];
+    [symbol setCacaoHash:[CacaoUtil hashFromHash:[theNamespace hash] withSeed:[theName hash]]];
     return [symbol autorelease];
+}
+
++ (CacaoSymbol *)internSymbol:(NSString *)theName inNamespace:(NSString *)theNamespace
+{
+    return [CacaoSymbol symbolWithName:theName inNamespace:theNamespace];
+}
+
+
+#pragma mark Support
+
+- (NSUInteger)hash
+{
+    return [self cacaoHash];
 }
 
 - (BOOL)isEqualToSymbol:(CacaoSymbol *)otherSymbol
 {
-    return [[self stringValue] isEqualToString:[otherSymbol stringValue]];
+    return [self.name isEqualToString:otherSymbol.name] && [self.ns isEqualToString:otherSymbol.ns];                                                   
+            
 }
 
 - (NSString *)stringValue
@@ -60,7 +79,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    CacaoSymbol * aCopy = [CacaoSymbol symbolWithName:[self name]];
+    CacaoSymbol * aCopy = [CacaoSymbol symbolWithName:[self name] inNamespace:[self ns]];
     return [aCopy retain];
 }
 

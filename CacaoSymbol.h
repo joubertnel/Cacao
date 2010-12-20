@@ -33,12 +33,17 @@
 
 @interface CacaoSymbol : NSObject <NSCopying> {
     NSString * name;
+    NSString * ns;
+    int cacaoHash;
 }
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * ns;
+@property (nonatomic, assign) int cacaoHash;
 
-+ (CacaoSymbol *)symbolWithName:(NSString *)theName;
+
++ (CacaoSymbol *)symbolWithName:(NSString *)theName inNamespace:(NSString *)theNamespace;
++ (CacaoSymbol *)internSymbol:(NSString *)theName inNamespace:(NSString *)theNamespace;
 
 - (BOOL)isEqualToSymbol:(CacaoSymbol *)otherSymbol;
 

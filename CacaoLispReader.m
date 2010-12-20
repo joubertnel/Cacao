@@ -29,6 +29,9 @@
 //    or implied, of Joubert Nel.
 
 #import "CacaoLispReader.h"
+#import "CacaoSymbol.h"
+#import "CacaoArgumentName.h"
+#import "CacaoKeyword.h"
 #import "BigInteger.h"
 #import "BigDecimal.h"
 #import "GMPRational.h"
@@ -41,6 +44,8 @@
 static NSDictionary * readerMacros = nil;
 static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
+static unichar ARG_VAL_SEPARATOR = (unichar)':';
+static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 
 @implementation CacaoLispReader
 
@@ -49,9 +54,11 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 + (void)initialize
 {                
     readerMacros = [NSDictionary dictionaryWithObjectsAndKeys:
-                     cacaoStringReaderMacro,                [NSNumber numberWithUnsignedShort:(unichar)'"'],
-                     cacaoListReaderMacro,                  [NSNumber numberWithUnsignedShort:(unichar)'('],
-                     cacaoUnmatchedDelimiterReaderMacro,    [NSNumber numberWithUnsignedShort:(unichar)')'],    
+                    cacaoStringReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'"'],
+                    cacaoListReaderMacro,                   [NSNumber numberWithUnsignedShort:(unichar)'('],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)')'],  
+                    cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'['],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)']'],
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
@@ -88,26 +95,39 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 
 
-
-
 #pragma mark Symbols
-
 + (id)matchSymbol:(NSString *)token
-{
-    NSRange     searchRange     = NSMakeRange(0, [token length]);
-    NSRange     matchedRange;
-    NSError     *error          = nil;
-    
+{    
     NSArray * matches = nil;
     matches = [token captureComponentsMatchedByRegex:symbolPat];
     if (matches != nil)
     {
         NSString * ns = nil;       
-        NSString * name = nil;            
-    }
-    
+        NSString * name = nil;  
+        ns = [matches objectAtIndex:1];
+        name = [matches objectAtIndex:2];
+        
+        bool isArgumentName = [token hasSuffix:ARG_VAL_SEPARATOR_STRING];
+        if (isArgumentName)
+        {
+            CacaoSymbol * sym = [CacaoSymbol internSymbol:[name substringToIndex:name.length-1]
+                                              inNamespace:ns];
+            return [CacaoArgumentName argumentNameInternedFromSymbol:sym];
+        }
+        
+        CacaoSymbol * sym = [CacaoSymbol internSymbol:name inNamespace:ns]; 
+        bool isKeyword = [token hasPrefix:@":"];
+
+        if (isKeyword)
+            return [CacaoKeyword keywordInternedFromSymbol:sym];
+        
+        
+        return sym;        
+    }    
     return nil;
 }
+
+
 
 + (id)interpretToken:(NSString *)token
 {
@@ -131,8 +151,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     
     @throw [NSException exceptionWithName:@"InvalidTokenException"
                                    reason:[NSString stringWithFormat:@"Invalid token: %@",token]
-                                 userInfo:nil];
-        
+                                 userInfo:nil];      
 }
 
 
@@ -145,15 +164,32 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     [token appendString:[NSString stringWithCharacters:charArray length:1]];
     while (YES) {
         int nextChar = [reader read];
-        if (nextChar == -1 || [CacaoLispReader isWhiteSpace:nextChar] || [CacaoLispReader isTerminatingMacro:nextChar])
+        if (nextChar == -1 || [CacaoLispReader isWhiteSpace:nextChar] || [CacaoLispReader isTerminatingMacro:nextChar] ||
+            nextChar == ARG_VAL_SEPARATOR)
         {
-            [reader unreadSoThatNextCharIs:nextChar];
-            return token;
+            BOOL tokenDone = YES;
+            if (nextChar == ARG_VAL_SEPARATOR) 
+            {
+                if (token.length == 0)
+                    tokenDone = NO;
+                else
+                    [token appendString:ARG_VAL_SEPARATOR_STRING];
+            }
+            else 
+            {
+                [reader unreadSoThatNextCharIs:nextChar];
+            }
+
+            
+            if (tokenDone)
+            {
+                
+                return token;
+            }
         }
         charArray[0] = nextChar;
         [token appendString:[NSString stringWithCharacters:charArray length:1]];
-    }
-    
+    }    
 }
 
 
@@ -283,6 +319,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
                 id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
                 return number;
             }
+            [reader unreadSoThatNextCharIs:ch2];
         }
         
         NSString * token = [CacaoLispReader readTokenFrom:reader firstCharacter:ch];
