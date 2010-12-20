@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BE93059B12BEF18E007A4826</string>
+						<string>BE9305CE12BFA6DE007A4826</string>
 						<key>history</key>
 						<array>
 							<string>BE62142112A8578000F4D142</string>
@@ -368,7 +368,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoLispReader.m</string>
+								<string>CacaoEnvironment.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -376,11 +376,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoLispReader.m</string>
+										<string>CacaoEnvironment.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE93059A12BEF18E007A4826</string>
+										<string>BE9305CD12BFA6DE007A4826</string>
 										<key>history</key>
 										<array>
 											<string>BE3BC45A1290B75D00ED6ADB</string>
@@ -426,8 +426,6 @@
 											<string>BE93FF5012BC61B8007A4826</string>
 											<string>BE93FF5112BC61B8007A4826</string>
 											<string>BE93FF5D12BC634E007A4826</string>
-											<string>BE93FF7712BC6568007A4826</string>
-											<string>BE93FF7812BC6568007A4826</string>
 											<string>BE9300C612BD1AAF007A4826</string>
 											<string>BE9300D012BD1B00007A4826</string>
 											<string>BE93011A12BD45AE007A4826</string>
@@ -443,17 +441,19 @@
 											<string>BE93036312BEDC3F007A4826</string>
 											<string>BE93036412BEDC3F007A4826</string>
 											<string>BE93039912BEDD53007A4826</string>
-											<string>BE93042E12BEE3AF007A4826</string>
-											<string>BE93042F12BEE3AF007A4826</string>
 											<string>BE93044E12BEE48A007A4826</string>
 											<string>BE93044F12BEE48A007A4826</string>
-											<string>BE93046B12BEE5E2007A4826</string>
-											<string>BE93046C12BEE5E2007A4826</string>
-											<string>BE93046D12BEE5E2007A4826</string>
 											<string>BE93046E12BEE5E2007A4826</string>
 											<string>BE93046F12BEE5E2007A4826</string>
 											<string>BE93058D12BEF125007A4826</string>
-											<string>BE93059912BEF18D007A4826</string>
+											<string>BE9305A012BEF2C3007A4826</string>
+											<string>BE9305B312BFA65D007A4826</string>
+											<string>BE9305B412BFA65D007A4826</string>
+											<string>BE9305B512BFA65D007A4826</string>
+											<string>BE9305B612BFA65D007A4826</string>
+											<string>BE9305B712BFA65D007A4826</string>
+											<string>BE9305CC12BFA6DE007A4826</string>
+											<string>BE9305CB12BFA6DC007A4826</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

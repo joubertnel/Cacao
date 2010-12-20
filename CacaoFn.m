@@ -73,7 +73,7 @@ NSString * const FnIdentityPrefix = @"Fn_";
 {
     short pairCount = [argsAndVals count]/2;
     NSMutableDictionary * av = [NSMutableDictionary dictionaryWithCapacity:pairCount];
-    for (int i=0; i<pairCount; i = i + 2) {
+    for (int i=0; i <= pairCount; i = i + 2) {
         CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
         NSObject * argVal = [argsAndVals objectAtIndex:i+1];
         [av setObject:argVal forKey:arg];

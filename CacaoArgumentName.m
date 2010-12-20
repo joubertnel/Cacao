@@ -60,9 +60,5 @@ static NSMutableDictionary * table = nil;
         return existingArgumentNameInTable;
 }
 
-- (NSString *)name
-{
-    return [symbol name];
-}
 
 @end

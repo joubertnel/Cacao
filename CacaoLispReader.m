@@ -155,7 +155,6 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 }
 
 
-
 + (NSString *)readTokenFrom:(PushbackReader *)reader firstCharacter:(unichar)ch
 {
     NSMutableString * token = [NSMutableString string];

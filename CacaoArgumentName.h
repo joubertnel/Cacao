@@ -40,6 +40,6 @@
 
 + (CacaoArgumentName *)argumentNameInternedFromSymbol:(CacaoSymbol *)sym;
 
-- (NSString *)name;
+
 
 @end
