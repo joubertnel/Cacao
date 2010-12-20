@@ -55,10 +55,10 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 {                
     readerMacros = [NSDictionary dictionaryWithObjectsAndKeys:
                     cacaoStringReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'"'],
-                    cacaoListReaderMacro,                   [NSNumber numberWithUnsignedShort:(unichar)'('],
-                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)')'],  
-                    cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'['],
-                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)']'],
+                    cacaoListReaderMacro,                   [NSNumber numberWithUnsignedShort:(unichar)'<'],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)'|'],  
+                    cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'('],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)')'],
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];

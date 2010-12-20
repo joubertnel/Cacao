@@ -86,7 +86,7 @@ ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstChar
 };
 
 ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
-    NSArray * theList = [CacaoLispReader readListDelimitedWith:')' from:reader];
+    NSArray * theList = [CacaoLispReader readListDelimitedWith:'|' from:reader];
     return theList;
 };
 
@@ -99,7 +99,7 @@ ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unic
 };
 
 ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
-    NSArray * elements = [CacaoLispReader readListDelimitedWith:']' from:reader];
+    NSArray * elements = [CacaoLispReader readListDelimitedWith:')' from:reader];
     CacaoVector * vector = [CacaoVector vectorWithArray:elements];
     return vector;
 };

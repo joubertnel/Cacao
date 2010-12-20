@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
         }     
         @finally {
             [@"\n" writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
-            NSString * prompt = [NSString stringWithFormat:@"%@ > ", @""];
+            NSString * prompt = [NSString stringWithFormat:@"%@ ? ", @""];
             [prompt writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
         }
     } while (fgets(repl_input, MAX_LEN + 1, stdin));
