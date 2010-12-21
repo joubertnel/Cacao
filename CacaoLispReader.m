@@ -40,12 +40,21 @@
 // Reader Macros
 #import "CacaoReaderMacroInvokers.h"
 
+unichar CACAO_READER_STRING_CHAR = (unichar)'"';
+unichar CACAO_READER_LIST_START_CHAR = (unichar)'<';
+unichar CACAO_READER_LIST_END_CHAR = (unichar)'|';
+unichar CACAO_READER_LIST_COLLAPSE_CHAR = (unichar)']';
+NSString * CACAO_READER_LIST_COLLAPSE_STRING = @"]";
+unichar CACAO_READER_VECTOR_START_CHAR = (unichar)'(';
+unichar CACAO_READER_VECTOR_END_CHAR = (unichar)')';
+
+static unichar CACAO_READER_ARG_VAL_SEPARATOR = (unichar)':';
+static NSString * CACAO_ARG_VAL_SEPARATOR_STRING = @":";
+static NSString * CACAO_READER_KEYWORD_PREFIX = @":";
 
 static NSDictionary * readerMacros = nil;
 static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
-static unichar ARG_VAL_SEPARATOR = (unichar)':';
-static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 
 @implementation CacaoLispReader
 
@@ -54,11 +63,11 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 + (void)initialize
 {                
     readerMacros = [NSDictionary dictionaryWithObjectsAndKeys:
-                    cacaoStringReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'"'],
-                    cacaoListReaderMacro,                   [NSNumber numberWithUnsignedShort:(unichar)'<'],
-                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)'|'],  
-                    cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)'('],
-                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)')'],
+                    cacaoStringReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_STRING_CHAR],
+                    cacaoListReaderMacro,                   [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_LIST_START_CHAR],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_LIST_END_CHAR],
+                    cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_START_CHAR],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_END_CHAR],
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
@@ -107,7 +116,7 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
         ns = [matches objectAtIndex:1];
         name = [matches objectAtIndex:2];
         
-        bool isArgumentName = [token hasSuffix:ARG_VAL_SEPARATOR_STRING];
+        bool isArgumentName = [token hasSuffix:CACAO_ARG_VAL_SEPARATOR_STRING];
         if (isArgumentName)
         {
             CacaoSymbol * sym = [CacaoSymbol internSymbol:[name substringToIndex:name.length-1]
@@ -116,7 +125,7 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
         }
         
         CacaoSymbol * sym = [CacaoSymbol internSymbol:name inNamespace:ns]; 
-        bool isKeyword = [token hasPrefix:@":"];
+        bool isKeyword = [token hasPrefix:CACAO_READER_KEYWORD_PREFIX];
 
         if (isKeyword)
             return [CacaoKeyword keywordInternedFromSymbol:sym];
@@ -164,15 +173,15 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
     while (YES) {
         int nextChar = [reader read];
         if (nextChar == -1 || [CacaoLispReader isWhiteSpace:nextChar] || [CacaoLispReader isTerminatingMacro:nextChar] ||
-            nextChar == ARG_VAL_SEPARATOR)
+            nextChar == CACAO_READER_ARG_VAL_SEPARATOR || nextChar == CACAO_READER_LIST_COLLAPSE_CHAR)
         {
             BOOL tokenDone = YES;
-            if (nextChar == ARG_VAL_SEPARATOR) 
+            if (nextChar == CACAO_READER_ARG_VAL_SEPARATOR) 
             {
                 if (token.length == 0)
                     tokenDone = NO;
                 else
-                    [token appendString:ARG_VAL_SEPARATOR_STRING];
+                    [token appendString:CACAO_ARG_VAL_SEPARATOR_STRING];
             }
             else 
             {
@@ -304,7 +313,7 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
         
         ReaderMacro macroDispatcher = [CacaoLispReader readerMacroForChar:ch];        
         if (macroDispatcher != nil) {
-            NSObject * ret = macroDispatcher(reader, ch);           
+            NSObject * ret = macroDispatcher(reader, ch, nil);           
             if (ret == reader)
                 continue;
             return ret;
@@ -330,9 +339,16 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
 
 #pragma mark Support
 
-+ (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader
++ (NSArray *)readListDelimitedWith:(char)delim 
+                              from:(PushbackReader *)reader 
+                collapseListOnChar:(char)collapseChar
+          nestingIncreasesWithChar:(char)nestingChar
+                      nestingDepth:(uint)initialNestingDepth
 {
     NSMutableArray * theList = [NSMutableArray array];
+    uint nestingDepth = initialNestingDepth;    
+    BOOL collapsingMode = collapseChar != '\0';
+    
     while (YES) {
         int ch = [reader read];
         while([CacaoLispReader isWhiteSpace:ch])
@@ -341,30 +357,57 @@ static NSString * ARG_VAL_SEPARATOR_STRING = @":";
         if (ch == -1)
             @throw [NSException exceptionWithName:@"EOFException"
                                            reason:@"EOF while reading"
-                                         userInfo:nil];
+                                         userInfo:nil];      
+
         if (ch == delim)
             break;
         
         ReaderMacro macroDispatcher = [CacaoLispReader readerMacroForChar:ch];
         if (macroDispatcher != nil)
         {
-            id macroRet = macroDispatcher(reader, ch);
+            id macroRet = nil;
+            
+            if (collapsingMode && (ch == nestingChar))
+            {
+                nestingDepth++;
+                macroRet = macroDispatcher(reader, ch, nestingDepth, nil);
+            }
+            else
+                macroRet = macroDispatcher(reader, ch);
 
             // no op macros return the reader
             if (macroRet != reader)
                     [theList addObject:macroRet];                      
         }
-        else {
+        else if (collapsingMode && (ch == collapseChar))
+        {
+            // When encounter the collapse character, substitute it with the correct number of list delimiter
+            // characters, so that nested expressions are all enclosed
+            NSMutableArray * delimitersToCollapseList = [NSMutableArray arrayWithCapacity:nestingDepth];
+            for (ushort i=0; i <= nestingDepth; i++) {
+                [delimitersToCollapseList addObject:[NSNumber numberWithChar:delim]];                
+            }
+            [reader unreadSoThatNextCharsAre:delimitersToCollapseList];
+        }
+        else 
+        {
             [reader unreadSoThatNextCharIs:ch];
             id nextItem = [CacaoLispReader readFrom:reader eofValue:nil];
             if (nextItem != reader)
                 [theList addObject:nextItem];
-        }
-        
+        }        
     }
     
-    return [NSArray arrayWithArray:theList];
-    
+    return [NSArray arrayWithArray:theList];    
+}
+
++ (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader
+{
+    return [CacaoLispReader readListDelimitedWith:delim
+                                             from:reader
+                               collapseListOnChar:'\0'
+                         nestingIncreasesWithChar:'\0'
+                                     nestingDepth:0];
 }
 
 @end

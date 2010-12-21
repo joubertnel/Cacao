@@ -32,15 +32,17 @@
 
 
 @implementation PushbackReader
+
+@synthesize history;
 @synthesize stream;
 
 
 - (unichar)read
 {
-	if (mustReadFromHistory)
+	if ([self.history count] > 0)
 	{
-        unichar ch = history[0];
-        mustReadFromHistory = NO;
+        unichar ch = [[self.history objectAtIndex:0] unsignedShortValue];
+        [self.history removeObjectAtIndex:0];
         return ch;
 	}
 	else {
@@ -53,8 +55,12 @@
 
 - (void)unreadSoThatNextCharIs:(unichar)nextChar
 {
-    history[0] = nextChar;
-    mustReadFromHistory = YES;
+    [self.history setArray:[NSArray arrayWithObject:[NSNumber numberWithUnsignedShort:nextChar]]];
+}
+
+- (void)unreadSoThatNextCharsAre:(NSArray *)nextCharacters
+{
+    [self.history setArray:nextCharacters];
 }
 
 - (id)init:(NSInputStream *)theStream
@@ -62,8 +68,7 @@
 	[super init];
 	
 	[self setStream:theStream];	
-    history[0] = '\0'; // set the history to empty
-    mustReadFromHistory = NO;
+    [self setHistory:[NSMutableArray arrayWithCapacity:1]];
 	
 	return self;
 }

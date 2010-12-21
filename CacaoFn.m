@@ -71,12 +71,15 @@ NSString * const FnIdentityPrefix = @"Fn_";
 
 - (id)invokeWithArgsAndVals:(NSArray *)argsAndVals
 {
-    short pairCount = [argsAndVals count]/2;
-    NSMutableDictionary * av = [NSMutableDictionary dictionaryWithCapacity:pairCount];
-    for (int i=0; i <= pairCount; i = i + 2) {
-        CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
-        NSObject * argVal = [argsAndVals objectAtIndex:i+1];
-        [av setObject:argVal forKey:arg];
+    NSMutableDictionary * av = [NSMutableDictionary dictionary];
+    if (argsAndVals.count > 0)
+    {
+        short pairCount = [argsAndVals count]/2;
+        for (int i=0; i <= pairCount; i = i + 2) {
+            CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
+            NSObject * argVal = [argsAndVals objectAtIndex:i+1];
+            [av setObject:argVal forKey:arg];
+        }
     }
     return func(av);
 }

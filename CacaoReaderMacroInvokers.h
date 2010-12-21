@@ -32,9 +32,9 @@
 #import "CacaoLispReader.h"
 #import "CacaoVector.h"
 
-typedef NSObject * (^ReaderMacro)(PushbackReader *reader, unichar firstCharacter);
+typedef NSObject * (^ReaderMacro)(PushbackReader *reader, unichar firstCharacter, ...);
 
-ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstCharacter) {
+ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstCharacter, ...) {
     NSMutableString * theString = [NSMutableString string];
     for (unichar ch = [reader read]; ch != '"'; ch = [reader read])
     {
@@ -85,12 +85,23 @@ ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstChar
     return theString;       
 };
 
-ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
-    NSArray * theList = [CacaoLispReader readListDelimitedWith:'|' from:reader];
+ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, unichar firstCharacter, ...) {
+    uint initialNestingDepth = 0;
+    va_list optionals;
+    va_start(optionals, firstCharacter);
+    initialNestingDepth = va_arg(optionals, uint);
+    
+    NSArray * theList = [CacaoLispReader readListDelimitedWith:CACAO_READER_LIST_END_CHAR 
+                                                          from:reader
+                                            collapseListOnChar:CACAO_READER_LIST_COLLAPSE_CHAR
+                                      nestingIncreasesWithChar:CACAO_READER_LIST_START_CHAR
+                                                  nestingDepth:initialNestingDepth];
     return theList;
 };
 
-ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
+
+
+ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unichar firstCharacter, ...) {
     @throw [NSException exceptionWithName:@"UnreadableFormException"
                                    reason:@"Unreadable form"
                                  userInfo:nil];
@@ -98,8 +109,9 @@ ReaderMacro cacaoUnmatchedDelimiterReaderMacro = ^(PushbackReader * reader, unic
     return nothing;
 };
 
-ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCharacter) {
-    NSArray * elements = [CacaoLispReader readListDelimitedWith:')' from:reader];
+ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCharacter, ...) {
+    NSArray * elements = [CacaoLispReader readListDelimitedWith:CACAO_READER_VECTOR_END_CHAR
+                                                           from:reader];
     CacaoVector * vector = [CacaoVector vectorWithArray:elements];
     return vector;
 };

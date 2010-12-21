@@ -33,15 +33,18 @@
 
 @interface PushbackReader : NSObject {
     BOOL mustReadFromHistory;
+    ushort historyLength;
 	
-	unichar history[1];
-	NSInputStream	*stream;
+    NSMutableArray * history;
+	NSInputStream *stream;
 }
 
 @property (nonatomic, retain) NSInputStream * stream;
+@property (nonatomic, retain) NSMutableArray * history;
 
 - (unichar)read;
 - (void)unreadSoThatNextCharIs:(unichar)nextChar;
+- (void)unreadSoThatNextCharsAre:(NSArray *)nextCharacters;
 
 - (id)init:(NSInputStream *)theStream;
 

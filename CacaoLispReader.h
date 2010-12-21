@@ -36,12 +36,27 @@
 #define ratioPat	@"([-+]?[0-9]+)/([0-9]+)"
 #define floatPat	@"[-+]?[0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?[M]?"
 
+extern unichar CACAO_READER_STRING_CHAR;
+extern unichar CACAO_READER_LIST_START_CHAR;
+extern unichar CACAO_READER_LIST_END_CHAR;
+extern unichar CACAO_READER_LIST_COLLAPSE_CHAR;
+extern NSString * CACAO_READER_LIST_COLLAPSE_STRING;
+extern unichar CACAO_READER_VECTOR_START_CHAR;
+extern unichar CACAO_READER_VECTOR_END_CHAR;
 
 @interface CacaoLispReader : NSObject {
 
 }
 
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue;
+
++ (NSArray *)readListDelimitedWith:(char)delim 
+                              from:(PushbackReader *)reader 
+                collapseListOnChar:(char)collapseChar
+          nestingIncreasesWithChar:(char)nestingChar
+                      nestingDepth:(uint)initialNestingDepth;
+
 + (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader;
+
 
 @end
