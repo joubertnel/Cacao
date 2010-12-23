@@ -36,10 +36,24 @@
 
 - (void)testFnBasic
 {
-    NSString * test = @"(let [echo-func (fn [x] x)] (echo-func \"test\"))";
+    NSString * test = @"<let (echo <fn (text) text|) <echo text:\"test\"]";
     NSString * result = (NSString *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result isEqualToString:@"test"], nil);
-    
+    STAssertTrue([result isEqualToString:@"test"], nil);    
+}
+
+- (void)testMultipleArgs
+{
+    NSString * expression = @"<let (echo <fn (x y) x|) <echo x:\"first\" y:\"second\"]";
+    NSString * result = (NSString *)[CacaoEnvironment evalText:expression inEnvironment:env];
+    STAssertTrue([result isEqual:@"first"], nil);
+}
+
+- (void)testInsufficientArgs
+{
+    NSString * expression = @"<let (echo <fn (x y) x|) <echo x:\"first\"]";
+    STAssertThrowsSpecificNamed([CacaoEnvironment evalText:expression inEnvironment:env],
+                                NSException,
+                                @"Incorrect CacaoFn invocation", nil);
 }
 
 @end

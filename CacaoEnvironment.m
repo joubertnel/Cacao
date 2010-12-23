@@ -33,7 +33,11 @@
 //    or implied, of Joubert Nel.
 
 #import <objc/objc-runtime.h>
+#import <ObjCHiredis/ObjCHiredis.h>
 #import "CacaoEnvironment.h"
+#import "CacaoLispReader.h"
+#import "PushbackReader.h"
+
 
 
 static NSString * GLOBAL_NAMESPACE = @"cacao";
@@ -206,8 +210,15 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalText:(NSString *)x inEnvironment:(CacaoEnvironment *)env
 {
-    CacaoAST * ast = [CacaoAST astWithText:x];
-    return [CacaoEnvironment eval:ast.tree inEnvironment:env];
+    NSData * inputData = [x dataUsingEncoding:NSUTF8StringEncoding];
+    NSInputStream * stream = [NSInputStream inputStreamWithData:inputData];
+    [stream open];
+    PushbackReader * reader = [[PushbackReader alloc] init:stream];
+    NSObject * readerOutput = [CacaoLispReader readFrom:reader eofValue:nil];
+    NSObject * result = [CacaoEnvironment eval:readerOutput inEnvironment:env];
+    [reader release];
+    [stream close];
+    return result;
 }
 
 + (id)eval:(id)x inEnvironment:(CacaoEnvironment *)env
@@ -374,7 +385,9 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         return result;
     };
     
-    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:fnOp];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:fnOp
+                                            params:params];
+    
     return fn;
 }
 

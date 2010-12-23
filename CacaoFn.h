@@ -38,13 +38,15 @@ extern NSString * const FnIdentityPrefix;
 @interface CacaoFn : NSObject {
     DispatchFunction func;
     NSString * identity;
+    NSSet * argNames;
     
 }
 
 @property (copy) DispatchFunction func;
 @property (nonatomic, retain) NSString * identity;
+@property (nonatomic, retain) NSSet * argNames;
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc params:(CacaoVector *)theArgs;
 
 - (NSString *)printable;
 - (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;

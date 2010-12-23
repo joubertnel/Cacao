@@ -39,7 +39,7 @@ NSString * const FnIdentityPrefix = @"Fn_";
 
 @synthesize func;
 @synthesize identity;
-
+@synthesize argNames;
 
 - (CacaoFn *)init
 {
@@ -55,10 +55,15 @@ NSString * const FnIdentityPrefix = @"Fn_";
     return self;
 }
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc;
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc params:(CacaoVector *)theArgs;
 {
     CacaoFn * fn = [[CacaoFn alloc] init];
-    [fn setFunc:theFunc];
+    [fn setFunc:theFunc];    
+    NSMutableSet * theArgNames = [NSMutableSet setWithCapacity:theArgs.count];
+    for (CacaoSymbol * arg in theArgs.elements)
+        [theArgNames addObject:arg.name];
+    
+    [fn setArgNames:[NSSet setWithSet:theArgNames]];
     return [fn autorelease];
 }
 
@@ -71,17 +76,43 @@ NSString * const FnIdentityPrefix = @"Fn_";
 
 - (id)invokeWithArgsAndVals:(NSArray *)argsAndVals
 {
+    BOOL invokeSignatureCorrect = NO;
     NSMutableDictionary * av = [NSMutableDictionary dictionary];
     if (argsAndVals.count > 0)
     {
-        short pairCount = [argsAndVals count]/2;
-        for (int i=0; i <= pairCount; i = i + 2) {
-            CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
-            NSObject * argVal = [argsAndVals objectAtIndex:i+1];
-            [av setObject:argVal forKey:arg];
-        }
+        if (argsAndVals.count % 2 == 0)            
+        {
+            NSUInteger pairCount = [argsAndVals count]/2;
+            if (pairCount == self.argNames.count)
+            {
+                invokeSignatureCorrect = YES;
+
+                for (NSUInteger i=0; i <= pairCount; i = i + 2) {
+                    CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
+                    if (![self.argNames containsObject:arg.name])
+                    {
+                        invokeSignatureCorrect = NO;
+                        break;
+                    }
+                    NSObject * argVal = [argsAndVals objectAtIndex:i+1];
+                    [av setObject:argVal forKey:arg];
+                }
+            }
+        }        
     }
-    return func(av);
+    if (invokeSignatureCorrect)
+        return func(av);
+    else 
+    {
+        NSMutableString * correctInvocation = [NSMutableString stringWithFormat:@"Specify each argument, e.g. <fnsym "];
+        for (NSString * aName in self.argNames)
+            [correctInvocation appendFormat:@"%@:... ", aName];
+        [correctInvocation appendString:@"|"];
+        @throw [NSException exceptionWithName:@"Incorrect CacaoFn invocation"
+                                       reason:correctInvocation
+                                     userInfo:nil];
+    }
+
 }
 
 @end
