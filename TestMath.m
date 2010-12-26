@@ -36,42 +36,42 @@
 
 - (void)testIntegerEquality
 {
-    NSString * test = @"(= 5 5)";
+    NSString * test = @"<= 5 5|";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 
 - (void)testIntegerInequality
 {
-    NSString * test = @"(= 5 123)";
+    NSString * test = @"<= 5 123|";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertFalse([result boolValue], nil);
 }
 
 - (void)testIntegerAddition
 {   
-    NSString * test = @"(= 7 (+ 4 3))";
+    NSString * test = @"<= 7 <+ 4 3]";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 
 - (void)testIntegerSubtraction
 {
-    NSString * test = @"(= 8 (- 20 12))";
+    NSString * test = @"<= 8 <- 20 12]";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 
 - (void)testIntegerMultiplication
 {
-    NSString * test = @"(= 999 (* 3 333))";
+    NSString * test = @"<= 999 <* 3 333]";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
 
 - (void)testIntegerDivision
 {
-    CacaoAST * ast = [CacaoAST astWithText:@"(= 10 (/ 20 2))"];
+    CacaoAST * ast = [CacaoAST astWithText:@"<= 10 </ 20 2]"];
     NSNumber * result = (NSNumber *)[CacaoEnvironment eval:ast.tree inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }

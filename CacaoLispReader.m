@@ -85,7 +85,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 
 + (BOOL)isWhiteSpace:(unichar)ch
 {
-    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:ch] ||
+    if (ch == 127 || [[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:ch] ||
         [additionalWhitespaceCharacterSet characterIsMember:ch])
         return YES;
     else
@@ -172,7 +172,8 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     [token appendString:[NSString stringWithCharacters:charArray length:1]];
     while (YES) {
         int nextChar = [reader read];
-        if (nextChar == -1 || [CacaoLispReader isWhiteSpace:nextChar] || [CacaoLispReader isTerminatingMacro:nextChar] ||
+        if (nextChar == -1 || [CacaoLispReader isWhiteSpace:nextChar] || 
+            [CacaoLispReader isTerminatingMacro:nextChar] ||
             nextChar == CACAO_READER_ARG_VAL_SEPARATOR || nextChar == CACAO_READER_LIST_COLLAPSE_CHAR)
         {
             BOOL tokenDone = YES;

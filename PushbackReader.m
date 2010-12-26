@@ -47,7 +47,7 @@
 	}
 	else {
 		uint8_t aChar;
-		[stream read:&aChar maxLength:1];
+		[stream read:&aChar maxLength:1];      
 		return (unichar)aChar;		
 	}
 }

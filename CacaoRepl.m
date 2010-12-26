@@ -31,9 +31,9 @@
 #import "CacaoRepl.h"
 #import "CacaoEnvironment.h"
 #import <stdio.h>
+#import <editline/readline.h>
 
-
-#define MAX_LEN 1000
+static NSString * historyFile = @"~/.cacao_history";
 
 @implementation CacaoRepl
 
@@ -52,6 +52,33 @@
 
 @end
 
+void initialize_readline()
+{
+    rl_readline_name = "Cacao";
+    stifle_history(100);  // only remember up to 100 items in the history
+    read_history([[historyFile stringByExpandingTildeInPath] cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+/* Strip whitespace from the start and end of STRING.  Return a pointer
+ into STRING. */
+
+char * stripwhite (char *string)
+{
+    register char *s, *t;
+    
+    for (s = string; isspace (*s); s++)
+        ;
+    
+    if (*s == 0)
+        return (s);
+    
+    t = s + strlen (s) - 1;
+    while (t > s && isspace (*t))
+        t--;
+    *++t = '\0';
+    
+    return s;
+}
 
 int main(int argc, char* argv[])
 {
@@ -60,16 +87,36 @@ int main(int argc, char* argv[])
     
     [CacaoRepl displayWelcome];
    
-    char repl_input[MAX_LEN + 1];
+    char *line;
+    setlocale(LC_CTYPE, "");
+    initialize_readline();
     
     CacaoEnvironment * globalEnv = [CacaoEnvironment globalEnvironment];
     
-    do {        
-        @try 
-        {
-            NSString * cacaoReplInput = [NSString stringWithCString:repl_input encoding:NSUTF8StringEncoding];
+    for ( ; ; )
+    {
+        @try {
+            
+            line = readline("? ");
+            if (!line)
+                break;
+            
+            
+            NSString * cacaoReplInput = [NSString stringWithUTF8String:stripwhite(line)];
             if ([cacaoReplInput length] > 0)
             {
+                char * expansion;
+                int historyExpansionResult = history_expand(line, &expansion);
+                if (historyExpansionResult < 0 || historyExpansionResult == 2)
+                {
+                    @throw [NSException exceptionWithName:@"HistoryExpandError" 
+                                                   reason:[NSString stringWithUTF8String:expansion]
+                                                 userInfo:nil];
+                }
+                    
+                add_history(expansion);
+                free(expansion);
+
                 NSData * inputData = [cacaoReplInput dataUsingEncoding:NSUTF8StringEncoding];
                 NSInputStream * stream = [NSInputStream inputStreamWithData:inputData];
                 [stream open];
@@ -78,27 +125,30 @@ int main(int argc, char* argv[])
                 NSObject * result = [CacaoEnvironment eval:readerOutput inEnvironment:globalEnv];
                 [pushbackReader release];
                 [stream close];
-                 
+                
                 NSString * printable = @"";
                 if ([result respondsToSelector:@selector(printable)])
                     printable = [result performSelector:@selector(printable)];
                 [printable writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
             }
+            
+            
         }
-        @catch (NSException * e) {            
+        @catch (NSException * e) {
             NSString * errorMessage = [NSString stringWithFormat:@"\n\n%@: %@\n\n Stacktrace:\n", [e name], [e reason]];
             [errorMessage writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
             [[e callStackSymbols] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 NSString * stackTraceLine = [NSString stringWithFormat:@"%@\n", obj];
                 [stackTraceLine writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
             }];
-        }     
+            
+        }
         @finally {
             [@"\n" writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
-            NSString * prompt = [NSString stringWithFormat:@"%@ ? ", @""];
-            [prompt writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
+            free(line);
+            write_history([[historyFile stringByExpandingTildeInPath] cStringUsingEncoding:NSUTF8StringEncoding]);
         }
-    } while (fgets(repl_input, MAX_LEN + 1, stdin));
-    
+    }
+      
     [pool drain];
 }

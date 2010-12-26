@@ -67,61 +67,24 @@
     return theNumber;
 }
 
-+ (id)atomFrom:(NSString *)token
-{
-    id theAtom = nil;
-    theAtom = [CacaoAST makeAtomForStringToken:token];
-    if (theAtom == nil)
-    {
-        theAtom = [CacaoAST makeAtomForNumberToken:token];
-        if (theAtom == nil)
-        {
-            theAtom = [CacaoSymbol symbolWithName:token];
-        }
-    }    
-    return theAtom;
-}
+//+ (id)atomFrom:(NSString *)token
+//{
+//    id theAtom = nil;
+//    theAtom = [CacaoAST makeAtomForStringToken:token];
+//    if (theAtom == nil)
+//    {
+//        theAtom = [CacaoAST makeAtomForNumberToken:token];
+//        if (theAtom == nil)
+//        {
+//            theAtom = [CacaoSymbol symbolWithName:token];
+//        }
+//    }    
+//    return theAtom;
+//}
 
 #pragma mark Parsing
 
-+ (id)readFrom:(NSMutableArray *)tokens
-{
-    if ([tokens count] == 0)
-        [NSException raise:@"EOF" format:@"EOF"];
 
-    NSString * token = [tokens objectAtIndex:0];
-    [tokens removeObjectAtIndex:0];
-    
-    if ([token isEqualToString:@"("])
-    {
-        NSMutableArray * list = [NSMutableArray array];
-        while (![[tokens objectAtIndex:0] isEqualToString:@")"])
-        {               
-            [list addObject:[CacaoAST readFrom:tokens]];
-        }
-        [tokens removeObjectAtIndex:0]; // remove ")"
-        return [NSArray arrayWithArray:list];
-    }
-    else if ([token isEqualToString:@")"])
-    {
-        [NSException raise:@"unexpected" format:@"unexpected"];
-        return nil;
-    }
-    else if ([token isEqualToString:@"nil"])
-        return [CacaoNil nilObject];
-    else if ([token isEqualToString:@"["])
-    {
-        NSMutableArray * vectorElements = [NSMutableArray array];
-        while (![[tokens objectAtIndex:0] isEqualToString:@"]"])
-        {
-            [vectorElements addObject:[CacaoAST readFrom:tokens]];
-        }
-        [tokens removeObjectAtIndex:0]; // remove "]"
-        return [CacaoVector vectorWithArray:vectorElements];
-    }
-    else return [CacaoAST atomFrom:token];
-
-}
 
 
 - (void)tokenize
@@ -154,38 +117,16 @@
     }
 }
 
-- (void)parse
-{
-    [self tokenize];
-    NSMutableArray * tokensToProcess = [NSMutableArray arrayWithArray:self.tokens];
-    [self setTree:[CacaoAST readFrom:tokensToProcess]];
-}
+
                              
 
 #pragma mark Life cycle
 
-- (CacaoAST *)initWithText:(NSString *)theText
-{
-    if ((self = [super init]))
-    {
-        if ([theText hasSuffix:@"\n"])
-            theText = [theText substringToIndex:(theText.length - 1)];
-        [self setSource:theText];
-        [self parse];
-    }
-    return self;
-}
 
-+ (CacaoAST *)astWithText:(NSString *)theText
-{
-    CacaoAST * ast = [[CacaoAST alloc] initWithText:theText];
-    return [ast autorelease];
-}
 
-+ (CacaoAST *)astWithTokens:(NSArray *)theTokens
-{
-    
-}
+
+
+
 
 - (NSString *)toString
 {
