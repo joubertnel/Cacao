@@ -31,6 +31,7 @@
 #import "CacaoSymbol.h"
 #import "CacaoUtil.h"
 
+static NSMutableDictionary * table = nil;
 
 @implementation CacaoSymbol
 
@@ -39,13 +40,29 @@
 @synthesize cacaoHash;
 
 #pragma mark Lifecycle
-+ (CacaoSymbol *)symbolWithName:(NSString *)theName inNamespace:(NSString *)theNamespace
+
++ (void)initialize
 {
-    CacaoSymbol * symbol = [[CacaoSymbol alloc] init];
-    [symbol setName:theName];
-    [symbol setNs:theNamespace];
-    [symbol setCacaoHash:[CacaoUtil hashFromHash:[theNamespace hash] withSeed:[theName hash]]];
-    return [symbol autorelease];
+    table = [NSMutableDictionary dictionary];
+}
+
++ (CacaoSymbol *)symbolWithName:(NSString *)theName inNamespace:(NSString *)theNamespace
+{  
+    CacaoSymbol * existingSymbolInTable = nil;
+    if (theNamespace == nil)
+        theNamespace = @"";
+    NSString * qualifiedName = [NSString stringWithFormat:@"%@/%@", theNamespace, theName];
+    existingSymbolInTable = [table objectForKey:qualifiedName];
+    if (existingSymbolInTable != nil)
+        return existingSymbolInTable;
+    else {
+        CacaoSymbol * symbol = [[CacaoSymbol alloc] init];
+        [symbol setName:theName];
+        [symbol setNs:theNamespace];
+        [symbol setCacaoHash:[CacaoUtil hashFromHash:[theNamespace hash] withSeed:[theName hash]]];
+        [table setObject:symbol forKey:qualifiedName];
+        return [symbol autorelease];
+    }
 }
 
 + (CacaoSymbol *)internSymbol:(NSString *)theName inNamespace:(NSString *)theNamespace

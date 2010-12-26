@@ -34,18 +34,17 @@
 
 #import <objc/objc-runtime.h>
 #import <ObjCHiredis/ObjCHiredis.h>
+#import "CacaoCore.h"
 #import "CacaoEnvironment.h"
 #import "CacaoLispReader.h"
 #import "PushbackReader.h"
 
 
 
-static NSString * GLOBAL_NAMESPACE = @"cacao";
 
 static NSString * REST_PARAM_DELIMETER = @"&";
 
-static NSString * SYMBOL_NAME_YES = @"YES";
-static NSString * SYMBOL_NAME_NO = @"NO";
+
 
 static NSString * SPECIAL_FORM_TEXT_DEF = @"def";
 static NSString * SPECIAL_FORM_TEXT_LET = @"let";
@@ -67,59 +66,6 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 #pragma mark Lifecycle
 
-+ (NSDictionary *)defaultGlobalMappings
-{
-//    CacaoSymbol * yesSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_YES inNamespace:GLOBAL_NAMESPACE];
-//    CacaoSymbol * noSymbol = [CacaoSymbol symbolWithName:SYMBOL_NAME_NO inNamespace:GLOBAL_NAMESPACE];
-//    
-//    CacaoSymbol * sumOpSymbol = [CacaoSymbol symbolWithName:@"+" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * sumFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-//        int sum = 0;
-//        for (NSNumber * number in params)
-//            if (number)
-//                sum += [number intValue];
-//        return [NSNumber numberWithInt:sum];
-//    }];
-//    
-//    CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * multiplyFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-//        int answer = 1;
-//        for (NSNumber * number in params)
-//            answer *= [number intValue];
-//        return [NSNumber numberWithInt:answer];
-//    }];    
-//    
-//    CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * subtractFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-//        NSNumber * firstNumber;
-//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-//        int answer = [firstNumber intValue];
-//        for (NSNumber * number in remainingNumbers)
-//            answer -= [number intValue];
-//        return [NSNumber numberWithInt:answer];
-//    }];
-//    
-//    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSArray * params) {
-//        NSNumber * firstNumber;
-//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-//        int answer = [firstNumber intValue];
-//        for (NSNumber * number in remainingNumbers)
-//            answer /= [number intValue];
-//        return [NSNumber numberWithInt:answer];
-//    }];    
-//      
-//    NSDictionary * globalMappings = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                     [NSNumber numberWithBool:YES], yesSymbol,
-//                                     [NSNumber numberWithBool:NO], noSymbol,
-//                                     sumFn, sumOpSymbol, 
-//                                     multiplyFn, multiplyOpSymbol,
-//                                     subtractFn, subtractOpSymbol,
-//                                     divideFn, divideOpSym,
-//                                     nil];
-//    return globalMappings;
-    return nil;
-}
 
 
 
@@ -127,7 +73,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 {
     CacaoEnvironment * environment = [[CacaoEnvironment alloc] init];
     [environment setOuter:theOuter];    
-    [environment setMappingTable:[NSMutableDictionary dictionaryWithDictionary:defaultMappings]];
+    [environment setMappingTable:[NSMutableDictionary dictionaryWithDictionary:CacaoCore.functions]];
     return [environment autorelease];
 }
 
@@ -154,7 +100,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (CacaoEnvironment *)globalEnvironment
 {
-    CacaoEnvironment * environment = [CacaoEnvironment environmentWith:[CacaoEnvironment defaultGlobalMappings]
+    CacaoEnvironment * environment = [CacaoEnvironment environmentWith:[CacaoCore functions]
                                                       outerEnvironment:nil];
     return environment;                                        
 }

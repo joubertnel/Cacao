@@ -320,16 +320,16 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
             return ret;
         }      
         
-        if (ch == '+' || ch == '-')
-        {
-            unichar ch2 = [reader read];
-            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
-            {
-                id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
-                return number;
-            }
-            [reader unreadSoThatNextCharIs:ch2];
-        }
+//        if (ch == '+' || ch == '-')
+//        {
+//            unichar ch2 = [reader read];
+//            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
+//            {
+//                id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
+//                return number;
+//            }
+//            [reader unreadSoThatNextCharIs:ch2];
+//        }
         
         NSString * token = [CacaoLispReader readTokenFrom:reader firstCharacter:ch];
         return [CacaoLispReader interpretToken:token];
@@ -360,7 +360,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
                                            reason:@"EOF while reading"
                                          userInfo:nil];      
 
-        if (ch == delim)
+        if (ch == delim || ch == 0)
             break;
         
         ReaderMacro macroDispatcher = [CacaoLispReader readerMacroForChar:ch];

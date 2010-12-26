@@ -63,6 +63,9 @@
 		BE9302F112BED306007A4826 /* CacaoArgumentName.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9302EF12BED306007A4826 /* CacaoArgumentName.h */; };
 		BE9302F212BED306007A4826 /* CacaoArgumentName.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9302F012BED306007A4826 /* CacaoArgumentName.m */; };
 		BE9302F312BED306007A4826 /* CacaoArgumentName.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9302F012BED306007A4826 /* CacaoArgumentName.m */; };
+		BE93D64512C6D28900B42625 /* CacaoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93D64312C6D28900B42625 /* CacaoCore.h */; };
+		BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93D64412C6D28900B42625 /* CacaoCore.m */; };
+		BE93D64712C6D28900B42625 /* CacaoCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93D64412C6D28900B42625 /* CacaoCore.m */; };
 		BE93F79312BBE3AD007A4826 /* CacaoLispReader.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93F79112BBE3AD007A4826 /* CacaoLispReader.h */; };
 		BE93F79412BBE3AD007A4826 /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
 		BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
@@ -143,6 +146,8 @@
 		BE93014512BD4AFA007A4826 /* CacaoKeyword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoKeyword.m; sourceTree = "<group>"; };
 		BE9302EF12BED306007A4826 /* CacaoArgumentName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoArgumentName.h; sourceTree = "<group>"; };
 		BE9302F012BED306007A4826 /* CacaoArgumentName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoArgumentName.m; sourceTree = "<group>"; };
+		BE93D64312C6D28900B42625 /* CacaoCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoCore.h; sourceTree = "<group>"; };
+		BE93D64412C6D28900B42625 /* CacaoCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoCore.m; sourceTree = "<group>"; };
 		BE93F79112BBE3AD007A4826 /* CacaoLispReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoLispReader.h; sourceTree = "<group>"; };
 		BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoLispReader.m; sourceTree = "<group>"; };
 		BE93F94612BC163D007A4826 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
@@ -317,6 +322,8 @@
 				BE93F79012BBE395007A4826 /* Readers */,
 				BEB2936A128EF3350092F199 /* CacaoAST.h */,
 				BEB2936B128EF3350092F199 /* CacaoAST.m */,
+				BE93D64312C6D28900B42625 /* CacaoCore.h */,
+				BE93D64412C6D28900B42625 /* CacaoCore.m */,
 				BEB2949D128F0AF30092F199 /* CacaoRepl.h */,
 				BEB2949E128F0AF30092F199 /* CacaoRepl.m */,
 				BEB29821128F376B0092F199 /* CacaoSymbol.h */,
@@ -436,6 +443,7 @@
 				BE93011312BD4492007A4826 /* CacaoUtil.h in Headers */,
 				BE93014612BD4AFA007A4826 /* CacaoKeyword.h in Headers */,
 				BE9302F112BED306007A4826 /* CacaoArgumentName.h in Headers */,
+				BE93D64512C6D28900B42625 /* CacaoCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +605,7 @@
 				BE93011412BD4492007A4826 /* CacaoUtil.m in Sources */,
 				BE93014712BD4AFA007A4826 /* CacaoKeyword.m in Sources */,
 				BE9302F212BED306007A4826 /* CacaoArgumentName.m in Sources */,
+				BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +648,7 @@
 				BE93014812BD4AFA007A4826 /* CacaoKeyword.m in Sources */,
 				BE9302F312BED306007A4826 /* CacaoArgumentName.m in Sources */,
 				BE98BD8912C3E74900E21BD2 /* CacaoAST.m in Sources */,
+				BE93D64712C6D28900B42625 /* CacaoCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
