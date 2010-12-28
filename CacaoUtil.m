@@ -47,4 +47,15 @@
     return seed;
 }
 
++ (NSString*)stringWithRepeatCharacter:(char)character times:(unsigned int)repetitions;
+{
+    char repeatString[repetitions + 1];
+    memset(repeatString, character, repetitions);
+    
+    // Set terminating null
+    repeatString[repetitions] = 0;
+    
+    return [NSString stringWithCString:repeatString encoding:NSASCIIStringEncoding];
+}
+
 @end

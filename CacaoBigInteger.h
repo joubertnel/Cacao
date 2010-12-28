@@ -1,5 +1,5 @@
 //
-//  CacaoUtil.h
+//  CacaoBigInteger.h
 //  Cacao
 //
 //    Copyright 2010, Joubert Nel. All rights reserved.
@@ -31,12 +31,19 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface CacaoUtil : NSObject {
 
+@interface CacaoBigInteger : NSObject {
+    NSString * textual;
+    NSArray * groups;
 }
 
-+ (int)hash:(id)theObject;
-+ (int)hashFromHash:(int)hash withSeed:(int)seed;
-+ (NSString*)stringWithRepeatCharacter:(char)character times:(unsigned int)repetitions;
+@property (nonatomic, copy) NSString * textual;
+@property (nonatomic, retain) NSArray * groups;
+
++ (CacaoBigInteger *)bigIntegerFromText:(NSString *)text;
+- (CacaoBigInteger *)add:(CacaoBigInteger *)anotherNumber;
+- (void)negate;
+
+- (NSString *)printable;
 
 @end

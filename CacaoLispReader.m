@@ -32,6 +32,7 @@
 #import "CacaoSymbol.h"
 #import "CacaoArgumentName.h"
 #import "CacaoKeyword.h"
+#import "CacaoBigInteger.h"
 #import "BigInteger.h"
 #import "BigDecimal.h"
 #import "GMPRational.h"
@@ -237,8 +238,10 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 			base = [[theString stringByMatching:intPat capture:6] intValue];		
 		if (n == nil)
 			return nil;
-		BigInteger *bn = [BigInteger bigIntegerWithValue:n base:base];
-		if (negate) bn = [bn negate];
+        CacaoBigInteger *bn = [CacaoBigInteger bigIntegerFromText:n];
+//		BigInteger *bn = [BigInteger bigIntegerWithValue:n base:base];
+		if (negate) 
+            [bn negate];
 		return bn;			
 	}
     

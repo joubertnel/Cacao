@@ -9,6 +9,7 @@
 #import "CacaoCore.h"
 #import "CacaoSymbol.h"
 #import "CacaoFn.h"
+#import "CacaoBigInteger.h"
 
 static NSString * GLOBAL_NAMESPACE = @"cacao";
 static NSString * SYMBOL_NAME_YES = @"YES";
@@ -26,12 +27,11 @@ static NSString * SYMBOL_NAME_NO = @"NO";
     CacaoSymbol * sumArgSym = [CacaoSymbol symbolWithName:sumArgName inNamespace:nil];
     CacaoVector * sumArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObject:sumArgSym]];
     CacaoFn * sumFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-        int sum = 0;
+        CacaoBigInteger * sum = [CacaoBigInteger bigIntegerFromText:@"0"];
         CacaoVector * numbers = [argsAndVals objectForKey:sumArgSym];
-        for (NSNumber * number in numbers.elements)
-            if (number)
-                sum += [number intValue];
-        return [NSNumber numberWithInt:sum];
+        for (CacaoBigInteger * number in numbers.elements)
+            sum = [sum add:number];
+        return sum;
     } params:sumArgs];
     
     //CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
