@@ -134,9 +134,24 @@ static cl_kernel opencl_add_kernel;
 }
 
 - (CacaoBigInteger *)add:(CacaoBigInteger *)number
-{
+{        
     int thisNumberGroupCount = [self.groups count];
     int otherNumberGroupCount = [number.groups count];
+    
+    // Short circuit if this number is zero
+    if (thisNumberGroupCount == 1)
+    {
+        if ([[self.groups objectAtIndex:0] longLongValue] == 0)
+            return number; // return the other number because adding zero to it keeps it unchanged
+    }
+    
+    // Short circuit if the other number is zero
+    if (otherNumberGroupCount == 1)
+    {
+        if ([[number.groups objectAtIndex:0] longLongValue] == 0)
+            return self; // return this number because adding zero to it keeps it unchanged
+    }
+    
     int resultGroupCount = thisNumberGroupCount + 1;
     if (otherNumberGroupCount > resultGroupCount)
         resultGroupCount = otherNumberGroupCount + 1;

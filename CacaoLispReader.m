@@ -215,14 +215,12 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 	NSRange		searchRange		= NSMakeRange(0, [theString length]);
 	NSRange		matchedRange;
 	NSError		*error			= nil;
-	
-    
-	
+		
 	matchedRange = [theString rangeOfRegex:intPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
 	if (matchedRange.length == searchRange.length)
 	{
 		if ([theString stringByMatching:intPat capture:2] != nil)
-            return [NSNumber numberWithInteger:0];
+            return [CacaoBigInteger bigIntegerFromText:@"0"];
 		
         NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
 		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
