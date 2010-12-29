@@ -60,6 +60,7 @@ static cl_context opencl_context;
 static cl_program opencl_program;
 static cl_kernel opencl_add_kernel;
 
+
 @implementation CacaoBigInteger
 
 @synthesize textual;
@@ -118,10 +119,17 @@ static cl_kernel opencl_add_kernel;
 {
     CacaoBigInteger * bigInt = [[CacaoBigInteger alloc] init];
     [bigInt setTextual:text];
-    
+   
     // A CacaoBigInteger is represented internally by groups of 'long long' values (64 bit integers)
     // stored in reverse order.
     [bigInt setGroups:[CacaoBigInteger getGroupsReverseOrder:text]];    
+    return [bigInt autorelease];    
+}
+
++ (CacaoBigInteger *)bigIntegerFromDigitGroups:(NSArray *)digitGroups
+{
+    CacaoBigInteger * bigInt = [[CacaoBigInteger alloc] init];
+    [bigInt setGroups:digitGroups];
     return [bigInt autorelease];    
 }
 
@@ -195,31 +203,26 @@ static cl_kernel opencl_add_kernel;
     
     // Although we could add the digit groups in parallel, updating each digit group for carry over
     // must be done sequentially. 
+    NSMutableArray * answerDigitGroups = [NSMutableArray arrayWithCapacity:resultGroupCount];
     for (int i=0; i < resultGroupCount; i++)
     {
         long long groupVal = results[i];
         if ((groupVal > NON_CARRY_LIMIT) && (i <= (resultGroupCount)))
         {
-            results[i] = groupVal - CARRY_REMOVE;
+            groupVal = groupVal - CARRY_REMOVE;
             results[i+1] = results[i+1] + 1;
-        }
+        }        
+        [answerDigitGroups insertObject:[NSNumber numberWithLongLong:groupVal] atIndex:i];
     }
     
-    //Create a textual representation of the result.    
-    NSMutableString * answerText = [NSMutableString stringWithCapacity:resultGroupCount * DIGIT_GROUP_LENGTH];
-    for (int i=resultGroupCount-1; i >= 0; i--)
-        if (results[i] != 0)
-            [answerText appendFormat:@"%qi", results[i]];
-
-    
+    CacaoBigInteger * answer = [CacaoBigInteger bigIntegerFromDigitGroups:answerDigitGroups];
+            
     // Free up the memory we allocated
     assert(clReleaseMemObject(result_mem) == CL_SUCCESS);
     assert(clReleaseMemObject(b_mem) == CL_SUCCESS);
     assert(clReleaseMemObject(a_mem) == CL_SUCCESS);    
     assert(clReleaseCommandQueue(opencl_commands) == CL_SUCCESS);
 
-    // Let's return the result as a CacaoBigInteger.
-    CacaoBigInteger * answer = [CacaoBigInteger bigIntegerFromText:answerText];
     return answer;
 }
 
@@ -231,6 +234,19 @@ static cl_kernel opencl_add_kernel;
 
 - (NSString *)printable
 {
+    if (self.textual == nil)
+    {
+        //Create a textual representation of the result.    
+        int digitGroupCount = [self.groups count];
+        NSMutableString * numberAsText = [NSMutableString stringWithCapacity:digitGroupCount * DIGIT_GROUP_LENGTH];
+        for (int i=digitGroupCount-1; i >= 0; i--)
+        {
+            long long groupValue = [[self.groups objectAtIndex:i] longLongValue];
+            if (groupValue != 0)
+                [numberAsText appendFormat:@"%qi", groupValue];
+        }
+        [self setTextual:[NSString stringWithString:numberAsText]];
+    }
     return [self textual];
 }
 
