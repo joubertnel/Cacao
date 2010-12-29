@@ -237,7 +237,6 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 		if (n == nil)
 			return nil;
         CacaoBigInteger *bn = [CacaoBigInteger bigIntegerFromText:n];
-//		BigInteger *bn = [BigInteger bigIntegerWithValue:n base:base];
 		if (negate) 
             [bn negate];
 		return bn;			

@@ -66,6 +66,9 @@ static cl_kernel opencl_add_kernel;
 @synthesize textual;
 @synthesize groups;
 
+
+#pragma mark Lifecycle
+
 + (void)initialize
 {
     // Set up OpenCL for use on the GPU, including compilation of the OpenCL
@@ -133,20 +136,43 @@ static cl_kernel opencl_add_kernel;
     return [bigInt autorelease];    
 }
 
++ (CacaoBigInteger *)bigIntegerFromLongLong:(long long)number
+{
+    NSArray * digitGroups = [NSArray arrayWithObject:[NSNumber numberWithLongLong:number]];
+    return [CacaoBigInteger bigIntegerFromDigitGroups:digitGroups];
+}
+
+
+#pragma mark Behavior
+
 - (CacaoBigInteger *)add:(CacaoBigInteger *)number
 {        
     int thisNumberGroupCount = [self.groups count];
     int otherNumberGroupCount = [number.groups count];
+
+    BOOL thisNumberHasOnlyOneGroup = (thisNumberGroupCount == 1);
+    BOOL otherNumberHasOnlyOneGroup = (otherNumberGroupCount == 1);
+
+    // Short circuit when the result of adding two numbers will fit into 64 bits.
+    if (thisNumberHasOnlyOneGroup && otherNumberHasOnlyOneGroup) 
+    {
+        long long thisNumberValue = [[self.groups objectAtIndex:0] longLongValue];
+        long long otherNumberValue = [[number.groups objectAtIndex:0] longLongValue];
+        if ((thisNumberValue <= NON_CARRY_LIMIT) && (otherNumberValue <= NON_CARRY_LIMIT))
+        {
+            long long answer = thisNumberValue + otherNumberValue;
+            return [CacaoBigInteger bigIntegerFromLongLong:answer];
+        }
+    }
     
-    // Short circuit if this number is zero
-    if (thisNumberGroupCount == 1)
+    if (thisNumberHasOnlyOneGroup)
     {
         if ([[self.groups objectAtIndex:0] longLongValue] == 0)
             return number; // return the other number because adding zero to it keeps it unchanged
     }
     
     // Short circuit if the other number is zero
-    if (otherNumberGroupCount == 1)
+    if (otherNumberHasOnlyOneGroup)
     {
         if ([[number.groups objectAtIndex:0] longLongValue] == 0)
             return self; // return this number because adding zero to it keeps it unchanged

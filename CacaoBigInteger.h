@@ -41,9 +41,11 @@
 @property (nonatomic, retain) NSArray * groups;
 
 + (CacaoBigInteger *)bigIntegerFromText:(NSString *)text;
++ (CacaoBigInteger *)bigIntegerFromDigitGroups:(NSArray *)digitGroups;
++ (CacaoBigInteger *)bigIntegerFromLongLong:(long long)number;
+
 - (CacaoBigInteger *)add:(CacaoBigInteger *)anotherNumber;
 - (void)negate;
-
 - (NSString *)printable;
 
 @end
