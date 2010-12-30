@@ -43,7 +43,7 @@
 
 
 
-static NSString * REST_PARAM_DELIMETER = @"&";
+static NSString * REST_PARAM_DELIMITER = @"&";
 
 
 
@@ -350,7 +350,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     if (butLastParamIndex >= 0)
     {
         CacaoSymbol * butLastParam = [positionalParams objectAtIndex:butLastParamIndex];
-        if ([[butLastParam name] isEqualToString:REST_PARAM_DELIMETER])
+        if ([[butLastParam name] isEqualToString:REST_PARAM_DELIMITER])
         {
             restParam = [positionalParams objectAtIndex:butLastParamIndex + 1];
             positionalArgsCount = positionalArgsCount - 2;

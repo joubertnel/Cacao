@@ -283,7 +283,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>21</integer>
+									<integer>16</integer>
+									<integer>14</integer>
 									<integer>13</integer>
 									<integer>11</integer>
 									<integer>0</integer>
@@ -318,14 +319,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoCore.m</string>
+								<string>CacaoEnvironment.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +332,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoCore.m</string>
+										<string>CacaoEnvironment.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE471B5312CD4DD1006F6BB3</string>
+										<string>BE471B5A12CD4E6D006F6BB3</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -409,12 +408,12 @@
 											<string>BE4719B412CC0160006F6BB3</string>
 											<string>BE471A8612CC10D3006F6BB3</string>
 											<string>BE471ACD12CC1BC9006F6BB3</string>
-											<string>BE471ADD12CC281D006F6BB3</string>
-											<string>BE471ADE12CC281D006F6BB3</string>
 											<string>BE471B4312CC2CC6006F6BB3</string>
 											<string>BE471B4412CC2CC6006F6BB3</string>
-											<string>BE471B4B12CC2E4B006F6BB3</string>
-											<string>BE471B5212CD4DC7006F6BB3</string>
+											<string>BE471B5612CD4E6D006F6BB3</string>
+											<string>BE471B5712CD4E6D006F6BB3</string>
+											<string>BE471B5812CD4E6D006F6BB3</string>
+											<string>BE471B5912CD4E6D006F6BB3</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -428,18 +427,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1187, 1091}}</string>
+								<string>{{0, 0}, {1187, 1049}}</string>
 								<key>RubberWindowFrame</key>
 								<string>887 229 1474 1340 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>1091pt</string>
+							<string>1049pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>203pt</string>
+							<string>245pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -454,8 +453,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1187, 176}}</string>
-										<key>RubberWindowFrame</key>
-										<string>887 229 1474 1340 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -471,7 +468,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {953, 222}}</string>
+										<string>{{10, 27}, {1187, 218}}</string>
+										<key>RubberWindowFrame</key>
+										<string>887 229 1474 1340 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXProjectFindModule</string>
@@ -731,6 +730,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>BE3BC3BA1290B01A00ED6ADB</string>
 		<string>BE47179B12CB7FE9006F6BB3</string>
 		<string>BE47179C12CB7FE9006F6BB3</string>
 		<string>/Users/joubert/dev/j/Cacao/Cacao.xcodeproj</string>
@@ -1568,7 +1568,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>BE3BC3BA1290B01A00ED6ADB</string>
-				<string>BEA4CC2712C99980001A39C5</string>
+				<string>BE471B5B12CD4E6D006F6BB3</string>
 				<string>BE3BC3B91290B01A00ED6ADB</string>
 			</array>
 			<key>WindowString</key>
