@@ -59,9 +59,9 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         CacaoBigInteger * num2 = [numbers objectAtIndex:1];
         BOOL isLessThan = [num1 isLessThan:num2];
         if (isLessThan)
-            return yesSymbol;
+            return [NSNumber numberWithBool:YES];
         else 
-            return noSymbol;
+            return [NSNumber numberWithBool:NO];
 
     } params:lessThanArgs];
     

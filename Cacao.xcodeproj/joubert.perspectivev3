@@ -232,6 +232,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -283,7 +285,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>31</integer>
+									<integer>34</integer>
 									<integer>13</integer>
 									<integer>11</integer>
 									<integer>0</integer>
@@ -318,14 +320,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoEnvironment.m</string>
+								<string>CacaoFn.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +333,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoEnvironment.m</string>
+										<string>CacaoFn.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE471AB612CC13EB006F6BB3</string>
+										<string>BE471ABD12CC15AD006F6BB3</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -408,13 +408,13 @@
 											<string>BE47194F12CBFAA5006F6BB3</string>
 											<string>BE47195012CBFAA5006F6BB3</string>
 											<string>BE47195112CBFAA5006F6BB3</string>
-											<string>BE47196A12CBFD87006F6BB3</string>
 											<string>BE4719B412CC0160006F6BB3</string>
-											<string>BE471A6A12CC0FAD006F6BB3</string>
 											<string>BE471A8612CC10D3006F6BB3</string>
 											<string>BE471AA512CC12DB006F6BB3</string>
 											<string>BE471AB212CC13C2006F6BB3</string>
-											<string>BE471AB512CC13E8006F6BB3</string>
+											<string>BE471ABA12CC15AD006F6BB3</string>
+											<string>BE471ABB12CC15AD006F6BB3</string>
+											<string>BE471ABC12CC15AD006F6BB3</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
