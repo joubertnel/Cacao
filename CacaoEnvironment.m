@@ -38,6 +38,7 @@
 #import "CacaoEnvironment.h"
 #import "CacaoLispReader.h"
 #import "PushbackReader.h"
+#import "CacaoArgumentName.h"
 
 
 
@@ -69,11 +70,11 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 
 
-+ (CacaoEnvironment *)environmentWith:(NSDictionary *)defaultMappings outerEnvironment:(CacaoEnvironment *)theOuter
++ (CacaoEnvironment *)environmentWith:(NSDictionary *)paramsAndArgs outerEnvironment:(CacaoEnvironment *)theOuter
 {
     CacaoEnvironment * environment = [[CacaoEnvironment alloc] init];
     [environment setOuter:theOuter];    
-    [environment setMappingTable:[NSMutableDictionary dictionaryWithDictionary:CacaoCore.functions]];
+    [environment setMappingTable:[NSMutableDictionary dictionaryWithDictionary:paramsAndArgs]];
     return [environment autorelease];
 }
 
@@ -170,9 +171,19 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 + (id)eval:(id)x inEnvironment:(CacaoEnvironment *)env
 {
     if ([x isKindOfClass:[CacaoSymbol class]])
+        // If x is a symbol, look up its value in the environment
         return [[env find:x] getMappingValue:x];
+    else if ([x isKindOfClass:[CacaoVector class]])
+    {
+        // If x is a vector, evaluate each item in the vector and return a new vector of the resuls
+        NSArray * evaluatedItems = [[x elements] map:^(id object) {
+            return [CacaoEnvironment eval:object inEnvironment:env];
+        }];        
+        return [CacaoVector vectorWithArray:evaluatedItems];
+    }
     else if (![x isKindOfClass:[NSArray class]])
         return x;      
+
    
     // Special Forms    
     
@@ -223,18 +234,50 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     }
     else
     {
+        // X is a function call. Apply the arguments against it. 
+        
         NSArray * expressions = [x map:^(id subExpression) {
             return [self eval:subExpression inEnvironment:env];
         }];
         
         NSObject * func;
-        NSArray * remainingExpressions = [expressions popFirstInto:&func];  
+        NSArray * remainingExpressions = [expressions popFirstInto:&func];
         
         if ([func isKindOfClass:[CacaoNil class]])
             [CacaoNilNotCallableException raise:[CacaoNilNotCallableException name] format:@"Can't call nil'"];
         
-        CacaoFn *funcBlock = (CacaoFn *)func;
-        return [funcBlock invokeWithArgsAndVals:remainingExpressions];
+        CacaoFn *funcBlock = (CacaoFn *)func; 
+        
+        // Create an environment for the function, which is an implicit LET of 
+        // the arguments and their values
+        
+        int argCount = remainingExpressions.count / 2;
+        NSMutableArray * symbolBindings = [NSMutableArray arrayWithCapacity:remainingExpressions.count];
+         
+        for (int i=0; i < argCount; i=i+2) {
+            CacaoSymbol * sym = [(CacaoArgumentName *)[remainingExpressions objectAtIndex:i] symbol];
+            [symbolBindings addObject:sym];
+            id val = [remainingExpressions objectAtIndex:i+1];
+            [symbolBindings addObject:val];
+        }
+        
+        CacaoVector * bindings = [CacaoVector vectorWithArray:symbolBindings];
+
+        CacaoEnvironment * functionEnvironment = [CacaoEnvironment environmentFromVector:bindings
+                                                                        outerEnvironment:env];        
+        
+        
+        // Resolve arguments' values by looking them up in the environment, and invoke the function
+        // with the arguments and values. 
+        
+        NSMutableArray * argsAndValues = [NSMutableArray arrayWithCapacity:[funcBlock.argNames count]];
+        for (int i=0; i < argCount; i=i+2) {
+            CacaoArgumentName * argName = [remainingExpressions objectAtIndex:i];
+            id val = [[functionEnvironment find:argName.symbol] getMappingValue:argName.symbol];
+            [argsAndValues addObjectsFromArray:[NSArray arrayWithObjects:argName, val, nil]];
+        }
+
+        return [funcBlock invokeWithArgsAndVals:argsAndValues];
     }
 }
 

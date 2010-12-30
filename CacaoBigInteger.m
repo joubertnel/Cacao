@@ -33,6 +33,7 @@
 #import <OpenCL/OpenCL.h>
 
 
+
 const char * kernelSource = \
 "__kernel void add(__global long *a, __global long *b, __global long *answer, const unsigned int a_count, const unsigned int b_count)" \
 "{                                      " \
@@ -42,6 +43,15 @@ const char * kernelSource = \
 "  long b_val = 0;                      " \
 "  if (gid < b_count) b_val = b[gid];   " \
 "  answer[gid] = a_val + b_val;         " \
+"}                                      " \
+"__kernel void sub(__global long *a, __global long *b, __global long *answer, const unsigned int a_count, const unsigned int b_count)" \
+"{                                      " \
+"  int gid = get_global_id(0);          " \
+"  long a_val = 0;                      " \
+"  if (gid < a_count) a_val = a[gid];   " \
+"  long b_val = 0;                      " \
+"  if (gid < b_count) b_val = b[gid];   " \
+"  answer[gid] = a_val - b_val;         " \
 "}";
 
 
@@ -49,16 +59,22 @@ const char * kernelSource = \
 // limited to 18 digits. Normally long long numbers (64 bit ints) can be up to 19 digits, but 
 // we limit our representation to 18 digits so that we can also store a carry digit during
 // computations, such as during addition.
-static const int DIGIT_GROUP_LENGTH = 18; 
+//static const int DIGIT_GROUP_LENGTH = 18; 
+static const int DIGIT_GROUP_LENGTH = 1; // for testing with narrower digit groups
 
 // This is the largest number that will get stored in a digit group
-static const long long NON_CARRY_LIMIT = 999999999999999999; // eighteen 9's
+//static const long long NON_CARRY_LIMIT = 999999999999999999; // eighteen 9's
+ static const long long NON_CARRY_LIMIT = 9; // for testing with narrower digit groups
 static const long long CARRY_REMOVE = NON_CARRY_LIMIT + 1;
+
+
+
 
 static cl_device_id opencl_device;
 static cl_context opencl_context;
 static cl_program opencl_program;
 static cl_kernel opencl_add_kernel;
+static cl_kernel opencl_sub_kernel;
 
 
 @implementation CacaoBigInteger
@@ -87,9 +103,15 @@ static cl_kernel opencl_add_kernel;
     assert(err == CL_SUCCESS);
     err = clBuildProgram(opencl_program, 0, NULL, NULL, NULL, NULL);
     assert(err == CL_SUCCESS);    
+    
+    // Prepare the kernels 
+    
     opencl_add_kernel = clCreateKernel(opencl_program, "add", &err);
     assert(err == CL_SUCCESS);
     assert(opencl_add_kernel != NULL);
+    opencl_sub_kernel = clCreateKernel(opencl_program, "sub", &err);
+    assert(err == CL_SUCCESS);
+    assert(opencl_sub_kernel != NULL);
 }
 
 + (NSArray *)getGroupsReverseOrder:(NSString *)text
@@ -231,7 +253,7 @@ static cl_kernel opencl_add_kernel;
     err |= clSetKernelArg(opencl_add_kernel, 4, sizeof(unsigned int), &b_count);
     assert(err == CL_SUCCESS);
     
-    // Go ahead and execute the command queue, summing the corresponding digits groups of the two numbers
+    // Go ahead and execute the command queue, summing the corresponding digit groups of the two numbers
     // that we want to add together in parallel. 
     global_work_size = resultGroupCount;
     err = clEnqueueNDRangeKernel(opencl_commands, opencl_add_kernel, 1, NULL, &global_work_size, NULL, 0, NULL, NULL);
@@ -265,6 +287,108 @@ static cl_kernel opencl_add_kernel;
     assert(clReleaseCommandQueue(opencl_commands) == CL_SUCCESS);
 
     return answer;
+}
+
+- (CacaoBigInteger *)subtract:(CacaoBigInteger *)number
+{
+    int thisNumberGroupCount = [self.groups count];
+    int otherNumberGroupCount = [number.groups count];
+    
+    int resultGroupCount = thisNumberGroupCount;
+    
+    long long a_buffer[thisNumberGroupCount];
+    long long b_buffer[otherNumberGroupCount];
+    long long results[resultGroupCount];
+    
+    size_t global_work_size;
+    cl_int err;
+    cl_mem a_mem;
+    cl_mem b_mem;
+    cl_mem result_mem;
+    cl_command_queue commands;
+    
+    commands = clCreateCommandQueue(opencl_context, opencl_device, 0, &err);
+    assert(err == CL_SUCCESS);
+    
+    a_mem = clCreateBuffer(opencl_context, CL_MEM_READ_ONLY, sizeof(long long) * thisNumberGroupCount, NULL, NULL);
+    b_mem = clCreateBuffer(opencl_context, CL_MEM_READ_ONLY, sizeof(long long) * otherNumberGroupCount, NULL, NULL);
+    result_mem = clCreateBuffer(opencl_context, CL_MEM_READ_WRITE, sizeof(long long) * resultGroupCount, NULL, NULL);
+    assert(a_mem != NULL);
+    assert(b_mem != NULL);
+    assert(result_mem != NULL);
+    
+    // Put this number's digit groups into an OpenCL write buffer on the command queue
+    for (int i=0; i < thisNumberGroupCount; i++) 
+        a_buffer[i] = [(NSNumber *)[self.groups objectAtIndex:i] longLongValue];
+    err = clEnqueueWriteBuffer(commands, a_mem, CL_TRUE, 0, sizeof(a_buffer), a_buffer, 0, NULL, NULL);
+    assert(err == CL_SUCCESS);
+    
+    // Put the second number's digit groups into an OpenCL write buffer on the command queue
+    for (int i=0; i < otherNumberGroupCount; i++)
+        b_buffer[i] = [(NSNumber *)[number.groups objectAtIndex:i] longLongValue];
+    err = clEnqueueWriteBuffer(commands, b_mem, CL_TRUE, 0, sizeof(b_buffer), b_buffer, 0, NULL, NULL);
+    assert(err == CL_SUCCESS);
+    
+    // We need to tell the kernel how many digit groups there are in each of the two buffers
+    unsigned int a_count = thisNumberGroupCount;
+    unsigned int b_count = otherNumberGroupCount;
+    
+    err = 0;
+    err = clSetKernelArg(opencl_sub_kernel, 0, sizeof(cl_mem), &a_mem);
+    err |= clSetKernelArg(opencl_sub_kernel, 1, sizeof(cl_mem), &b_mem);
+    err |= clSetKernelArg(opencl_sub_kernel, 2, sizeof(cl_mem), &result_mem);
+    err |= clSetKernelArg(opencl_sub_kernel, 3, sizeof(unsigned int), &a_count);
+    err |= clSetKernelArg(opencl_sub_kernel, 4, sizeof(unsigned int), &b_count);
+    assert(err == CL_SUCCESS);
+    
+    // Go ahead and execute the command queue, subtracting the corresponding digit groups of the two numbers
+    // that we want to subtract from each other, in parallel.
+    global_work_size = resultGroupCount;
+    err = clEnqueueNDRangeKernel(commands, opencl_sub_kernel, 1, NULL, &global_work_size, NULL, 0, NULL, NULL);
+    assert(err == CL_SUCCESS);
+    
+    clFinish(commands);
+    
+    err = clEnqueueReadBuffer(commands, result_mem, CL_TRUE, 0, sizeof(results), results, 0, NULL, NULL);
+    assert(err == CL_SUCCESS);
+    
+    // Although we could subtract the digit groups in parallel, updating each digit group for borrowing
+    // must be done sequentially.
+    NSMutableArray * answerDigitGroups = [NSMutableArray arrayWithCapacity:resultGroupCount];
+    for (int i=0; i < resultGroupCount; i++) {
+        long long groupVal = results[i];
+        if ((groupVal < 0) && (i <= resultGroupCount))
+        {
+            groupVal = CARRY_REMOVE + groupVal;
+            results[i+1] = results[i+1]-1;
+        }
+        [answerDigitGroups insertObject:[NSNumber numberWithLongLong:groupVal] atIndex:i];
+    }
+    
+    CacaoBigInteger * answer = [CacaoBigInteger bigIntegerFromDigitGroups:answerDigitGroups];
+    
+    // Free up the memory we allocated
+    assert(clReleaseMemObject(result_mem) == CL_SUCCESS);
+    assert(clReleaseMemObject(b_mem) == CL_SUCCESS);
+    assert(clReleaseMemObject(a_mem) == CL_SUCCESS);
+    assert(clReleaseCommandQueue(commands) == CL_SUCCESS);
+    
+    return answer;    
+}
+
+- (BOOL)isLessThan:(CacaoBigInteger *)number
+{
+    int thisNumberGroupCount = [self.groups count];
+    int otherNumberGroupCount = [number.groups count];
+    BOOL thisNumberHasOnlyOneGroup = (thisNumberGroupCount == 1);
+    BOOL otherNumberHasOnlyOneGroup = (otherNumberGroupCount == 1);
+    
+    if (thisNumberHasOnlyOneGroup && otherNumberHasOnlyOneGroup)
+    {
+        NSNumber * thisNumber = [self.groups objectAtIndex:0];
+        NSNumber * otherNumber = [number.groups objectAtIndex:0];
+        return [thisNumber isLessThan:otherNumber];
+    }    
 }
 
 - (void)negate

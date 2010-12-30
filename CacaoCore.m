@@ -34,6 +34,37 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         return sum;
     } params:sumArgs];
     
+    CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-" inNamespace:GLOBAL_NAMESPACE];
+    NSString * subArgName = @"numbers";
+    CacaoSymbol * subArgSym = [CacaoSymbol symbolWithName:subArgName inNamespace:nil];
+    CacaoVector * subArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObject:subArgSym]];
+    CacaoFn * subtractFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * numbers = [argsAndVals objectForKey:subArgSym];
+        CacaoBigInteger * answer = [numbers.elements objectAtIndex:0];
+        NSUInteger numberCount = numbers.count;
+        for (NSUInteger i=1; i < numberCount; i++) {
+            CacaoBigInteger * num = [numbers.elements objectAtIndex:i];
+            answer = [answer subtract:num];
+        }
+        return answer;        
+    } params:subArgs];
+    
+    CacaoSymbol * lessThanSymbol = [CacaoSymbol symbolWithName:@"lt" inNamespace:GLOBAL_NAMESPACE];
+    NSString * lessThanArgName = @"numbers";
+    CacaoSymbol * lessThanArgSym = [CacaoSymbol symbolWithName:lessThanArgName inNamespace:nil];
+    CacaoVector * lessThanArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObject:lessThanArgSym]];
+    CacaoFn * lessThanFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * numbers = [argsAndVals objectForKey:lessThanArgSym];
+        CacaoBigInteger * num1 = [numbers objectAtIndex:0];
+        CacaoBigInteger * num2 = [numbers objectAtIndex:1];
+        BOOL isLessThan = [num1 isLessThan:num2];
+        if (isLessThan)
+            return yesSymbol;
+        else 
+            return noSymbol;
+
+    } params:lessThanArgs];
+    
     //CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
 //    CacaoFn * multiplyFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
 //        int answer = 1;
@@ -42,15 +73,8 @@ static NSString * SYMBOL_NAME_NO = @"NO";
 //        return [NSNumber numberWithInt:answer];
 //    }];    
 //    
-//    CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * subtractFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-//        NSNumber * firstNumber;
-//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-//        int answer = [firstNumber intValue];
-//        for (NSNumber * number in remainingNumbers)
-//            answer -= [number intValue];
-//        return [NSNumber numberWithInt:answer];
-//    }];
+    
+
 //    
 //    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
 //    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
@@ -66,8 +90,10 @@ static NSString * SYMBOL_NAME_NO = @"NO";
                                      [NSNumber numberWithBool:YES], yesSymbol,
                                      [NSNumber numberWithBool:NO], noSymbol,
                                      sumFn, sumOpSymbol, 
+                                     subtractFn, subtractOpSymbol,
+                                     lessThanFn, lessThanSymbol,
                                     // multiplyFn, multiplyOpSymbol,
-//                                     subtractFn, subtractOpSymbol,
+
 //                                     divideFn, divideOpSym,
                                      nil];
     return globalMappings;

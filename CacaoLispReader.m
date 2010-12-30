@@ -274,7 +274,8 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     
     while (YES) {
         int ch = [reader read];
-        if (ch == -1 || [CacaoLispReader isWhiteSpace:ch] || [CacaoLispReader isMacro:ch])
+        if (ch == -1 || [CacaoLispReader isWhiteSpace:ch] || [CacaoLispReader isMacro:ch] ||
+            ch == CACAO_READER_LIST_COLLAPSE_CHAR)
         {
             [reader unreadSoThatNextCharIs:ch];
             break;

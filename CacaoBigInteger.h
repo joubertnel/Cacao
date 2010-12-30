@@ -45,7 +45,11 @@
 + (CacaoBigInteger *)bigIntegerFromLongLong:(long long)number;
 
 - (CacaoBigInteger *)add:(CacaoBigInteger *)anotherNumber;
+- (CacaoBigInteger *)subtract:(CacaoBigInteger *)number;
+- (BOOL)isLessThan:(CacaoBigInteger *)number;
+
 - (void)negate;
+
 - (NSString *)printable;
 
 @end
