@@ -42,12 +42,12 @@
 #import "CacaoReaderMacroInvokers.h"
 
 unichar CACAO_READER_STRING_CHAR = (unichar)'"';
-unichar CACAO_READER_LIST_START_CHAR = (unichar)'<';
-unichar CACAO_READER_LIST_END_CHAR = (unichar)'|';
-unichar CACAO_READER_LIST_COLLAPSE_CHAR = (unichar)']';
-NSString * CACAO_READER_LIST_COLLAPSE_STRING = @"]";
-unichar CACAO_READER_VECTOR_START_CHAR = (unichar)'(';
-unichar CACAO_READER_VECTOR_END_CHAR = (unichar)')';
+unichar CACAO_READER_LIST_START_CHAR = (unichar)'(';
+unichar CACAO_READER_LIST_END_CHAR = (unichar)')';
+unichar CACAO_READER_LIST_COLLAPSE_CHAR = (unichar)'|';
+NSString * CACAO_READER_LIST_COLLAPSE_STRING = @"|";
+unichar CACAO_READER_VECTOR_START_CHAR = (unichar)'[';
+unichar CACAO_READER_VECTOR_END_CHAR = (unichar)']';
 
 static unichar CACAO_READER_ARG_VAL_SEPARATOR = (unichar)':';
 static NSString * CACAO_ARG_VAL_SEPARATOR_STRING = @":";

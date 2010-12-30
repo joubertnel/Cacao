@@ -49,7 +49,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         return answer;        
     } params:subArgs];
     
-    CacaoSymbol * lessThanSymbol = [CacaoSymbol symbolWithName:@"lt" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * lessThanSymbol = [CacaoSymbol symbolWithName:@"<" inNamespace:GLOBAL_NAMESPACE];
     NSString * lessThanArgName = @"numbers";
     CacaoSymbol * lessThanArgSym = [CacaoSymbol symbolWithName:lessThanArgName inNamespace:nil];
     CacaoVector * lessThanArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObject:lessThanArgSym]];

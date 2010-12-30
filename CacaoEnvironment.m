@@ -241,6 +241,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalFunctionCall:(NSArray *)x inEnvironment:(CacaoEnvironment *)env
 {
+    NSLog(@"going to eval: %@", x);
     // X is a function call. Apply the arguments against it. 
     
     NSArray * expressions = [x map:^(id subExpression) {
