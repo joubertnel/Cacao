@@ -232,57 +232,60 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     {        
         return [CacaoEnvironment fnFromExpression:expression inEnvironment:env];
     }
-    else
-    {
-        // X is a function call. Apply the arguments against it. 
-        
-        NSArray * expressions = [x map:^(id subExpression) {
-            return [self eval:subExpression inEnvironment:env];
-        }];
-        
-        NSObject * func;
-        NSArray * remainingExpressions = [expressions popFirstInto:&func];
-        
-        if ([func isKindOfClass:[CacaoNil class]])
-            [CacaoNilNotCallableException raise:[CacaoNilNotCallableException name] format:@"Can't call nil'"];
-        
-        CacaoFn *funcBlock = (CacaoFn *)func; 
-        
-        // Create an environment for the function, which is an implicit LET of 
-        // the arguments and their values
-        
-        int argCount = remainingExpressions.count / 2;
-        NSMutableArray * symbolBindings = [NSMutableArray arrayWithCapacity:remainingExpressions.count];
-         
-        for (int i=0; i < argCount; i=i+2) {
-            CacaoSymbol * sym = [(CacaoArgumentName *)[remainingExpressions objectAtIndex:i] symbol];
-            [symbolBindings addObject:sym];
-            id val = [remainingExpressions objectAtIndex:i+1];
-            [symbolBindings addObject:val];
-        }
-        
-        CacaoVector * bindings = [CacaoVector vectorWithArray:symbolBindings];
+    else return [CacaoEnvironment evalFunctionCall:x inEnvironment:env];
 
-        CacaoEnvironment * functionEnvironment = [CacaoEnvironment environmentFromVector:bindings
-                                                                        outerEnvironment:env];        
-        
-        
-        // Resolve arguments' values by looking them up in the environment, and invoke the function
-        // with the arguments and values. 
-        
-        NSMutableArray * argsAndValues = [NSMutableArray arrayWithCapacity:[funcBlock.argNames count]];
-        for (int i=0; i < argCount; i=i+2) {
-            CacaoArgumentName * argName = [remainingExpressions objectAtIndex:i];
-            id val = [[functionEnvironment find:argName.symbol] getMappingValue:argName.symbol];
-            [argsAndValues addObjectsFromArray:[NSArray arrayWithObjects:argName, val, nil]];
-        }
-
-        return [funcBlock invokeWithArgsAndVals:argsAndValues];
-    }
 }
 
 
 #pragma mark Evaluation helpers 
+
++ (id)evalFunctionCall:(NSArray *)x inEnvironment:(CacaoEnvironment *)env
+{
+    // X is a function call. Apply the arguments against it. 
+    
+    NSArray * expressions = [x map:^(id subExpression) {
+        return [self eval:subExpression inEnvironment:env];
+    }];
+    
+    NSObject * func;
+    NSArray * remainingExpressions = [expressions popFirstInto:&func];
+    
+    if ([func isKindOfClass:[CacaoNil class]])
+        [CacaoNilNotCallableException raise:[CacaoNilNotCallableException name] format:@"Can't call nil'"];
+    
+    CacaoFn *funcBlock = (CacaoFn *)func; 
+    
+    // Create an environment for the function, which is an implicit LET of 
+    // the arguments and their values
+    
+    int argCount = remainingExpressions.count / 2;
+    NSMutableArray * symbolBindings = [NSMutableArray arrayWithCapacity:remainingExpressions.count];
+    
+    for (int i=0; i < argCount; i=i+2) {
+        CacaoSymbol * sym = [(CacaoArgumentName *)[remainingExpressions objectAtIndex:i] symbol];
+        [symbolBindings addObject:sym];
+        id val = [remainingExpressions objectAtIndex:i+1];
+        [symbolBindings addObject:val];
+    }
+    
+    CacaoVector * bindings = [CacaoVector vectorWithArray:symbolBindings];
+    
+    CacaoEnvironment * functionEnvironment = [CacaoEnvironment environmentFromVector:bindings
+                                                                    outerEnvironment:env];        
+    
+    
+    // Resolve arguments' values by looking them up in the environment, and invoke the function
+    // with the arguments and values. 
+    
+    NSMutableArray * argsAndValues = [NSMutableArray arrayWithCapacity:[funcBlock.argNames count]];
+    for (int i=0; i < argCount; i=i+2) {
+        CacaoArgumentName * argName = [remainingExpressions objectAtIndex:i];
+        id val = [[functionEnvironment find:argName.symbol] getMappingValue:argName.symbol];
+        [argsAndValues addObjectsFromArray:[NSArray arrayWithObjects:argName, val, nil]];
+    }
+    
+    return [funcBlock invokeWithArgsAndVals:argsAndValues];    
+}
 
 + (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
 {

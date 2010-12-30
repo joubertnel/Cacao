@@ -63,6 +63,7 @@
 + (id)evalText:(NSString *)x inEnvironment:(CacaoEnvironment *)env;
 + (id)eval:(id)expression inEnvironment:(CacaoEnvironment *)env;
 
++ (id)evalFunctionCall:(NSArray *)expressions inEnvironment:(CacaoEnvironment *)env;
 + (id)evalDefExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalLetExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
 + (id)evalIfExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env;
