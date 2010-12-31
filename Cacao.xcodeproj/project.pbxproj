@@ -890,7 +890,10 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				LLVM_LTO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-fgnu89-inline";
+				OTHER_CFLAGS = (
+					"-DDEBUG=1",
+					"-fgnu89-inline",
+				);
 				OTHER_LDFLAGS = (
 					"-licucore",
 					"-framework",

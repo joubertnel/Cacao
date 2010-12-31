@@ -407,7 +407,7 @@ static cl_kernel opencl_sub_kernel;
         for (int i=digitGroupCount-1; i >= 0; i--)
         {
             long long groupValue = [[self.groups objectAtIndex:i] longLongValue];
-            if (groupValue != 0)
+            if ((groupValue != 0) || (i == 0))
                 [numberAsText appendFormat:@"%qi", groupValue];
         }
         [self setTextual:[NSString stringWithString:numberAsText]];

@@ -60,5 +60,9 @@ static NSMutableDictionary * table = nil;
         return existingArgumentNameInTable;
 }
 
+- (NSString *)printable
+{
+    return [self.symbol printable];
+}
 
 @end

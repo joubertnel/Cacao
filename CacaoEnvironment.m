@@ -40,12 +40,7 @@
 #import "PushbackReader.h"
 #import "CacaoArgumentName.h"
 
-
-
-
 static NSString * REST_PARAM_DELIMITER = @"&";
-
-
 
 static NSString * SPECIAL_FORM_TEXT_DEF = @"def";
 static NSString * SPECIAL_FORM_TEXT_LET = @"let";
@@ -241,7 +236,13 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalFunctionCall:(NSArray *)x inEnvironment:(CacaoEnvironment *)env
 {
-    NSLog(@"going to eval: %@", x);
+#if DEBUG
+    NSLog(@"Eval Function Call:");
+    [x enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {        
+        NSLog(@"\t%@", [obj printable]);
+    }];
+    
+#endif
     // X is a function call. Apply the arguments against it. 
     
     NSArray * expressions = [x map:^(id subExpression) {
