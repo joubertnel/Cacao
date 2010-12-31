@@ -262,8 +262,9 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     
     NSMutableArray * symbolBindings = [NSMutableArray array];
     __block BOOL prevObjectWasArgumentName = NO;
-    __block BOOL thereAreRestArgs = NO;
-    __block NSUInteger restArgsStartIndex = 0;
+    __block BOOL restArgsWereSpecified = NO;
+    __block NSUInteger lastNonRestArgIndex = 0;
+
     
     [remainingExpressions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[CacaoArgumentName class]])
@@ -274,8 +275,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         } else if (prevObjectWasArgumentName == NO) {
             // We've reached the first REST argument, so break out of the enumeration,
             // so that we can add the REST argument(s).
-            thereAreRestArgs = YES; 
-            restArgsStartIndex = idx;
+            restArgsWereSpecified = YES;
+            lastNonRestArgIndex = idx - 1;
             *stop = YES;
         } else {
             // We are on a named argument's value, so let's add it to the symbol 
@@ -285,21 +286,31 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         }
     }];
     
-    if (thereAreRestArgs)
+    if ([funcBlock restArg] != nil)
     {
+        // The function signature allows for REST args, so lets add.
         // The rest arguments are not named in the function call, so we have to gather 
         // its name from the function metadata and add it
         // to the symbol bindings.
         CacaoSymbol * restArgNameSym = [funcBlock restArg];
         [symbolBindings addObject:restArgNameSym];
         
-        // And then we capture the REST arguments, wrap them in a vector, and add
-        // to the symbol bindings
-        NSRange restRange = {.location=restArgsStartIndex, .length=[remainingExpressions count]-restArgsStartIndex};
-        CacaoVector * restArgs = [CacaoVector vectorWithArray:[remainingExpressions subarrayWithRange:restRange]];
-        [symbolBindings addObject:restArgs];                            
-        
+        // REST args are optional; if the function was invoked with REST args specified, 
+        // add them, otherwise add an empty vector.
+        CacaoVector * restArgs;
+        if (restArgsWereSpecified)
+        {
+            NSUInteger restArgsStartIndex = lastNonRestArgIndex + 1;
+            NSRange restRange = {.location=restArgsStartIndex, .length=[remainingExpressions count]-restArgsStartIndex};
+            restArgs = [CacaoVector vectorWithArray:[remainingExpressions subarrayWithRange:restRange]];
+        }
+        else {
+            restArgs = [CacaoVector vectorWithArray:[NSArray array]];
+        }
+        [symbolBindings addObject:restArgs];
+
     }
+    
     
     CacaoVector * bindings = [CacaoVector vectorWithArray:symbolBindings];
     CacaoEnvironment * functionEnvironment = [CacaoEnvironment environmentFromVector:bindings

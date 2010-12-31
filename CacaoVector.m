@@ -47,8 +47,14 @@
 {
     NSMutableString * printableElements = [NSMutableString string];
     for (id e in [self elements])    
-        [printableElements appendFormat:@"%@ ", [e printable]];     
-    return [NSString stringWithFormat:@"[%@]", [printableElements substringToIndex:(printableElements.length - 1)]];
+    {
+        if (printableElements.length > 0)
+            [printableElements appendFormat:@" %@", [e printable]];
+        else
+            [printableElements appendFormat:@"%@", [e printable]]; 
+    }
+
+    return [NSString stringWithFormat:@"[%@]", printableElements];
 }
 
 - (NSUInteger)count

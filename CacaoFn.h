@@ -36,7 +36,10 @@ typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
 extern NSString * const FnIdentityPrefix;
 
 @interface CacaoFn : NSObject {
-    
+    DispatchFunction func;
+    NSString * identity;
+    NSSet * argNames;
+    CacaoSymbol * restArg;
 }
 
 @property (copy) DispatchFunction func;

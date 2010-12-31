@@ -38,10 +38,9 @@
 #import "CacaoVector.h"
 
 @interface CacaoAST : NSObject {
-    NSString *source;
-    NSArray *tokens;
-    NSArray *tree;
-
+    NSString * source;
+    NSArray * tokens;
+    NSArray * tree;
 }
 
 @property (nonatomic, retain) NSString *source;
