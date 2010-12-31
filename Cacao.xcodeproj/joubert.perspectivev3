@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>ActivePerspectiveName</key>
-	<string>Project</string>
+	<string>Debug</string>
 	<key>AllowedModules</key>
 	<array>
 		<dict>
@@ -197,7 +197,49 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>BE471CE212CD8AB4006F6BB3</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>CacaoArgumentName.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>BE471CE312CD8AB4006F6BB3</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>CacaoArgumentName.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>BE471D7F12CD938C006F6BB3</string>
+						<key>history</key>
+						<array>
+							<string>BE471CE412CD8AB4006F6BB3</string>
+							<string>BE471CE512CD8AB4006F6BB3</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1247, 1095}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>61 395 1247 1136 0 0 2560 1578 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>1474</integer>
@@ -284,8 +326,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>47</integer>
-									<integer>39</integer>
+									<integer>17</integer>
+									<integer>16</integer>
+									<integer>15</integer>
 									<integer>11</integer>
 									<integer>0</integer>
 								</array>
@@ -307,8 +350,6 @@
 							<string>MainColumn</string>
 							<real>265</real>
 						</array>
-						<key>RubberWindowFrame</key>
-						<string>887 229 1474 1340 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -319,14 +360,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoBigInteger.m</string>
+								<string>CacaoReaderMacroInvokers.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +373,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoBigInteger.m</string>
+										<string>CacaoReaderMacroInvokers.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE471BCF12CD54A4006F6BB3</string>
+										<string>BE471D7E12CD938C006F6BB3</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -365,8 +404,6 @@
 											<string>BE98BE7312C4493800E21BD2</string>
 											<string>BE98BE7412C4493800E21BD2</string>
 											<string>BE98BE7512C4493800E21BD2</string>
-											<string>BE98BE9E12C455B900E21BD2</string>
-											<string>BE98BEA712C455F300E21BD2</string>
 											<string>BE98BEA812C455F300E21BD2</string>
 											<string>BE98BFD712C4FB1100E21BD2</string>
 											<string>BE98BFF912C4FC2700E21BD2</string>
@@ -374,7 +411,6 @@
 											<string>BE93D63C12C6CE2E00B42625</string>
 											<string>BE93D65212C6D39800B42625</string>
 											<string>BE93D65312C6D39800B42625</string>
-											<string>BE93D6A112C6D90B00B42625</string>
 											<string>BE93D7C912C6E43C00B42625</string>
 											<string>BE93D7CA12C6E43C00B42625</string>
 											<string>BE93D7DB12C6E49F00B42625</string>
@@ -396,26 +432,29 @@
 											<string>BEA4CC1B12C9990F001A39C5</string>
 											<string>BE47178E12CB7FBE006F6BB3</string>
 											<string>BE47178F12CB7FBE006F6BB3</string>
-											<string>BE4717B712CB9A5C006F6BB3</string>
 											<string>BE47194F12CBFAA5006F6BB3</string>
 											<string>BE47195012CBFAA5006F6BB3</string>
-											<string>BE47195112CBFAA5006F6BB3</string>
-											<string>BE4719B412CC0160006F6BB3</string>
-											<string>BE471A8612CC10D3006F6BB3</string>
-											<string>BE471ACD12CC1BC9006F6BB3</string>
 											<string>BE471B4312CC2CC6006F6BB3</string>
-											<string>BE471B5612CD4E6D006F6BB3</string>
-											<string>BE471B5712CD4E6D006F6BB3</string>
 											<string>BE471B5812CD4E6D006F6BB3</string>
-											<string>BE471B7312CD508E006F6BB3</string>
 											<string>BE471B7412CD508E006F6BB3</string>
 											<string>BE471B7912CD50B9006F6BB3</string>
-											<string>BE471B9912CD5238006F6BB3</string>
-											<string>BE471B9E12CD5288006F6BB3</string>
 											<string>BE471B9F12CD5288006F6BB3</string>
 											<string>BE471BA012CD5288006F6BB3</string>
 											<string>BE471BA812CD52C7006F6BB3</string>
-											<string>BE471BCE12CD54A3006F6BB3</string>
+											<string>BE471BD612CD61DA006F6BB3</string>
+											<string>BE471BD712CD61DA006F6BB3</string>
+											<string>BE471BD812CD61DA006F6BB3</string>
+											<string>BE471BDA12CD61DA006F6BB3</string>
+											<string>BE471BDB12CD61DA006F6BB3</string>
+											<string>BE471C0F12CD6842006F6BB3</string>
+											<string>BE471C1112CD6842006F6BB3</string>
+											<string>BE471C3012CD76D5006F6BB3</string>
+											<string>BE471D1F12CD8DC4006F6BB3</string>
+											<string>BE471D4712CD8F84006F6BB3</string>
+											<string>BE471D7412CD92DD006F6BB3</string>
+											<string>BE471D7512CD92DD006F6BB3</string>
+											<string>BE471D7B12CD9371006F6BB3</string>
+											<string>BE471D7C12CD9371006F6BB3</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -430,8 +469,6 @@
 							<dict>
 								<key>Frame</key>
 								<string>{{0, 0}, {1187, 1049}}</string>
-								<key>RubberWindowFrame</key>
-								<string>887 229 1474 1340 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -455,8 +492,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1187, 218}}</string>
-										<key>RubberWindowFrame</key>
-										<string>887 229 1474 1340 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -510,7 +545,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1153, 242}}</string>
+										<string>{{10, 27}, {1187, 218}}</string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -583,6 +618,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
@@ -594,6 +631,8 @@
 					<dict>
 						<key>Frame</key>
 						<string>{{0, 0}, {1474, 481}}</string>
+						<key>RubberWindowFrame</key>
+						<string>748 231 1474 1340 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -668,7 +707,11 @@
 							</array>
 							<key>Frame</key>
 							<string>{{522, 0}, {952, 396}}</string>
+							<key>RubberWindowFrame</key>
+							<string>748 231 1474 1340 0 0 2560 1578 </string>
 						</dict>
+						<key>RubberWindowFrame</key>
+						<string>748 231 1474 1340 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -735,10 +778,11 @@
 		<string>BE3BC3BA1290B01A00ED6ADB</string>
 		<string>BE47179B12CB7FE9006F6BB3</string>
 		<string>BE47179C12CB7FE9006F6BB3</string>
+		<string>BE471CE212CD8AB4006F6BB3</string>
 		<string>/Users/joubert/dev/j/Cacao/Cacao.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>887 229 1474 1340 0 0 2560 1578 </string>
+	<string>748 231 1474 1340 0 0 2560 1578 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

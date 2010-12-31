@@ -32,7 +32,6 @@
 
 
 @interface CacaoVector : NSObject {
-    NSArray * elements;
 
 }
 

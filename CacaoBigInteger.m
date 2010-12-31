@@ -389,6 +389,8 @@ static cl_kernel opencl_sub_kernel;
         NSNumber * otherNumber = [number.groups objectAtIndex:0];
         return [thisNumber isLessThan:otherNumber];
     }    
+    
+    @throw [NSException exceptionWithName:@"NotImplementedException" reason:@"isLessThan not implemented for numbers wider than 18 digits" userInfo:nil];
 }
 
 - (void)negate

@@ -45,8 +45,8 @@
 
 
 @interface CacaoEnvironment : NSObject {
-    NSMutableDictionary * mappingTable;
-    CacaoEnvironment * outer;
+//    NSMutableDictionary * mappingTable;
+//    CacaoEnvironment * outer;
 }
 
 @property (nonatomic, retain) NSMutableDictionary * mappingTable;

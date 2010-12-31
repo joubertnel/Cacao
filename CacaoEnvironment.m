@@ -260,29 +260,59 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     // Create an environment for the function, which is an implicit LET of 
     // the arguments and their values
     
-    int argCount = remainingExpressions.count / 2;
-    NSMutableArray * symbolBindings = [NSMutableArray arrayWithCapacity:remainingExpressions.count];
+    NSMutableArray * symbolBindings = [NSMutableArray array];
+    __block BOOL prevObjectWasArgumentName = NO;
+    __block BOOL thereAreRestArgs = NO;
+    __block NSUInteger restArgsStartIndex = 0;
     
-    for (int i=0; i < argCount; i=i+2) {
-        CacaoSymbol * sym = [(CacaoArgumentName *)[remainingExpressions objectAtIndex:i] symbol];
-        [symbolBindings addObject:sym];
-        id val = [remainingExpressions objectAtIndex:i+1];
-        [symbolBindings addObject:val];
+    [remainingExpressions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[CacaoArgumentName class]])
+        {
+            CacaoSymbol * sym = [(CacaoArgumentName *)obj symbol];
+            [symbolBindings addObject:sym];            
+            prevObjectWasArgumentName = YES;
+        } else if (prevObjectWasArgumentName == NO) {
+            // We've reached the first REST argument, so break out of the enumeration,
+            // so that we can add the REST argument(s).
+            thereAreRestArgs = YES; 
+            restArgsStartIndex = idx;
+            *stop = YES;
+        } else {
+            // We are on a named argument's value, so let's add it to the symbol 
+            // bindings
+            [symbolBindings addObject:obj];
+            prevObjectWasArgumentName = NO;
+        }
+    }];
+    
+    if (thereAreRestArgs)
+    {
+        // The rest arguments are not named in the function call, so we have to gather 
+        // its name from the function metadata and add it
+        // to the symbol bindings.
+        CacaoSymbol * restArgNameSym = [funcBlock restArg];
+        [symbolBindings addObject:restArgNameSym];
+        
+        // And then we capture the REST arguments, wrap them in a vector, and add
+        // to the symbol bindings
+        NSRange restRange = {.location=restArgsStartIndex, .length=[remainingExpressions count]-restArgsStartIndex};
+        CacaoVector * restArgs = [CacaoVector vectorWithArray:[remainingExpressions subarrayWithRange:restRange]];
+        [symbolBindings addObject:restArgs];                            
+        
     }
     
     CacaoVector * bindings = [CacaoVector vectorWithArray:symbolBindings];
-    
     CacaoEnvironment * functionEnvironment = [CacaoEnvironment environmentFromVector:bindings
                                                                     outerEnvironment:env];        
     
-    
     // Resolve arguments' values by looking them up in the environment, and invoke the function
     // with the arguments and values. 
-    
-    NSMutableArray * argsAndValues = [NSMutableArray arrayWithCapacity:[funcBlock.argNames count]];
+    int argCount = [symbolBindings count];
+    NSMutableArray * argsAndValues = [NSMutableArray arrayWithCapacity:argCount*2];
     for (int i=0; i < argCount; i=i+2) {
-        CacaoArgumentName * argName = [remainingExpressions objectAtIndex:i];
-        id val = [[functionEnvironment find:argName.symbol] getMappingValue:argName.symbol];
+        CacaoSymbol * argNameSym = [symbolBindings objectAtIndex:i];
+        id val = [[functionEnvironment find:argNameSym] getMappingValue:argNameSym];
+        CacaoArgumentName * argName = [CacaoArgumentName argumentNameInternedFromSymbol:argNameSym];
         [argsAndValues addObjectsFromArray:[NSArray arrayWithObjects:argName, val, nil]];
     }
     
@@ -343,24 +373,34 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     NSArray * body = [expression subarrayWithRange:bodyRange];
     
     CacaoVector * params = (CacaoVector *)[expression objectAtIndex:fnParamsIndex];
-    CacaoSymbol * restParam = nil;
-    NSArray * positionalParams = [params elements];
-    NSUInteger positionalArgsCount = [positionalParams count];
-    NSInteger butLastParamIndex = [positionalParams count] - 2;
     
-    if (butLastParamIndex >= 0)
-    {
-        CacaoSymbol * butLastParam = [positionalParams objectAtIndex:butLastParamIndex];
-        if ([[butLastParam name] isEqualToString:REST_PARAM_DELIMITER])
+    // Extract the REST param, if there is one
+    __block NSUInteger restParamDelimiterIndex = 0;
+    __block CacaoSymbol * restParam = nil;
+
+    [params.elements enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CacaoSymbol * argSym = (CacaoSymbol *)obj;
+        NSString * symName = [argSym name];
+        if ([symName hasPrefix:REST_PARAM_DELIMITER])
         {
-            restParam = [positionalParams objectAtIndex:butLastParamIndex + 1];
-            positionalArgsCount = positionalArgsCount - 2;
-            NSRange positionalArgsRange;
-            positionalArgsRange.location = 0;
-            positionalArgsRange.length = positionalArgsCount;
-            positionalParams = [positionalParams subarrayWithRange:positionalArgsRange];
+            restParamDelimiterIndex = idx;
+            if ([symName isEqualToString:REST_PARAM_DELIMITER])
+                restParam = [params objectAtIndex:restParamDelimiterIndex + 1];
+            else 
+            {
+                NSString * restParamName = [symName substringFromIndex:1];
+                restParam = [CacaoSymbol symbolWithName:restParamName inNamespace:[argSym ns]];
+            }
+            *stop = YES;
         }
-    }
+    }];
+    
+    NSRange regularParamsRange = {.location=0};
+    regularParamsRange.length = (restParam == nil) ? [params.elements count] : restParamDelimiterIndex;
+    params = [CacaoVector vectorWithArray:[params.elements subarrayWithRange:regularParamsRange]];
+    
+    
+    // Prepare the function
     
     DispatchFunction fnOp = ^(NSDictionary * argsAndVals) {        
         CacaoEnvironment * subEnv = [CacaoEnvironment environmentWith:argsAndVals outerEnvironment:env];
@@ -380,7 +420,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     };
     
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:fnOp
-                                            params:params];
+                                            params:params
+                                           restArg:restParam];
     
     return fn;
 }

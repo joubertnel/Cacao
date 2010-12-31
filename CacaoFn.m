@@ -40,6 +40,7 @@ NSString * const FnIdentityPrefix = @"Fn_";
 @synthesize func;
 @synthesize identity;
 @synthesize argNames;
+@synthesize restArg;
 
 - (CacaoFn *)init
 {
@@ -55,7 +56,7 @@ NSString * const FnIdentityPrefix = @"Fn_";
     return self;
 }
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc params:(CacaoVector *)theArgs;
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc params:(CacaoVector *)theArgs restArg:(CacaoSymbol *)theRestArg
 {
     CacaoFn * fn = [[CacaoFn alloc] init];
     [fn setFunc:theFunc];    
@@ -64,6 +65,7 @@ NSString * const FnIdentityPrefix = @"Fn_";
         [theArgNames addObject:arg.name];
     
     [fn setArgNames:[NSSet setWithSet:theArgNames]];
+    [fn setRestArg:theRestArg];
     return [fn autorelease];
 }
 
@@ -83,19 +85,23 @@ NSString * const FnIdentityPrefix = @"Fn_";
         if (argsAndVals.count % 2 == 0)            
         {
             NSUInteger pairCount = [argsAndVals count]/2;
-            if (pairCount == self.argNames.count)
+            // A function can either be invoked with or without its REST arguments (they're optional and of
+            // unspecified length. So at a minimum the named arguments must be passed to the invocation, 
+            // and potentially an additional pair might be included, reflecting the REST argument name & value.
+            if ((pairCount >=  self.argNames.count) && (pairCount <= self.argNames.count + 1))
             {
+                
                 invokeSignatureCorrect = YES;
 
                 for (NSUInteger i=0; i <= pairCount; i = i + 2) {
-                    CacaoSymbol * arg = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
-                    if (![self.argNames containsObject:arg.name])
+                    CacaoSymbol * argNameSym = [(CacaoArgumentName *)[argsAndVals objectAtIndex:i] symbol];
+                    if (![self.argNames containsObject:argNameSym.name] && ![restArg isEqual:argNameSym])
                     {
                         invokeSignatureCorrect = NO;
                         break;
                     }
                     NSObject * argVal = [argsAndVals objectAtIndex:i+1];
-                    [av setObject:argVal forKey:arg];
+                    [av setObject:argVal forKey:argNameSym];
                 }
             }
         }        
