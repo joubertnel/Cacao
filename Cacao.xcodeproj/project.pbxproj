@@ -48,6 +48,7 @@
 		BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
 		BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BBBF12A59D3C00EE904A /* Cocoa.framework */; };
 		BE46BBD112A59DB300EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
+		BE471E2912CE427C006F6BB3 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA9FCA112C7BFEE001875C1 /* OpenCL.framework */; };
 		BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */ = {isa = PBXBuildFile; fileRef = BE61EF00129B79E200E7A7DD /* CacaoFn.h */; };
 		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
 		BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
@@ -194,6 +195,7 @@
 			files = (
 				BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */,
 				BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */,
+				BE471E2912CE427C006F6BB3 /* OpenCL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

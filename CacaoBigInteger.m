@@ -33,7 +33,6 @@
 #import <OpenCL/OpenCL.h>
 
 
-
 const char * kernelSource = \
 "__kernel void add(__global long *a, __global long *b, __global long *answer, const unsigned int a_count, const unsigned int b_count)" \
 "{                                      " \
@@ -59,15 +58,13 @@ const char * kernelSource = \
 // limited to 18 digits. Normally long long numbers (64 bit ints) can be up to 19 digits, but 
 // we limit our representation to 18 digits so that we can also store a carry digit during
 // computations, such as during addition.
-//static const int DIGIT_GROUP_LENGTH = 18; 
-static const int DIGIT_GROUP_LENGTH = 1; // for testing with narrower digit groups
+static const int DIGIT_GROUP_LENGTH = 18; 
+//static const int DIGIT_GROUP_LENGTH = 1; // for testing with narrower digit groups
 
 // This is the largest number that will get stored in a digit group
-//static const long long NON_CARRY_LIMIT = 999999999999999999; // eighteen 9's
- static const long long NON_CARRY_LIMIT = 9; // for testing with narrower digit groups
+static const long long NON_CARRY_LIMIT = 999999999999999999; // eighteen 9's
+//static const long long NON_CARRY_LIMIT = 9; // for testing with narrower digit groups
 static const long long CARRY_REMOVE = NON_CARRY_LIMIT + 1;
-
-
 
 
 static cl_device_id opencl_device;
@@ -175,7 +172,7 @@ static cl_kernel opencl_sub_kernel;
     BOOL thisNumberHasOnlyOneGroup = (thisNumberGroupCount == 1);
     BOOL otherNumberHasOnlyOneGroup = (otherNumberGroupCount == 1);
 
-    // Short circuit when the result of adding two numbers will fit into 64 bits.
+    // Short-circuit when the result of adding two numbers will fit into 64 bits.
     if (thisNumberHasOnlyOneGroup && otherNumberHasOnlyOneGroup) 
     {
         long long thisNumberValue = [[self.groups objectAtIndex:0] longLongValue];
@@ -187,13 +184,14 @@ static cl_kernel opencl_sub_kernel;
         }
     }
     
+    // Short-circuit if this number is zero
     if (thisNumberHasOnlyOneGroup)
     {
         if ([[self.groups objectAtIndex:0] longLongValue] == 0)
             return number; // return the other number because adding zero to it keeps it unchanged
     }
     
-    // Short circuit if the other number is zero
+    // Short-circuit if the other number is zero
     if (otherNumberHasOnlyOneGroup)
     {
         if ([[number.groups objectAtIndex:0] longLongValue] == 0)
@@ -203,6 +201,9 @@ static cl_kernel opencl_sub_kernel;
     int resultGroupCount = thisNumberGroupCount + 1;
     if (otherNumberGroupCount > resultGroupCount)
         resultGroupCount = otherNumberGroupCount + 1;
+    
+    
+    // Prepare for, and execute parallel, digit group addition using OpenCL
     
     long long a_buffer[thisNumberGroupCount]; // an array of this number's digit groups
     long long b_buffer[otherNumberGroupCount]; // an array of the digit groups of the number to add to this
@@ -376,6 +377,15 @@ static cl_kernel opencl_sub_kernel;
     return answer;    
 }
 
+- (void)negate
+{
+    @throw [NSException exceptionWithName:@"NotImplementedException" reason:@"Not Implemented Yet" userInfo:nil];
+}
+
+
+
+#pragma mark Equality semantics
+
 - (BOOL)isLessThan:(CacaoBigInteger *)number
 {
     int thisNumberGroupCount = [self.groups count];
@@ -393,10 +403,30 @@ static cl_kernel opencl_sub_kernel;
     @throw [NSException exceptionWithName:@"NotImplementedException" reason:@"isLessThan not implemented for numbers wider than 18 digits" userInfo:nil];
 }
 
-- (void)negate
+- (BOOL)isEqual:(id)object
 {
-    @throw [NSException exceptionWithName:@"NotImplementedException" reason:@"Not Implemented Yet" userInfo:nil];
+    if (![object isKindOfClass:[CacaoBigInteger class]])
+        return NO;
+    
+    CacaoBigInteger * other = (CacaoBigInteger *)object;
+    if ([self.groups count] != [other.groups count])
+        return NO;
+    
+    __block BOOL areTheNumbersEqual = YES;
+    [self.groups enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (obj != [other.groups objectAtIndex:idx])
+        {
+            areTheNumbersEqual = NO;
+            *stop = YES;
+        }
+    }];
+    
+    return areTheNumbersEqual;    
 }
+
+
+#pragma mark Other methods
+
 
 
 - (NSString *)printable

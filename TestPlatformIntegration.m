@@ -33,53 +33,55 @@
 
 @implementation TestPlatformIntegration
 
-- (void)testMethodThatReturnsLongLong
-{
-    NSString * test = @"(.length \"distribution\")";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertEquals([result longLongValue], 12LL, nil, nil);
-}
+// Not sure yet whether I want to support this kind of stuff, the way Clojure does for Java interop. 
 
-- (void)testMethodThatReturnsLong
-{
-    NSString * test = @"(= 123 (.integerValue \"123\"))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
-
-- (void)testMethodThatReturnsDouble
-{
-    NSString * test = @"(= 3.4 (.doubleValue \"3.4\"))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
-
-- (void)testMethodThatReturnsFloat
-{
-    NSString * test = @"(= (.floatValue \"2.23\") (.floatValue \"2.23\"))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
-
-- (void)testMethodThatReturnsCharAndTakesOneNumberArg
-{
-    NSString * test = @"(= \"l\" (.characterAtIndex: \"voila\" 3))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
-
-- (void)testMethodThatTakesOneStringArg
-{
-    NSString * test = @"(= \"hello_there\" (.stringByAppendingString: \"hello\" \"_there\"))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
-
-- (void)testSimpleInstancingAndMethodCall
-{
-    NSString * test = @"(= 5 (.length (NSString/stringWithString: \"hello\")))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
-}
+//- (void)testMethodThatReturnsLongLong
+//{
+//    NSString * test = @"(.length \"distribution\")";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertEquals([result longLongValue], 12LL, nil, nil);
+//}
+//
+//- (void)testMethodThatReturnsLong
+//{
+//    NSString * test = @"(= 123 (.integerValue \"123\"))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
+//
+//- (void)testMethodThatReturnsDouble
+//{
+//    NSString * test = @"(= 3.4 (.doubleValue \"3.4\"))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
+//
+//- (void)testMethodThatReturnsFloat
+//{
+//    NSString * test = @"(= (.floatValue \"2.23\") (.floatValue \"2.23\"))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
+//
+//- (void)testMethodThatReturnsCharAndTakesOneNumberArg
+//{
+//    NSString * test = @"(= \"l\" (.characterAtIndex: \"voila\" 3))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
+//
+//- (void)testMethodThatTakesOneStringArg
+//{
+//    NSString * test = @"(= \"hello_there\" (.stringByAppendingString: \"hello\" \"_there\"))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
+//
+//- (void)testSimpleInstancingAndMethodCall
+//{
+//    NSString * test = @"(= 5 (.length (NSString/stringWithString: \"hello\")))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
+//}
 
 @end

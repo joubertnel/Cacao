@@ -46,9 +46,10 @@
 
 - (CacaoBigInteger *)add:(CacaoBigInteger *)anotherNumber;
 - (CacaoBigInteger *)subtract:(CacaoBigInteger *)number;
-- (BOOL)isLessThan:(CacaoBigInteger *)number;
-
 - (void)negate;
+
+- (BOOL)isLessThan:(CacaoBigInteger *)number;
+- (BOOL)isEqual:(id)object;
 
 - (NSString *)printable;
 
