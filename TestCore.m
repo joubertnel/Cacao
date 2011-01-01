@@ -41,6 +41,13 @@
     STAssertTrue([result isEqualToString:@"test"], nil);    
 }
 
+- (void)testNestedFn
+{
+    NSString * test = @"(= \"birdy\" (let [func1 (fn[n] n) func2 (fn[m] (func1 n:m))] (func2 m:\"birdy\")))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
 - (void)testMultipleArgs
 {
     NSString * expression = @"(let [echo (fn [x y] x)] (echo x:\"first\" y:\"second\"|";

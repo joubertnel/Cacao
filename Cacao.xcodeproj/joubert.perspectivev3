@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BE471EF812CED989006F6BB3</string>
+						<string>BE471F0112CEDAC0006F6BB3</string>
 						<key>history</key>
 						<array>
 							<string>BE471CE412CD8AB4006F6BB3</string>
@@ -326,7 +326,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>3</integer>
+									<integer>7</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -367,7 +367,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TestMath.m</string>
+								<string>TestCore.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -375,11 +375,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TestMath.m</string>
+										<string>TestCore.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE471EF712CED989006F6BB3</string>
+										<string>BE471F0012CEDAC0006F6BB3</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -450,13 +450,13 @@
 											<string>BE471E3D12CE42E7006F6BB3</string>
 											<string>BE471E4812CE444D006F6BB3</string>
 											<string>BE471E4912CE444D006F6BB3</string>
-											<string>BE471E7812CEBD75006F6BB3</string>
-											<string>BE471E7912CEBD75006F6BB3</string>
-											<string>BE471E7A12CEBD75006F6BB3</string>
-											<string>BE471E7B12CEBD75006F6BB3</string>
 											<string>BE471E7C12CEBD75006F6BB3</string>
 											<string>BE471EF512CED989006F6BB3</string>
-											<string>BE471EF612CED989006F6BB3</string>
+											<string>BE471EFB12CEDAC0006F6BB3</string>
+											<string>BE471EFC12CEDAC0006F6BB3</string>
+											<string>BE471EFD12CEDAC0006F6BB3</string>
+											<string>BE471EFE12CEDAC0006F6BB3</string>
+											<string>BE471EFF12CEDAC0006F6BB3</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
