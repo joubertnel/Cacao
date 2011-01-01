@@ -151,7 +151,15 @@ static cl_kernel opencl_sub_kernel;
 + (CacaoBigInteger *)bigIntegerFromDigitGroups:(NSArray *)digitGroups
 {
     CacaoBigInteger * bigInt = [[CacaoBigInteger alloc] init];
-    [bigInt setGroups:digitGroups];
+    __block NSMutableArray * groups = [NSMutableArray arrayWithCapacity:digitGroups.count];
+    [digitGroups enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        BOOL groupIsEmpty = NO;
+        if ((idx > 0) && ([obj longLongValue] == 0L))
+            groupIsEmpty = YES;
+        if (!groupIsEmpty)
+            [groups insertObject:obj atIndex:0];            
+    }];
+    [bigInt setGroups:groups];
     return [bigInt autorelease];    
 }
 
@@ -275,7 +283,7 @@ static cl_kernel opencl_sub_kernel;
         {
             groupVal = groupVal - CARRY_REMOVE;
             results[i+1] = results[i+1] + 1;
-        }        
+        }                
         [answerDigitGroups insertObject:[NSNumber numberWithLongLong:groupVal] atIndex:i];
     }
     
@@ -414,7 +422,7 @@ static cl_kernel opencl_sub_kernel;
     
     __block BOOL areTheNumbersEqual = YES;
     [self.groups enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (obj != [other.groups objectAtIndex:idx])
+        if (![obj isEqualToNumber:[other.groups objectAtIndex:idx]])
         {
             areTheNumbersEqual = NO;
             *stop = YES;

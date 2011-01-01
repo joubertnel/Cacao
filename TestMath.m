@@ -41,6 +41,13 @@
     STAssertTrue([result boolValue], nil);
 }
 
+- (void)testBigIntegerEquality
+{
+    NSString * test = @"(= 123456789123456789123456789123456789123456789123456789123456789123456789 123456789123456789123456789123456789123456789123456789123456789123456789)";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
 - (void)testIntegerInequality
 {
     NSString * test = @"(= 5 123)";
@@ -48,9 +55,30 @@
     STAssertFalse([result boolValue], nil);
 }
 
+- (void)testBigIntegerInequality
+{
+    NSString * test = @"(= 123456789123456789123456789123456789123456789123456789123456789123456789 938479)";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertFalse([result boolValue], nil);
+}
+
 - (void)testIntegerAddition
 {   
     NSString * test = @"(= 7 (+ 4 3|";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
+- (void)testBigIntegerAddition
+{
+    NSString * test = @"(= 2837506749332229293531724051021151478729667013 (+ 38475683465834768236487236478643758634758 2837468273648763458763487563784672834687263487 283768768))";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
+- (void)testZeroAddition
+{
+    NSString * test = @"(= 0 (+ 0 0))";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
