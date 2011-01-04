@@ -232,6 +232,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -273,9 +275,6 @@
 								<string>08FB77AEFE84172EC02AAC07</string>
 								<string>BE3BC6FC1290E57400ED6ADB</string>
 								<string>BE3BC17A1290972900ED6ADB</string>
-								<string>BE93F79012BBE395007A4826</string>
-								<string>BE021FE7128FAECE00636124</string>
-								<string>BE3BC17B1290973500ED6ADB</string>
 								<string>32C88DFF0371C24200C91783</string>
 								<string>0867D69AFE84028FC02AAC07</string>
 								<string>1C37FBAC04509CD000000102</string>
@@ -284,7 +283,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>37</integer>
+									<integer>22</integer>
 									<integer>15</integer>
 									<integer>11</integer>
 									<integer>0</integer>
@@ -308,7 +307,7 @@
 							<real>265</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>1121 238 1474 1340 0 0 2560 1578 </string>
+						<string>146 217 1474 1340 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -319,14 +318,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoFn.m</string>
+								<string>CacaoRepl.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,15 +331,14 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoFn.m</string>
+										<string>CacaoRepl.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BEF44AC012D2BDE6007E42FB</string>
+										<string>BEF44C0A12D3B43F007E42FB</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
-											<string>BE296A4612A4116500229132</string>
 											<string>BE46BCEA12A5B5A000EE904A</string>
 											<string>BE46BCEB12A5B5A000EE904A</string>
 											<string>BE46BCEC12A5B5A000EE904A</string>
@@ -398,24 +394,25 @@
 											<string>BE471E0612CD9F26006F6BB3</string>
 											<string>BE471E0712CD9F26006F6BB3</string>
 											<string>BE471E0812CD9F26006F6BB3</string>
-											<string>BE471E3C12CE42E7006F6BB3</string>
-											<string>BE471E3D12CE42E7006F6BB3</string>
-											<string>BE471E4912CE444D006F6BB3</string>
-											<string>BE471E7C12CEBD75006F6BB3</string>
-											<string>BE471EFB12CEDAC0006F6BB3</string>
 											<string>BE471EFC12CEDAC0006F6BB3</string>
 											<string>BE471EFD12CEDAC0006F6BB3</string>
-											<string>BE471EFE12CEDAC0006F6BB3</string>
-											<string>BEF44A7312CF76AF007E42FB</string>
-											<string>BEF44A9012D2BBFD007E42FB</string>
 											<string>BEF44A9112D2BBFD007E42FB</string>
-											<string>BEF44A9212D2BBFD007E42FB</string>
-											<string>BEF44A9312D2BBFD007E42FB</string>
 											<string>BEF44A9412D2BBFD007E42FB</string>
 											<string>BEF44A9512D2BBFD007E42FB</string>
-											<string>BEF44ABA12D2BDD6007E42FB</string>
 											<string>BEF44ABB12D2BDD6007E42FB</string>
-											<string>BEF44ABF12D2BDE5007E42FB</string>
+											<string>BEF44ADE12D2CC4B007E42FB</string>
+											<string>BEF44ADF12D2CC4B007E42FB</string>
+											<string>BEF44AE012D2CC4B007E42FB</string>
+											<string>BEF44AE212D2CC4B007E42FB</string>
+											<string>BEF44AE312D2CC4B007E42FB</string>
+											<string>BEF44AE412D2CC4B007E42FB</string>
+											<string>BEF44AE512D2CC4B007E42FB</string>
+											<string>BEF44AE612D2CC4B007E42FB</string>
+											<string>BEF44B0C12D2CFD3007E42FB</string>
+											<string>BEF44BF512D3B436007E42FB</string>
+											<string>BEF44BF612D3B436007E42FB</string>
+											<string>BEF44BF712D3B436007E42FB</string>
+											<string>BEF44BF912D3B436007E42FB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -429,18 +426,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1187, 1091}}</string>
+								<string>{{0, 0}, {1187, 1088}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1121 238 1474 1340 0 0 2560 1578 </string>
+								<string>146 217 1474 1340 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>1091pt</string>
+							<string>1088pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>203pt</string>
+							<string>206pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -454,9 +451,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1187, 176}}</string>
+										<string>{{10, 27}, {1187, 179}}</string>
 										<key>RubberWindowFrame</key>
-										<string>1121 238 1474 1340 0 0 2560 1578 </string>
+										<string>146 217 1474 1340 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -510,7 +507,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1187, 286}}</string>
+										<string>{{10, 27}, {1187, 176}}</string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -538,11 +535,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>BEF44A7512CF76AF007E42FB</string>
+				<string>BEF44C0B12D3B43F007E42FB</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>BEF44A7612CF76AF007E42FB</string>
+				<string>BEF44C0C12D3B43F007E42FB</string>
 				<string>BE2652C3128DBF470088DC0A</string>
-				<string>BEF44A7712CF76AF007E42FB</string>
+				<string>BEF44C0D12D3B43F007E42FB</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -732,12 +729,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>BEF44AC612D2BDE6007E42FB</string>
-		<string>BEF44AC712D2BDE6007E42FB</string>
 		<string>/Users/joubert/dev/j/Cacao/Cacao.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1121 238 1474 1340 0 0 2560 1578 </string>
+	<string>146 217 1474 1340 0 0 2560 1578 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

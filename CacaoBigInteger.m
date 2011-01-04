@@ -408,7 +408,21 @@ static cl_kernel opencl_sub_kernel;
         return [thisNumber isLessThan:otherNumber];
     }    
     
-    @throw [NSException exceptionWithName:@"NotImplementedException" reason:@"isLessThan not implemented for numbers wider than 18 digits" userInfo:nil];
+    __block BOOL isThisNumberLessThanTheOtherNumber = YES;
+    [self.groups enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSNumber * digitGroup = (NSNumber *)obj;
+        NSNumber * otherNumberDigitGroup = (NSNumber *)[number.groups objectAtIndex:idx];
+        if (digitGroup < otherNumberDigitGroup)
+        {
+            *stop = YES;
+        } else if (digitGroup > otherNumberDigitGroup)
+        {
+            isThisNumberLessThanTheOtherNumber = NO;
+            *stop = YES;
+        }
+    }];
+    
+    return isThisNumberLessThanTheOtherNumber;
 }
 
 - (BOOL)isEqual:(id)object
