@@ -39,6 +39,7 @@
 #import "CacaoLispReader.h"
 #import "PushbackReader.h"
 #import "CacaoArgumentName.h"
+#import "CacaoQuotedForm.h"
 
 static NSString * REST_PARAM_DELIMITER = @"&";
 
@@ -176,6 +177,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         }];        
         return [CacaoVector vectorWithArray:evaluatedItems];
     }
+    else if ([x isKindOfClass:[CacaoQuotedForm class]])
+        return [x form];
     else if (![x isKindOfClass:[NSArray class]])
         return x;      
 

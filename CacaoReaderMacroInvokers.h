@@ -30,7 +30,9 @@
 
 #import "PushbackReader.h"
 #import "CacaoLispReader.h"
+#import "CacaoQuotedForm.h"
 #import "CacaoVector.h"
+
 
 typedef NSObject * (^ReaderMacro)(PushbackReader *reader, unichar firstCharacter, ...);
 
@@ -85,6 +87,8 @@ ReaderMacro cacaoStringReaderMacro = ^(PushbackReader *reader, unichar firstChar
     return theString;       
 };
 
+
+
 ReaderMacro cacaoListReaderMacro = ^(PushbackReader * reader, unichar firstCharacter, ...) {
     uint initialNestingDepth = 0;
     va_list optionals;
@@ -114,4 +118,11 @@ ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCha
                                                            from:reader];
     CacaoVector * vector = [CacaoVector vectorWithArray:elements];
     return vector;
+};
+
+ReaderMacro cacaoQuoteReaderMacro = ^(PushbackReader * reader, unichar firstChar, ...) {
+    id form = [CacaoLispReader readFrom:reader eofValue:nil];
+    CacaoQuotedForm * unevaluatedForm = [[[CacaoQuotedForm alloc] init] autorelease];
+    [unevaluatedForm setForm:form];
+    return unevaluatedForm;
 };

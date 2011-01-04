@@ -72,15 +72,34 @@
 
 - (void)testRangeFn
 {
-    //NSString * expression = @"(range start:4 end:1000000000000000000000000)";
-    NSString * expression = @"(range start:4 end:100000000)";
+    NSString * expression = @"(range start:4 end:100)";
     CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
     CacaoBigInteger * first = (CacaoBigInteger *)[result objectAtIndex:0];
     CacaoBigInteger * last = (CacaoBigInteger *)[result.elements lastObject];
     STAssertTrue([first isEqual:[CacaoBigInteger bigIntegerFromLongLong:4]], nil);
     NSLog(@"%@", last);
-    STAssertTrue([last isEqual:[CacaoBigInteger bigIntegerFromText:@"99999999"]], nil);
-    //STAssertTrue([last isEqual:[CacaoBigInteger bigIntegerFromText:@"999999999999999999999999"]], nil);
+    STAssertTrue([last isEqual:[CacaoBigInteger bigIntegerFromText:@"99"]], nil);
+}
+
+- (void)testQuote
+{
+    NSString * expression;
+    NSObject * result;
+    BOOL isResultOfCorrectClass;
+    
+    expression = @"(= 4 '4)";
+    result = (NSNumber *)[CacaoEnvironment evalText:expression inEnvironment:env];
+    STAssertTrue([(NSNumber *)result boolValue], nil);
+    
+    expression = @"'unevaluatedSymbol";
+    result = [CacaoEnvironment evalText:expression inEnvironment:env];
+    isResultOfCorrectClass = [result isKindOfClass:[CacaoSymbol class]];
+    STAssertTrue(isResultOfCorrectClass, nil);
+    
+    expression = @"'[3 4 more]";
+    result = [CacaoEnvironment evalText:expression inEnvironment:env];
+    isResultOfCorrectClass = [result isKindOfClass:[CacaoVector class]];
+    STAssertTrue(isResultOfCorrectClass, nil);    
 }
 
 @end

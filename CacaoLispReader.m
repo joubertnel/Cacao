@@ -28,18 +28,15 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "CacaoLispReader.h"
-#import "CacaoSymbol.h"
-#import "CacaoArgumentName.h"
-#import "CacaoKeyword.h"
-#import "CacaoBigInteger.h"
-#import "BigInteger.h"
-#import "BigDecimal.h"
-#import "GMPRational.h"
 #import "RegexKitLite.h"
 
-// Reader Macros
+#import "CacaoArgumentName.h"
+#import "CacaoBigInteger.h"
+#import "CacaoKeyword.h"
+#import "CacaoLispReader.h"
 #import "CacaoReaderMacroInvokers.h"
+#import "CacaoSymbol.h"
+
 
 unichar CACAO_READER_STRING_CHAR = (unichar)'"';
 unichar CACAO_READER_LIST_START_CHAR = (unichar)'(';
@@ -48,6 +45,7 @@ unichar CACAO_READER_LIST_COLLAPSE_CHAR = (unichar)'|';
 NSString * CACAO_READER_LIST_COLLAPSE_STRING = @"|";
 unichar CACAO_READER_VECTOR_START_CHAR = (unichar)'[';
 unichar CACAO_READER_VECTOR_END_CHAR = (unichar)']';
+unichar CACAO_READER_QUOTE_CHAR = (unichar)'\'';
 
 static unichar CACAO_READER_ARG_VAL_SEPARATOR = (unichar)':';
 static NSString * CACAO_ARG_VAL_SEPARATOR_STRING = @":";
@@ -69,6 +67,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
                     cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_LIST_END_CHAR],
                     cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_START_CHAR],
                     cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_END_CHAR],
+                    cacaoQuoteReaderMacro,                  [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_QUOTE_CHAR],
                      nil];
     
     additionalWhitespaceCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@","];
@@ -245,10 +244,11 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
     matchedRange = [theString rangeOfRegex:ratioPat options:RKLNoOptions inRange:searchRange capture:0 error:&error];
 	if (matchedRange.location != NSNotFound)
 	{
-		NSString *numerator = [theString stringByMatching:ratioPat capture:1];
-		NSString *denominator = [theString stringByMatching:ratioPat capture:2];
-		GMPRational *ratio = [GMPRational rationalWithValue:[numerator stringByAppendingFormat:@"/%@", denominator]];
-		return ratio;
+//		NSString *numerator = [theString stringByMatching:ratioPat capture:1];
+//		NSString *denominator = [theString stringByMatching:ratioPat capture:2];
+        @throw [NSException exceptionWithName:@"NotImplementedException"
+                                        reason:@"CacaoBigRational not implemented yet"
+                                     userInfo:nil];
 	}
 	
 	
@@ -256,7 +256,9 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 	if (matchedRange.location != NSNotFound)
 	{
 		if ([[theString substringFromIndex:[theString length] -1] isEqualToString:@"M"])
-			return [BigDecimal bigDecimalWithValue:theString];
+			@throw [NSException exceptionWithName:@"NotImplementedException"
+                                           reason:@"CacaoBigDecimal not implemented yet"
+                                         userInfo:nil];
 		else
 			return [NSNumber numberWithDouble:[theString doubleValue]];
 	}

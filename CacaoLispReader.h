@@ -43,11 +43,14 @@ extern unichar CACAO_READER_LIST_COLLAPSE_CHAR;
 extern NSString * CACAO_READER_LIST_COLLAPSE_STRING;
 extern unichar CACAO_READER_VECTOR_START_CHAR;
 extern unichar CACAO_READER_VECTOR_END_CHAR;
+extern unichar CACAO_READER_QUOTE_CHAR;
 
 @interface CacaoLispReader : NSObject {
 
 }
 
++ (id)interpretToken:(NSString *)token;
++ (NSString *)readTokenFrom:(PushbackReader *)reader firstCharacter:(unichar)ch;
 + (id)readFrom:(PushbackReader *)reader eofValue:(NSObject *)eofValue;
 
 + (NSArray *)readListDelimitedWith:(char)delim 
@@ -57,6 +60,6 @@ extern unichar CACAO_READER_VECTOR_END_CHAR;
                       nestingDepth:(uint)initialNestingDepth;
 
 + (NSArray *)readListDelimitedWith:(char)delim from:(PushbackReader *)reader;
-
++ (BOOL)isWhiteSpace:(unichar)ch;
 
 @end

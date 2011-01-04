@@ -97,6 +97,9 @@
 		BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29822128F376B0092F199 /* CacaoSymbol.m */; };
 		BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */; };
 		BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */; };
+		BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */; };
+		BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
+		BEF44C7A12D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +189,8 @@
 		BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigDecimal.m; sourceTree = "<group>"; };
 		BEDDE0A212A444AC00B0EF6C /* GMPRational.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMPRational.h; sourceTree = "<group>"; };
 		BEDDE0A312A444AC00B0EF6C /* GMPRational.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMPRational.m; sourceTree = "<group>"; };
+		BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoQuotedForm.h; sourceTree = "<group>"; };
+		BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoQuotedForm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +356,8 @@
 				BE3BC60B1290CD2400ED6ADB /* CacaoNil.m */,
 				BE61EF00129B79E200E7A7DD /* CacaoFn.h */,
 				BE61EF01129B79E200E7A7DD /* CacaoFn.m */,
+				BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */,
+				BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -458,6 +465,7 @@
 				BE9302F112BED306007A4826 /* CacaoArgumentName.h in Headers */,
 				BE93D64512C6D28900B42625 /* CacaoCore.h in Headers */,
 				BEA9FC8412C7B72A001875C1 /* CacaoBigInteger.h in Headers */,
+				BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +629,7 @@
 				BE9302F212BED306007A4826 /* CacaoArgumentName.m in Sources */,
 				BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */,
 				BEA9FC8512C7B72A001875C1 /* CacaoBigInteger.m in Sources */,
+				BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +674,7 @@
 				BE98BD8912C3E74900E21BD2 /* CacaoAST.m in Sources */,
 				BE93D64712C6D28900B42625 /* CacaoCore.m in Sources */,
 				BEA9FC8612C7B72A001875C1 /* CacaoBigInteger.m in Sources */,
+				BEF44C7A12D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
