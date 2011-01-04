@@ -30,6 +30,8 @@
 
 
 #import "TestCore.h"
+#import "CacaoBigInteger.h"
+#import "CacaoVector.h"
 
 
 @implementation TestCore
@@ -61,6 +63,21 @@
     STAssertThrowsSpecificNamed([CacaoEnvironment evalText:expression inEnvironment:env],
                                 NSException,
                                 @"Incorrect CacaoFn invocation", nil);
+}
+
+- (void)testRestArgs
+{
+    
+}
+
+- (void)testRangeFn
+{
+    NSString * expression = @"(range start:4 end:1000000000000000000000000)";
+    CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
+    CacaoBigInteger * first = (CacaoBigInteger *)[result objectAtIndex:0];
+    CacaoBigInteger * last = (CacaoBigInteger *)[result.elements lastObject];
+    STAssertTrue([first isEqual:[CacaoBigInteger bigIntegerFromLongLong:4]], nil);
+    STAssertTrue([last isEqual:[CacaoBigInteger bigIntegerFromText:@"999999999999999999999999"]], nil);
 }
 
 @end

@@ -110,10 +110,10 @@ NSString * const FnIdentityPrefix = @"Fn_";
         return func(av);
     else 
     {
-        NSMutableString * correctInvocation = [NSMutableString stringWithFormat:@"Specify each argument, e.g. <fnsym "];
+        NSMutableString * correctInvocation = [NSMutableString stringWithFormat:@"Specify each argument, e.g. (fnsym "];
         for (NSString * aName in self.argNames)
             [correctInvocation appendFormat:@"%@:... ", aName];
-        [correctInvocation appendString:@"|"];
+        [correctInvocation appendString:@")"];
         @throw [NSException exceptionWithName:@"Incorrect CacaoFn invocation"
                                        reason:correctInvocation
                                      userInfo:nil];

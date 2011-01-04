@@ -62,6 +62,24 @@ static NSString * SYMBOL_NAME_NO = @"NO";
 
     } params:nil restArg:lessThanArgSym];
     
+    CacaoSymbol * rangeSymbol = [CacaoSymbol symbolWithName:@"range" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * rangeStartArgSym = [CacaoSymbol symbolWithName:@"start" inNamespace:nil];
+    CacaoSymbol * rangeEndArgSym = [CacaoSymbol symbolWithName:@"end" inNamespace:nil];
+    CacaoVector * rangeArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects: rangeStartArgSym, rangeEndArgSym, nil]];;
+    CacaoFn * rangeFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoBigInteger * startNum = [argsAndVals objectForKey:rangeStartArgSym];
+        CacaoBigInteger * endNum = [argsAndVals objectForKey:rangeEndArgSym];
+        CacaoBigInteger * i = startNum;
+        NSMutableArray * numbers = [NSMutableArray array];
+        while ([i isLessThan:endNum]) {
+            [numbers addObject:i];
+            i = [i add:[CacaoBigInteger bigIntegerFromLongLong:1]];
+        }
+        return [CacaoVector vectorWithArray:numbers];
+
+    } params:rangeArgs restArg:nil];
+    
+    
     //CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
 //    CacaoFn * multiplyFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
 //        int answer = 1;
@@ -89,6 +107,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
                                      sumFn, sumOpSymbol, 
                                      subtractFn, subtractOpSymbol,
                                      lessThanFn, lessThanSymbol,
+                                     rangeFn, rangeSymbol,
                                     // multiplyFn, multiplyOpSymbol,
 
 //                                     divideFn, divideOpSym,
