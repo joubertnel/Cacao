@@ -97,6 +97,13 @@
     STAssertTrue([result boolValue], nil);
 }
 
+- (void)testNegativeIntegers
+{
+    NSString * test = @"(= -45 (- 50 95|";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
 //- (void)testIntegerDivision
 //{
 //    CacaoAST * ast = [CacaoAST astWithText:@"<= 10 </ 20 2]"];

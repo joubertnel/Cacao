@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BEF4507512D41A1A007E42FB</string>
+						<string>BEF450EF12D41E00007E42FB</string>
 						<key>history</key>
 						<array>
 							<string>BEF4506E12D419E3007E42FB</string>
@@ -324,9 +324,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>23</integer>
-									<integer>15</integer>
-									<integer>11</integer>
+									<integer>7</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -366,7 +365,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoCore.m</string>
+								<string>TestCore.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -374,11 +373,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoCore.m</string>
+										<string>TestCore.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BEF4507412D41A1A007E42FB</string>
+										<string>BEF450EE12D41E00007E42FB</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -424,7 +423,6 @@
 											<string>BEF44C1012D3B454007E42FB</string>
 											<string>BEF44C1D12D3B8E0007E42FB</string>
 											<string>BEF44C1E12D3B8E0007E42FB</string>
-											<string>BEF44C2112D3B8E0007E42FB</string>
 											<string>BEF44CC912D3C0F8007E42FB</string>
 											<string>BEF44CCA12D3C0F8007E42FB</string>
 											<string>BEF44D0012D3DBA6007E42FB</string>
@@ -437,28 +435,29 @@
 											<string>BEF44D2312D3DCCB007E42FB</string>
 											<string>BEF44DC512D3E432007E42FB</string>
 											<string>BEF44DDC12D3E535007E42FB</string>
-											<string>BEF44E2612D3E9C1007E42FB</string>
 											<string>BEF44E2B12D3EAA7007E42FB</string>
 											<string>BEF44E2C12D3EAA7007E42FB</string>
 											<string>BEF44E4312D3EE56007E42FB</string>
 											<string>BEF44E5E12D3F229007E42FB</string>
 											<string>BEF44E5F12D3F229007E42FB</string>
 											<string>BEF44E6012D3F229007E42FB</string>
-											<string>BEF44E6212D3F229007E42FB</string>
 											<string>BEF44E7812D3F450007E42FB</string>
-											<string>BEF4504012D40CD1007E42FB</string>
-											<string>BEF4504412D40CD1007E42FB</string>
 											<string>BEF4504612D40CD1007E42FB</string>
 											<string>BEF4504A12D40CD1007E42FB</string>
 											<string>BEF4505112D4183D007E42FB</string>
-											<string>BEF4505212D4183D007E42FB</string>
-											<string>BEF4505312D4183D007E42FB</string>
-											<string>BEF4505512D4183D007E42FB</string>
-											<string>BEF4505612D4183D007E42FB</string>
 											<string>BEF4505712D4183D007E42FB</string>
-											<string>BEF4506A12D419E3007E42FB</string>
-											<string>BEF4507212D41A1A007E42FB</string>
-											<string>BEF4507312D41A1A007E42FB</string>
+											<string>BEF4507E12D41B0D007E42FB</string>
+											<string>BEF4507F12D41B0D007E42FB</string>
+											<string>BEF4508012D41B0D007E42FB</string>
+											<string>BEF4508112D41B0D007E42FB</string>
+											<string>BEF4508212D41B0D007E42FB</string>
+											<string>BEF4509912D41BC3007E42FB</string>
+											<string>BEF450AE12D41C22007E42FB</string>
+											<string>BEF450C612D41C7F007E42FB</string>
+											<string>BEF450EA12D41E00007E42FB</string>
+											<string>BEF450EB12D41E00007E42FB</string>
+											<string>BEF450EC12D41E00007E42FB</string>
+											<string>BEF450ED12D41E00007E42FB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

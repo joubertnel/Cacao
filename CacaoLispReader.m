@@ -221,8 +221,8 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 		if ([theString stringByMatching:intPat capture:2] != nil)
             return [BigInteger bigIntegerWithValue:@"0"];
 		
-//        NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
-//		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
+        NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
+		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
 		NSString *n;
 		int base = 10;
 		if ((n = [theString stringByMatching:intPat capture:3]) != nil)
@@ -236,8 +236,8 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 		if (n == nil)
 			return nil;
         BigInteger *bn = [BigInteger bigIntegerWithValue:n];
-//		if (negate) 
-//            [bn negate];
+		if (negate) 
+            [bn negate];
 		return bn;			
 	}
     
@@ -323,16 +323,17 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
             return ret;
         }      
         
-//        if (ch == '+' || ch == '-')
-//        {
-//            unichar ch2 = [reader read];
-//            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
-//            {
-//                id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
-//                return number;
-//            }
-//            [reader unreadSoThatNextCharIs:ch2];
-//        }
+        if (ch == '+' || ch == '-')
+        {
+            unichar ch2 = [reader read];
+            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch2])
+            {
+                [reader unreadSoThatNextCharIs:ch2];
+                id number = [CacaoLispReader readNumberFrom:reader firstDigit:ch];
+                return number;
+            }
+            [reader unreadSoThatNextCharIs:ch2];
+        }
         
         NSString * token = [CacaoLispReader readTokenFrom:reader firstCharacter:ch];
         return [CacaoLispReader interpretToken:token];

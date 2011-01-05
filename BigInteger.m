@@ -74,15 +74,18 @@
 }
 
 
-//- (id)negate
-//{
-//	mpz_t tempNegatedGMPInteger;
-//	mpz_init (tempNegatedGMPInteger);
-//	mpz_neg (tempNegatedGMPInteger, theNumber);
-//	BigInteger *negatedBigInteger = [[BigInteger alloc] initWithGMPInteger:tempNegatedGMPInteger];
-//	mpz_clear (tempNegatedGMPInteger);
-//	return [negatedBigInteger autorelease];
-//}
+- (void)negate
+{
+    mpz_t the_mpz;
+	mpz_t neg_mpz;
+    [self.mpzVal getValue:&the_mpz];
+    
+	mpz_init (neg_mpz);
+	mpz_neg (neg_mpz, the_mpz);
+    mpz_clear (the_mpz);
+    
+    [self setMpzVal:[NSValue value:neg_mpz withObjCType:@encode(mpz_t)]];
+}
 
 - (void)dealloc
 {

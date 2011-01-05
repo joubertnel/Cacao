@@ -108,11 +108,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         }];
         return [CacaoVector vectorWithArray:results];        
     } params:mapArgs restArg:nil];
-    
-    
-
-    
-    
+        
 
 //    
 //    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
