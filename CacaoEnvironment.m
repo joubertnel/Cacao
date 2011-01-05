@@ -128,9 +128,10 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 - (id)getMappingValue:(CacaoSymbol *)theVar
 {        
     __block id val = nil;
+    BOOL isTheVarOfCacaoSymbolClass = [theVar isKindOfClass:[CacaoSymbol class]];
     
-    [self.mappingTable enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
-        BOOL bothSymbols = ([key isKindOfClass:[CacaoSymbol class]]) && ([theVar isKindOfClass:[CacaoSymbol class]]);        
+    [self.mappingTable enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        BOOL bothSymbols = ([key isKindOfClass:[CacaoSymbol class]]) && isTheVarOfCacaoSymbolClass;        
         BOOL symbolMatch =  bothSymbols && ([[(CacaoSymbol *)key name] isEqualToString:[(CacaoSymbol *)theVar name]]);
         BOOL otherMatch = !symbolMatch && (key == theVar);
         
@@ -138,7 +139,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         {
             val = obj;
             *stop = YES;
-        }               
+        }                    
     }];
     return val;
 }
