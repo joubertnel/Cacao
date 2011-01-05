@@ -101,4 +101,16 @@
     STAssertTrue(isResultOfCorrectClass, nil);    
 }
 
+- (void)testMap
+{
+    NSString * expression = @"(let [double (fn[n] (* n 2))] (map fn:double seq:[2 27 999999]|";
+    CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
+    BigInteger * first = [result.elements objectAtIndex:0];
+    BigInteger * middle = [result.elements objectAtIndex:1];
+    BigInteger * last = [result.elements objectAtIndex:2];
+    STAssertTrue([first isEqual:[BigInteger bigIntegerWithValue:@"4"]], nil);
+    STAssertTrue([middle isEqual:[BigInteger bigIntegerWithValue:@"54"]], nil);
+    STAssertTrue([last isEqual:[BigInteger bigIntegerWithValue:@"1999998"]], nil);    
+}
+
 @end

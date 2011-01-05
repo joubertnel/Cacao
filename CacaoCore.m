@@ -92,13 +92,13 @@ static NSString * SYMBOL_NAME_NO = @"NO";
 
     } params:rangeArgs restArg:nil];
     
-    CacaoSymbol * pmapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
-    CacaoSymbol * pmapFnArgSym = [CacaoSymbol symbolWithName:@"fn" inNamespace:nil];
-    CacaoSymbol * pmapSeqArgSym = [CacaoSymbol symbolWithName:@"seq" inNamespace:nil];
-    CacaoVector * pmapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:pmapFnArgSym, pmapSeqArgSym, nil]];                                                        
+    CacaoSymbol * mapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * mapFnArgSym = [CacaoSymbol symbolWithName:@"fn" inNamespace:nil];
+    CacaoSymbol * mapSeqArgSym = [CacaoSymbol symbolWithName:@"seq" inNamespace:nil];
+    CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapSeqArgSym, nil]];                                                        
     CacaoFn * pmapFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-        id seq = [argsAndVals objectForKey:pmapSeqArgSym];
-        CacaoFn * fn = [argsAndVals objectForKey:pmapFnArgSym];
+        id seq = [argsAndVals objectForKey:mapSeqArgSym];
+        CacaoFn * fn = [argsAndVals objectForKey:mapFnArgSym];
         NSString * fnArgNameString = [fn.argNames anyObject];
         CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString inNamespace:nil]];
         __block NSMutableArray * results = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
@@ -106,8 +106,8 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];
             [results insertObject:r atIndex:idx];            
         }];
-        return results;        
-    } params:pmapArgs restArg:nil];
+        return [CacaoVector vectorWithArray:results];        
+    } params:mapArgs restArg:nil];
     
     
 
@@ -133,7 +133,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
                                      multiplyFn, multiplyOpSymbol,
                                      lessThanFn, lessThanSymbol,
                                      rangeFn, rangeSymbol,
-                                     pmapFn, pmapSymbol,
+                                     pmapFn, mapSymbol,
 
 //                                     divideFn, divideOpSym,
                                      nil];
