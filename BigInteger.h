@@ -40,16 +40,17 @@ typedef enum {
 
 
 
-
 @interface BigInteger : NSNumber {
-    NSData * mpzData;
-    size_t mpzDataWordCount;
-	int		base;
+    NSData *    mpzData;
+    size_t      mpzDataWordCount;
+	int         base;
+    BOOL        isNegative;
 }
 
 @property (nonatomic, retain) NSData * mpzData;
 @property (nonatomic, assign) size_t mpzDataWordCount;
 @property (nonatomic, assign) int base;
+@property (nonatomic, assign) BOOL isNegative;
 
 
 + (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz base:(int)theBase;
@@ -63,7 +64,6 @@ typedef enum {
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;
 
-- (void)negate;
 - (BigInteger *)add:(BigInteger *)anotherNumber;
 - (BigInteger *)subtract:(BigInteger *)anotherNumber;
 - (BigInteger *)multiply:(BigInteger *)anotherNumber;

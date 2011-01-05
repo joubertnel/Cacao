@@ -284,8 +284,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>33</integer>
-									<integer>15</integer>
+									<integer>43</integer>
+									<integer>41</integer>
 									<integer>11</integer>
 									<integer>0</integer>
 								</array>
@@ -308,7 +308,7 @@
 							<real>265</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>1034 298 1314 1248 0 0 2560 1578 </string>
+						<string>960 304 1314 1248 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -326,7 +326,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoEnvironment.m</string>
+								<string>BigInteger.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +334,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoEnvironment.m</string>
+										<string>BigInteger.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BEF4548212D4CB93007E42FB</string>
+										<string>BEF4551312D53C9D007E42FB</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -408,17 +408,17 @@
 											<string>BEF4529E12D4362C007E42FB</string>
 											<string>BEF4529F12D4362C007E42FB</string>
 											<string>BEF452A012D4362C007E42FB</string>
-											<string>BEF452B312D43674007E42FB</string>
 											<string>BEF452C112D4378E007E42FB</string>
 											<string>BEF4530C12D43D14007E42FB</string>
-											<string>BEF453C112D44839007E42FB</string>
 											<string>BEF4544012D4C45E007E42FB</string>
-											<string>BEF4544712D4C640007E42FB</string>
-											<string>BEF4544812D4C640007E42FB</string>
 											<string>BEF4545B12D4C7D7007E42FB</string>
 											<string>BEF4545C12D4C7D7007E42FB</string>
 											<string>BEF4547412D4CA67007E42FB</string>
-											<string>BEF4547712D4CA85007E42FB</string>
+											<string>BEF4548812D53118007E42FB</string>
+											<string>BEF454E212D53697007E42FB</string>
+											<string>BEF454E912D53AF7007E42FB</string>
+											<string>BEF4550812D53C01007E42FB</string>
+											<string>BEF4551012D53C59007E42FB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -432,18 +432,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1027, 895}}</string>
+								<string>{{0, 0}, {1027, 1019}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1034 298 1314 1248 0 0 2560 1578 </string>
+								<string>960 304 1314 1248 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>895pt</string>
+							<string>1019pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>307pt</string>
+							<string>184pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -457,7 +457,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1027, 280}}</string>
+										<string>{{10, 27}, {1027, 157}}</string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -511,9 +511,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1027, 280}}</string>
+										<string>{{10, 27}, {1027, 157}}</string>
 										<key>RubberWindowFrame</key>
-										<string>1034 298 1314 1248 0 0 2560 1578 </string>
+										<string>960 304 1314 1248 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -741,7 +741,7 @@
 		<string>/Users/joubert/dev/j/Cacao/Cacao.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1034 298 1314 1248 0 0 2560 1578 </string>
+	<string>960 304 1314 1248 0 0 2560 1578 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

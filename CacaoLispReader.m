@@ -237,7 +237,7 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 			return nil;
         BigInteger *bn = [BigInteger bigIntegerWithValue:n];
 		if (negate) 
-            [bn negate];
+            [bn setIsNegative:YES];
 		return bn;			
 	}
     
