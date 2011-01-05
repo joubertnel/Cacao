@@ -34,6 +34,8 @@
 @implementation TestMath
 
 
+#pragma mark Integers 
+
 - (void)testIntegerEquality
 {
     NSString * test = @"(= 5 5)";
@@ -53,6 +55,13 @@
     NSString * test = @"(= 5 123)";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertFalse([result boolValue], nil);
+}
+
+- (void)testIntegerLessThan
+{
+    NSString * test = @"(< 123456789 1234567890)";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
 }
 
 - (void)testBigIntegerInequality
@@ -104,13 +113,14 @@
     STAssertTrue([result boolValue], nil);
 }
 
-
 - (void)testNegativeIntegers
 {
     NSString * test = @"(= -45 (- 50 95|";
     NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
     STAssertTrue([result boolValue], nil);
 }
+
+
 
 
 

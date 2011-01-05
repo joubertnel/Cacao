@@ -88,6 +88,8 @@ int main(int argc, char* argv[])
     [CacaoRepl displayWelcome];
    
     char *line;
+    char *expansion;
+    
     setlocale(LC_CTYPE, "");
     initialize_readline();
     
@@ -102,10 +104,9 @@ int main(int argc, char* argv[])
                 break;
             
             
-            NSString * cacaoReplInput = [NSString stringWithUTF8String:stripwhite(line)];
+            NSString * cacaoReplInput = [NSString stringWithUTF8String:stripwhite(line)];            
             if ([cacaoReplInput length] > 0)
             {
-                char * expansion;
                 int historyExpansionResult = history_expand(line, &expansion);
                 if (historyExpansionResult < 0 || historyExpansionResult == 2)
                 {
@@ -145,7 +146,7 @@ int main(int argc, char* argv[])
         }
         @finally {
             [@"\n" writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
-            free(line);
+            free(line);            
             write_history([[historyFile stringByExpandingTildeInPath] cStringUsingEncoding:NSUTF8StringEncoding]);
         }
     }

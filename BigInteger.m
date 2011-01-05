@@ -30,79 +30,106 @@
 
 #import "BigInteger.h"
 
+#define PREP_MPZ_OPS(ropMpz, thisMpz, otherMpz, thisBigInt, otherBigInt) \
+    mpz_t ropMpz; \
+    mpz_t thisMpz; \
+    mpz_t otherMpz; \
+    mpz_init(ropMpz); \
+    mpz_init(thisMpz); \
+    mpz_init(otherMpz); \
+    mpz_import(thisMpz, [thisBigInt mpzDataWordCount], MSB_ORDER, sizeof(long long), 0, 0, [[thisBigInt mpzData] bytes]); \
+    mpz_import(otherMpz, [otherBigInt mpzDataWordCount], MSB_ORDER, sizeof(long long), 0, 0, [[otherBigInt mpzData] bytes]);
+
+#define END_MPZ_OPS(ropMpz, thisMpz, otherMpz) \
+    mpz_clear(ropMpz); \
+    mpz_clear(thisMpz); \
+    mpz_clear(otherMpz); 
+
+
+static const int MSB_ORDER = 1;
+
 
 @implementation BigInteger
 
-@synthesize mpzVal;
+@synthesize mpzData;
 @synthesize base;
+@synthesize mpzDataWordCount;
 
 #pragma mark Lifetime management
 
-- (id)initWithMPZ:(mpz_t)mpz base:(int)theBase
-{
-    self = [super init];
-    [self setMpzVal:[NSValue value:mpz withObjCType:@encode(mpz_t)]];
-    [self setBase:theBase];
-	return self;
-}
 
-- (id)init:(NSString *)theValue base:(int)theBase
-{
-	NSData *valueData = [NSData dataWithBytes:[theValue cStringUsingEncoding:NSUTF8StringEncoding]
-									   length:[theValue lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
++ (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz base:(int)theBase
+{    
+    size_t count;
+    unsigned char * data = mpz_export(NULL, &count, MSB_ORDER, sizeof(long long), 0, 0, mpz);   
+    NSData * theMpzData = [NSData dataWithBytes:data length:count*sizeof(long long)];
+    free(data);
     
-    mpz_t theNumber;	
-	mpz_init_set_str (theNumber, [valueData bytes], theBase);
-    return [self initWithMPZ:theNumber base:theBase];
+    BigInteger * bigInteger = [[BigInteger alloc] init];    
+    [bigInteger setMpzData:theMpzData];
+    [bigInteger setBase:theBase];
+    [bigInteger setMpzDataWordCount:count];
+    return [bigInteger autorelease];
 }
 
 + (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz
 {
-    BigInteger * bigInteger = [[BigInteger alloc] initWithMPZ:mpz base:10];
-    return [bigInteger autorelease];
+    return [BigInteger bigIntegerWithMPZ:mpz base:10];
 }
 
-+ (id)bigIntegerWithValue:(NSString *)theValue
-{
-	return [BigInteger bigIntegerWithValue:theValue base:10];
-}
 
 + (id)bigIntegerWithValue:(NSString *)theValue base:(int)theBase
 {
-    BigInteger * bigInteger = [[BigInteger alloc] init:theValue base:theBase];
-    return [bigInteger autorelease];
+    mpz_t theNumber;
+    const char * valStr = [theValue cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    mpz_init_set_str(theNumber, valStr, theBase);
+    BigInteger * bigInteger = [BigInteger bigIntegerWithMPZ:theNumber base:theBase];
+    mpz_clear(theNumber);
+    return bigInteger;
+}
+
++ (BigInteger *)bigIntegerWithValue:(NSString *)theValue
+{
+	return [BigInteger bigIntegerWithValue:theValue base:10];
 }
 
 
 - (void)negate
 {
-    mpz_t the_mpz;
-	mpz_t neg_mpz;
-    [self.mpzVal getValue:&the_mpz];
-    
-	mpz_init (neg_mpz);
-	mpz_neg (neg_mpz, the_mpz);
-    mpz_clear (the_mpz);
-    
-    [self setMpzVal:[NSValue value:neg_mpz withObjCType:@encode(mpz_t)]];
+//    mpz_t the_mpz;
+//	mpz_t neg_mpz;
+//    [self.mpzVal getValue:&the_mpz];
+//    
+//	mpz_init (neg_mpz);
+//	mpz_neg (neg_mpz, the_mpz);
+//    mpz_clear (the_mpz);
+//    
+//    [self setMpzVal:[NSValue value:neg_mpz withObjCType:@encode(mpz_t)]];
 }
 
-- (void)dealloc
-{
-    mpz_t theNumber;
-    [self.mpzVal getValue:&theNumber];
-	mpz_clear (theNumber);
-	[super dealloc];
-}
+//- (void)dealloc
+//{
+//    mpz_t theNumber;
+//    [self.mpzVal getValue:&theNumber];
+//	mpz_clear (theNumber);
+//	[super dealloc];
+//}
 
 
 - (NSString *)printable
 {
+    const unsigned char * data = [self.mpzData bytes];
+    
     mpz_t number;
-    [self.mpzVal getValue:&number];
-    char * numStr = mpz_get_str(NULL, self.base, number);
+    mpz_init(number);
+    mpz_import(number, [self mpzDataWordCount], MSB_ORDER, sizeof(long long), 0, 0, data);
+    
+    char * numStr = mpz_get_str(NULL, self.base, number);    
+    mpz_clear(number);
     NSString * readable = [NSString stringWithCString:numStr encoding:NSASCIIStringEncoding];
-    return readable;
+    free(numStr);
+    return [readable autorelease];
 }
 
 
@@ -110,17 +137,25 @@
 
 - (int)compareGMP:(mpz_t)aGMPBigInteger
 {
+    const unsigned char * data = [self.mpzData bytes];
     mpz_t this_mpz;
-    [self.mpzVal getValue:&this_mpz];
-	return mpz_cmp (this_mpz, aGMPBigInteger);
+    mpz_init(this_mpz);
+    mpz_import(this_mpz, [self mpzDataWordCount], MSB_ORDER, sizeof(long long), 0, 0, data);    
+    
+    int compareResult = mpz_cmp (this_mpz, aGMPBigInteger);
+    mpz_clear(this_mpz);
+    return compareResult;
 }
 
 - (NSComparisonResult)compare:(BigInteger *)otherBigInteger
 {
+    const unsigned char * data = [otherBigInteger.mpzData bytes];
     mpz_t other_mpz;
-    [otherBigInteger.mpzVal getValue:&other_mpz];
+    mpz_init(other_mpz);
+    mpz_import(other_mpz, [otherBigInteger mpzDataWordCount], MSB_ORDER, sizeof(long long), 0, 0, data);
     
 	int compareResult = [self compareGMP:other_mpz];
+    mpz_clear(other_mpz);
 	
 	if (compareResult < 0)
 		return NSOrderedDescending; // the otherBigInteger is larger, so this is smaller
@@ -148,57 +183,38 @@
 
 - (BigInteger *)add:(BigInteger *)anotherNumber
 {
-    mpz_t result_mpz;
-    mpz_t this_mpz;
-    mpz_t other_mpz;
-    
-    mpz_init(result_mpz);
-    [self.mpzVal getValue:&this_mpz];
-    [anotherNumber.mpzVal getValue:&other_mpz];
-    
+    PREP_MPZ_OPS(result_mpz, this_mpz, other_mpz, self, anotherNumber);        
     mpz_add(result_mpz, this_mpz, other_mpz);    
-    return [BigInteger bigIntegerWithMPZ:result_mpz];
+    BigInteger * answer = [BigInteger bigIntegerWithMPZ:result_mpz];
+    END_MPZ_OPS(result_mpz, this_mpz, other_mpz);
+    return answer;
 }
 
 - (BigInteger *)subtract:(BigInteger *)anotherNumber
 {
-    mpz_t result_mpz;
-    mpz_t this_mpz;
-    mpz_t other_mpz;
-    
-    mpz_init(result_mpz);
-    [self.mpzVal getValue:&this_mpz];
-    [anotherNumber.mpzVal getValue:&other_mpz];
-    
-    mpz_sub(result_mpz, this_mpz, other_mpz);    
-    return [BigInteger bigIntegerWithMPZ:result_mpz];
+    PREP_MPZ_OPS(result_mpz, this_mpz, other_mpz, self, anotherNumber);
+    mpz_sub(result_mpz, this_mpz, other_mpz);
+    BigInteger * answer = [BigInteger bigIntegerWithMPZ:result_mpz];
+    END_MPZ_OPS(result_mpz, this_mpz, other_mpz);
+    return answer;
 }
 
 - (BigInteger *)multiply:(BigInteger *)anotherNumber
 {
-    mpz_t result_mpz;
-    mpz_t this_mpz;
-    mpz_t other_mpz;
-    mpz_init(result_mpz);
-    [self.mpzVal getValue:&this_mpz];
-    [anotherNumber.mpzVal getValue:&other_mpz];
-    
-    mpz_mul(result_mpz, this_mpz, other_mpz);    
-    return [BigInteger bigIntegerWithMPZ:result_mpz];
+    PREP_MPZ_OPS(result_mpz, this_mpz, other_mpz, self, anotherNumber);
+    mpz_mul(result_mpz, this_mpz, other_mpz);
+    BigInteger * answer = [BigInteger bigIntegerWithMPZ:result_mpz];
+    END_MPZ_OPS(result_mpz, this_mpz, other_mpz);
+    return answer;
 }
 
 - (BigInteger *)divide:(BigInteger *)divisor
 {
-    mpz_t result_mpz;
-    mpz_t this_mpz;
-    mpz_t other_mpz;
-    
-    mpz_init(result_mpz);
-    [self.mpzVal getValue:&this_mpz];
-    [divisor.mpzVal getValue:&other_mpz];
-    
+    PREP_MPZ_OPS(result_mpz, this_mpz, other_mpz, self, divisor);
     mpz_div(result_mpz, this_mpz, other_mpz);
-    return [BigInteger bigIntegerWithMPZ:result_mpz];
+    BigInteger * answer = [BigInteger bigIntegerWithMPZ:result_mpz];
+    END_MPZ_OPS(result_mpz, this_mpz, other_mpz);
+    return answer;
 }
 
 

@@ -42,17 +42,21 @@ typedef enum {
 
 
 @interface BigInteger : NSNumber {
-    NSValue * mpzVal;
+    NSData * mpzData;
+    size_t mpzDataWordCount;
 	int		base;
 }
 
-@property (nonatomic, retain) NSValue * mpzVal;
+@property (nonatomic, retain) NSData * mpzData;
+@property (nonatomic, assign) size_t mpzDataWordCount;
 @property (nonatomic, assign) int base;
 
 
++ (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz base:(int)theBase;
 + (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz;
-+ (id)bigIntegerWithValue:(NSString *)theValue;
-+ (id)bigIntegerWithValue:(NSString *)theValue base:(int)theBase;
++ (BigInteger *)bigIntegerWithValue:(NSString *)theValue base:(int)theBase;
++ (BigInteger *)bigIntegerWithValue:(NSString *)theValue;
+
 
 - (NSString *)printable;
 

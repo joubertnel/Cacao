@@ -103,7 +103,6 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             i = [i add:[BigInteger bigIntegerWithValue:@"1"]];
         }
         return [CacaoVector vectorWithArray:numbers];
-
     } params:rangeArgs restArg:nil];
     
     CacaoSymbol * mapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
