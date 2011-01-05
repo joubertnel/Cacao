@@ -42,13 +42,8 @@
 		BE445FBA12A57EDF00D1E47C /* BigDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */; };
 		BE445FBB12A57EDF00D1E47C /* GMPRational.h in Headers */ = {isa = PBXBuildFile; fileRef = BEDDE0A212A444AC00B0EF6C /* GMPRational.h */; };
 		BE445FBC12A57EDF00D1E47C /* GMPRational.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A312A444AC00B0EF6C /* GMPRational.m */; };
-		BE445FBD12A57EF000D1E47C /* BigDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */; };
-		BE445FBE12A57EF100D1E47C /* BigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE09F12A444AC00B0EF6C /* BigInteger.m */; };
-		BE445FBF12A57EF100D1E47C /* GMPRational.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A312A444AC00B0EF6C /* GMPRational.m */; };
 		BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
 		BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BBBF12A59D3C00EE904A /* Cocoa.framework */; };
-		BE46BBD112A59DB300EE904A /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
-		BE471E2912CE427C006F6BB3 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA9FCA112C7BFEE001875C1 /* OpenCL.framework */; };
 		BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */ = {isa = PBXBuildFile; fileRef = BE61EF00129B79E200E7A7DD /* CacaoFn.h */; };
 		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
 		BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
@@ -80,9 +75,6 @@
 		BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
 		BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */; };
 		BEA9FC8412C7B72A001875C1 /* CacaoBigInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = BEA9FC8212C7B72A001875C1 /* CacaoBigInteger.h */; };
-		BEA9FC8512C7B72A001875C1 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA9FC8312C7B72A001875C1 /* CacaoBigInteger.m */; };
-		BEA9FC8612C7B72A001875C1 /* CacaoBigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA9FC8312C7B72A001875C1 /* CacaoBigInteger.m */; };
-		BEA9FCA212C7BFEE001875C1 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA9FCA112C7BFEE001875C1 /* OpenCL.framework */; };
 		BEB2936C128EF3350092F199 /* CacaoAST.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2936A128EF3350092F199 /* CacaoAST.h */; };
 		BEB2936D128EF3350092F199 /* CacaoAST.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2936B128EF3350092F199 /* CacaoAST.m */; };
 		BEB2945F128F052E0092F199 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB2945E128F052E0092F199 /* SenTestingKit.framework */; };
@@ -100,6 +92,10 @@
 		BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */; };
 		BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
 		BEF44C7A12D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
+		BEF44E4B12D3F1C2007E42FB /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
+		BEF44E4E12D3F1CC007E42FB /* BigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE09F12A444AC00B0EF6C /* BigInteger.m */; };
+		BEF44E4F12D3F1CF007E42FB /* BigDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A112A444AC00B0EF6C /* BigDecimal.m */; };
+		BEF44E5012D3F1D2007E42FB /* GMPRational.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE0A312A444AC00B0EF6C /* GMPRational.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +196,6 @@
 			files = (
 				BE46BB9812A59B6400EE904A /* libgmp.dylib in Frameworks */,
 				BE46BBC012A59D3C00EE904A /* Cocoa.framework in Frameworks */,
-				BE471E2912CE427C006F6BB3 /* OpenCL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,9 +212,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE46BBD112A59DB300EE904A /* libgmp.dylib in Frameworks */,
 				BE98BF1B12C4E71500E21BD2 /* libedit.dylib in Frameworks */,
-				BEA9FCA212C7BFEE001875C1 /* OpenCL.framework in Frameworks */,
+				BEF44E4B12D3F1C2007E42FB /* libgmp.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +622,6 @@
 				BE93014712BD4AFA007A4826 /* CacaoKeyword.m in Sources */,
 				BE9302F212BED306007A4826 /* CacaoArgumentName.m in Sources */,
 				BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */,
-				BEA9FC8512C7B72A001875C1 /* CacaoBigInteger.m in Sources */,
 				BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,9 +654,6 @@
 				BE3BC6601290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
 				BE3BC7011290E58D00ED6ADB /* CacaoVector.m in Sources */,
 				BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */,
-				BE445FBD12A57EF000D1E47C /* BigDecimal.m in Sources */,
-				BE445FBE12A57EF100D1E47C /* BigInteger.m in Sources */,
-				BE445FBF12A57EF100D1E47C /* GMPRational.m in Sources */,
 				BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
 				BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
@@ -673,8 +663,10 @@
 				BE9302F312BED306007A4826 /* CacaoArgumentName.m in Sources */,
 				BE98BD8912C3E74900E21BD2 /* CacaoAST.m in Sources */,
 				BE93D64712C6D28900B42625 /* CacaoCore.m in Sources */,
-				BEA9FC8612C7B72A001875C1 /* CacaoBigInteger.m in Sources */,
 				BEF44C7A12D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
+				BEF44E4E12D3F1CC007E42FB /* BigInteger.m in Sources */,
+				BEF44E4F12D3F1CF007E42FB /* BigDecimal.m in Sources */,
+				BEF44E5012D3F1D2007E42FB /* GMPRational.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +804,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LD_GENERATE_MAP_FILE = NO;
@@ -885,6 +878,10 @@
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SSE41_EXTENSIONS = YES;
+				GCC_ENABLE_SSE42_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -926,16 +923,21 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_OPENMP_SUPPORT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../opensource\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_GC = supported;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
@@ -948,6 +950,7 @@
 				LLVM_LTO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
+					"-licucore",
 					"-framework",
 					Foundation,
 					"-framework",

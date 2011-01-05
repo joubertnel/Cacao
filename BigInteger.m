@@ -33,7 +33,34 @@
 
 @implementation BigInteger
 
+@synthesize mpzVal;
+@synthesize base;
+
 #pragma mark Lifetime management
+
+- (id)initWithMPZ:(mpz_t)mpz base:(int)theBase
+{
+    self = [super init];
+    [self setMpzVal:[NSValue value:mpz withObjCType:@encode(mpz_t)]];
+    [self setBase:theBase];
+	return self;
+}
+
+- (id)init:(NSString *)theValue base:(int)theBase
+{
+	NSData *valueData = [NSData dataWithBytes:[theValue cStringUsingEncoding:NSUTF8StringEncoding]
+									   length:[theValue lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+    
+    mpz_t theNumber;	
+	mpz_init_set_str (theNumber, [valueData bytes], theBase);
+    return [self initWithMPZ:theNumber base:theBase];
+}
+
++ (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz
+{
+    BigInteger * bigInteger = [[BigInteger alloc] initWithMPZ:mpz base:10];
+    return [bigInteger autorelease];
+}
 
 + (id)bigIntegerWithValue:(NSString *)theValue
 {
@@ -47,106 +74,114 @@
 }
 
 
-- (id)init:(NSString *)theValue base:(int)theBase
-{
-	[super init];
-	NSData *valueData = [NSData dataWithBytes:[theValue cStringUsingEncoding:NSUTF8StringEncoding]
-									   length:[theValue lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
-	
-	mpz_init_set_str (theNumber, [valueData bytes], theBase);
-	base = theBase; // remember the base so that when the stringValue method is called, we can use this by default
-	
-	return self;	
-}
-
-- (id)init:(NSString *)theValue
-{	
-	return [self init:theValue base:10];
-}
-
-
-- (id)init
-{
-	[super init];
-	mpz_init (theNumber);
-	return self;
-}
-
-- (id)initWithGMPInteger:(mpz_t)theGMPInteger
-{
-	[self init];
-	mpz_set (theNumber, theGMPInteger);
-	return self;
-}
-
-- (id)negate
-{
-	mpz_t tempNegatedGMPInteger;
-	mpz_init (tempNegatedGMPInteger);
-	mpz_neg (tempNegatedGMPInteger, theNumber);
-	BigInteger *negatedBigInteger = [[BigInteger alloc] initWithGMPInteger:tempNegatedGMPInteger];
-	mpz_clear (tempNegatedGMPInteger);
-	return [negatedBigInteger autorelease];
-}
+//- (id)negate
+//{
+//	mpz_t tempNegatedGMPInteger;
+//	mpz_init (tempNegatedGMPInteger);
+//	mpz_neg (tempNegatedGMPInteger, theNumber);
+//	BigInteger *negatedBigInteger = [[BigInteger alloc] initWithGMPInteger:tempNegatedGMPInteger];
+//	mpz_clear (tempNegatedGMPInteger);
+//	return [negatedBigInteger autorelease];
+//}
 
 - (void)dealloc
 {
+    mpz_t theNumber;
+    [self.mpzVal getValue:&theNumber];
 	mpz_clear (theNumber);
 	[super dealloc];
 }
 
 
-#pragma mark Set
-
-- (void)setValue:(NSString *)theValue
+- (NSString *)printable
 {
-	NSData *valueData = [NSData dataWithBytes:[theValue cStringUsingEncoding:NSUTF8StringEncoding]
-									   length:[theValue lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
-	
-	mpz_set_str (theNumber, [valueData bytes], 10);	
+    mpz_t number;
+    [self.mpzVal getValue:&number];
+    char * numStr = mpz_get_str(NULL, self.base, number);
+    NSString * readable = [NSString stringWithCString:numStr encoding:NSASCIIStringEncoding];
+    return readable;
 }
 
-#pragma mark Conversion
 
-
-- (double)doubleValue
-{
-	return mpz_get_d (theNumber);
-}
-
-- (unsigned long)unsignedLongValue
-{
-	return mpz_get_ui (theNumber);
-}
-
-- (int)intValue
-{
-	return mpz_get_si (theNumber);
-}
-
-- (NSString *)stringValue
-{
-    NSString * valueAsString = [[NSString alloc] initWithCString:mpz_get_str (NULL, base, theNumber)];
-    return [valueAsString autorelease];
-}
-
-#pragma mark Comparison
+#pragma mark Equality
 
 - (int)compareGMP:(mpz_t)aGMPBigInteger
 {
-	return mpz_cmp (theNumber, aGMPBigInteger);
+    mpz_t this_mpz;
+    [self.mpzVal getValue:&this_mpz];
+	return mpz_cmp (this_mpz, aGMPBigInteger);
 }
 
 - (NSComparisonResult)compare:(BigInteger *)otherBigInteger
 {
-	int compareResult = [otherBigInteger compareGMP:theNumber];
+    mpz_t other_mpz;
+    [otherBigInteger.mpzVal getValue:&other_mpz];
+    
+	int compareResult = [self compareGMP:other_mpz];
 	
-	if (compareResult > 0)
+	if (compareResult < 0)
 		return NSOrderedDescending; // the otherBigInteger is larger, so this is smaller
-	else if (compareResult < 0)
+	else if (compareResult > 0)
 		return NSOrderedAscending; // the otherBigInteger is smaller, so this is larger
 	else return NSOrderedSame;
 		
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[BigInteger class]])
+        return NO;
+    
+    return ([self compare:object] == NSOrderedSame);
+}
+
+- (BOOL)isLessThan:(BigInteger *)number
+{
+    return ([self compare:number] == NSOrderedDescending);
+}
+
+
+#pragma mark Arithmetic 
+
+- (BigInteger *)add:(BigInteger *)anotherNumber
+{
+    mpz_t result_mpz;
+    mpz_t this_mpz;
+    mpz_t other_mpz;
+    
+    mpz_init(result_mpz);
+    [self.mpzVal getValue:&this_mpz];
+    [anotherNumber.mpzVal getValue:&other_mpz];
+    
+    mpz_add(result_mpz, this_mpz, other_mpz);    
+    return [BigInteger bigIntegerWithMPZ:result_mpz];
+}
+
+- (BigInteger *)subtract:(BigInteger *)anotherNumber
+{
+    mpz_t result_mpz;
+    mpz_t this_mpz;
+    mpz_t other_mpz;
+    
+    mpz_init(result_mpz);
+    [self.mpzVal getValue:&this_mpz];
+    [anotherNumber.mpzVal getValue:&other_mpz];
+    
+    mpz_sub(result_mpz, this_mpz, other_mpz);    
+    return [BigInteger bigIntegerWithMPZ:result_mpz];
+}
+
+- (BigInteger *)multiply:(BigInteger *)anotherNumber
+{
+    mpz_t result_mpz;
+    mpz_t this_mpz;
+    mpz_t other_mpz;
+    mpz_init(result_mpz);
+    [self.mpzVal getValue:&this_mpz];
+    [anotherNumber.mpzVal getValue:&other_mpz];
+    
+    mpz_mul(result_mpz, this_mpz, other_mpz);    
+    return [BigInteger bigIntegerWithMPZ:result_mpz];
 }
 
 

@@ -78,9 +78,9 @@
 
 - (void)testZeroAddition
 {
-    NSString * test = @"(= 0 (+ 0 0))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
+//    NSString * test = @"(= 0 (+ 0 0))";
+//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+//    STAssertTrue([result boolValue], nil);
 }
 
 - (void)testIntegerSubtraction
@@ -90,13 +90,13 @@
     STAssertTrue([result boolValue], nil);
 }
 
-//- (void)testIntegerMultiplication
-//{
-//    NSString * test = @"(= 999 (* 3 333|";
-//    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-//    STAssertTrue([result boolValue], nil);
-//}
-//
+- (void)testIntegerMultiplication
+{
+    NSString * test = @"(= 999 (* 3 333|";
+    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
+    STAssertTrue([result boolValue], nil);
+}
+
 //- (void)testIntegerDivision
 //{
 //    CacaoAST * ast = [CacaoAST astWithText:@"<= 10 </ 20 2]"];

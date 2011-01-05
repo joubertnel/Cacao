@@ -30,7 +30,7 @@
 
 
 #import "TestCore.h"
-#import "CacaoBigInteger.h"
+#import "BigInteger.h"
 #import "CacaoVector.h"
 
 
@@ -74,11 +74,10 @@
 {
     NSString * expression = @"(range start:4 end:100)";
     CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
-    CacaoBigInteger * first = (CacaoBigInteger *)[result objectAtIndex:0];
-    CacaoBigInteger * last = (CacaoBigInteger *)[result.elements lastObject];
-    STAssertTrue([first isEqual:[CacaoBigInteger bigIntegerFromLongLong:4]], nil);
-    NSLog(@"%@", last);
-    STAssertTrue([last isEqual:[CacaoBigInteger bigIntegerFromText:@"99"]], nil);
+    BigInteger * first = (BigInteger *)[result objectAtIndex:0];
+    BigInteger * last = (BigInteger *)[result.elements lastObject];
+    STAssertTrue([first isEqual:[BigInteger bigIntegerWithValue:@"4"]], nil);
+    STAssertTrue([last isEqual:[BigInteger bigIntegerWithValue:@"99"]], nil);
 }
 
 - (void)testQuote

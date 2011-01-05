@@ -29,9 +29,9 @@
 //    or implied, of Joubert Nel.
 
 #import "RegexKitLite.h"
+#import "BigInteger.h"
 
 #import "CacaoArgumentName.h"
-#import "CacaoBigInteger.h"
 #import "CacaoKeyword.h"
 #import "CacaoLispReader.h"
 #import "CacaoReaderMacroInvokers.h"
@@ -219,10 +219,10 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 	if (matchedRange.length == searchRange.length)
 	{
 		if ([theString stringByMatching:intPat capture:2] != nil)
-            return [CacaoBigInteger bigIntegerFromText:@"0"];
+            return [BigInteger bigIntegerWithValue:@"0"];
 		
-        NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
-		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
+//        NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
+//		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
 		NSString *n;
 		int base = 10;
 		if ((n = [theString stringByMatching:intPat capture:3]) != nil)
@@ -235,9 +235,9 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 			base = [[theString stringByMatching:intPat capture:6] intValue];		
 		if (n == nil)
 			return nil;
-        CacaoBigInteger *bn = [CacaoBigInteger bigIntegerFromText:n];
-		if (negate) 
-            [bn negate];
+        BigInteger *bn = [BigInteger bigIntegerWithValue:n];
+//		if (negate) 
+//            [bn negate];
 		return bn;			
 	}
     
