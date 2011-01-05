@@ -31,7 +31,8 @@
 #import <Cocoa/Cocoa.h>
 #import "PushbackReader.h"
 
-#define symbolPat	@"[:]?([\\D&&[^/]].*/)?([\\D&&[^/]][^/]*)"
+//#define symbolPat	@"[:]?([\\D&&[^/]].*/)?([\\D&&[^/]][^/]*)"
+#define symbolPat   @"[:]*?([\\D]*/)?([\\D][^/]*)"
 #define intPat		@"([-+]?)(?:(0)|([1-9][0-9]*)|0[xX]([0-9A-Fa-f]+)|0([0-7]+)|([1-9][0-9]?)[rR]([0-9A-Za-z]+)|0[0-9]+)\\.?"   
 #define ratioPat	@"([-+]?[0-9]+)/([0-9]+)"
 #define floatPat	@"[-+]?[0-9]+(\\.[0-9]+)?([eE][-+]?[0-9]+)?[M]?"

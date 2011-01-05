@@ -187,6 +187,20 @@
     return [BigInteger bigIntegerWithMPZ:result_mpz];
 }
 
+- (BigInteger *)divide:(BigInteger *)divisor
+{
+    mpz_t result_mpz;
+    mpz_t this_mpz;
+    mpz_t other_mpz;
+    
+    mpz_init(result_mpz);
+    [self.mpzVal getValue:&this_mpz];
+    [divisor.mpzVal getValue:&other_mpz];
+    
+    mpz_div(result_mpz, this_mpz, other_mpz);
+    return [BigInteger bigIntegerWithMPZ:result_mpz];
+}
+
 
 
 

@@ -11,6 +11,7 @@
 #import "CacaoSymbol.h"
 #import "CacaoFn.h"
 #import "BigInteger.h"
+#import "NSArray+Functional.h"
 
 static NSString * GLOBAL_NAMESPACE = @"cacao";
 static NSString * SYMBOL_NAME_YES = @"YES";
@@ -58,6 +59,19 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             answer = [answer multiply:number];
         return answer;
     } params:nil restArg:multiplyArgSym];    
+    
+    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
+    NSString * divideArgName = @"numbers";
+    CacaoSymbol * divideArgSym = [CacaoSymbol symbolWithName:divideArgName inNamespace:nil];
+    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        BigInteger * firstNumber;
+        CacaoVector * numbers = [argsAndVals objectForKey:divideArgSym];        
+        NSArray * remainingNumbers = [[numbers elements] popFirstInto:&firstNumber];
+        BigInteger * answer = firstNumber;
+        for (BigInteger * number in remainingNumbers)
+            answer = [answer divide:number];
+        return answer;
+    } params:nil restArg:divideArgSym];    
     
     
     CacaoSymbol * lessThanSymbol = [CacaoSymbol symbolWithName:@"<" inNamespace:GLOBAL_NAMESPACE];
@@ -110,16 +124,8 @@ static NSString * SYMBOL_NAME_NO = @"NO";
     } params:mapArgs restArg:nil];
         
 
-//    
-//    CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
-//    CacaoFn * divideFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-//        NSNumber * firstNumber;
-//        NSArray * remainingNumbers = [params popFirstInto:&firstNumber];
-//        int answer = [firstNumber intValue];
-//        for (NSNumber * number in remainingNumbers)
-//            answer /= [number intValue];
-//        return [NSNumber numberWithInt:answer];
-//    }];    
+    
+
       
     NSDictionary * globalMappings = [NSDictionary dictionaryWithObjectsAndKeys:
                                      [NSNumber numberWithBool:YES], yesSymbol,
@@ -130,8 +136,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
                                      lessThanFn, lessThanSymbol,
                                      rangeFn, rangeSymbol,
                                      pmapFn, mapSymbol,
-
-//                                     divideFn, divideOpSym,
+                                     divideFn, divideOpSym,
                                      nil];
     return globalMappings;
     return nil;

@@ -63,7 +63,7 @@ typedef enum {
 - (BigInteger *)add:(BigInteger *)anotherNumber;
 - (BigInteger *)subtract:(BigInteger *)anotherNumber;
 - (BigInteger *)multiply:(BigInteger *)anotherNumber;
-
+- (BigInteger *)divide:(BigInteger *)divisor;
 
 
 @end
