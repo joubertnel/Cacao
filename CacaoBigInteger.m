@@ -1,3 +1,11 @@
+/*
+ 
+ DEPRECATED. Now using BigInteger, leveraging GMP.
+ 
+ */
+
+
+
 //
 //  CacaoBigInteger.m
 //  Cacao
