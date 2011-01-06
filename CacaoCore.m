@@ -33,7 +33,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         for (BigInteger * number in numbers.elements)
             sum = [sum add:number];
         return sum;
-    } params:nil restArg:sumArgSym];
+    } restArg:sumArgSym];
     
     CacaoSymbol * subtractOpSymbol = [CacaoSymbol symbolWithName:@"-" inNamespace:GLOBAL_NAMESPACE];
     NSString * subArgName = @"numbers";
@@ -47,7 +47,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             answer = [answer subtract:num];
         }
         return answer;        
-    } params:nil restArg:subArgSym];
+    } restArg:subArgSym];
     
     CacaoSymbol * multiplyOpSymbol = [CacaoSymbol symbolWithName:@"*" inNamespace:GLOBAL_NAMESPACE];
     NSString * multiplyArgName = @"numbers";
@@ -58,7 +58,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         for (BigInteger * number in numbers.elements)
             answer = [answer multiply:number];
         return answer;
-    } params:nil restArg:multiplyArgSym];    
+    } restArg:multiplyArgSym];    
     
     CacaoSymbol * divideOpSym = [CacaoSymbol symbolWithName:@"/" inNamespace:GLOBAL_NAMESPACE];
     NSString * divideArgName = @"numbers";
@@ -71,7 +71,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         for (BigInteger * number in remainingNumbers)
             answer = [answer divide:number];
         return answer;
-    } params:nil restArg:divideArgSym];    
+    } restArg:divideArgSym];    
     
     
     CacaoSymbol * lessThanSymbol = [CacaoSymbol symbolWithName:@"<" inNamespace:GLOBAL_NAMESPACE];
@@ -87,7 +87,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         else 
             return [NSNumber numberWithBool:NO];
 
-    } params:nil restArg:lessThanArgSym];
+    } restArg:lessThanArgSym];
     
     CacaoSymbol * rangeSymbol = [CacaoSymbol symbolWithName:@"range" inNamespace:GLOBAL_NAMESPACE];
     CacaoSymbol * rangeStartArgSym = [CacaoSymbol symbolWithName:@"start" inNamespace:nil];
@@ -103,11 +103,11 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             i = [i add:[BigInteger bigIntegerWithValue:@"1"]];
         }
         return [CacaoVector vectorWithArray:numbers];
-    } params:rangeArgs restArg:nil];
+    } args:rangeArgs restArg:nil];
     
     CacaoSymbol * mapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
     CacaoSymbol * mapFnArgSym = [CacaoSymbol symbolWithName:@"fn" inNamespace:nil];
-    CacaoSymbol * mapSeqArgSym = [CacaoSymbol symbolWithName:@"seq" inNamespace:nil];
+    CacaoSymbol * mapSeqArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
     CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapSeqArgSym, nil]];                                                        
     CacaoFn * pmapFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         id seq = [argsAndVals objectForKey:mapSeqArgSym];
@@ -120,9 +120,8 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             [results insertObject:r atIndex:idx];            
         }];
         return [CacaoVector vectorWithArray:results];        
-    } params:mapArgs restArg:nil];
+    } args:mapArgs restArg:nil];
         
-
     
 
       

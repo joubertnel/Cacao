@@ -46,6 +46,7 @@
 + (CacaoSymbol *)internSymbol:(NSString *)theName inNamespace:(NSString *)theNamespace;
 
 - (BOOL)isEqualToSymbol:(CacaoSymbol *)otherSymbol;
+- (BOOL)isEqual:(id)object;
 
 - (NSString *)stringValue;
 - (NSString *)printable;

@@ -17,5 +17,6 @@
 
 
 - (NSString *)printable;
+- (BOOL)isEqual:(id)object;
 
 @end

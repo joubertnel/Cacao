@@ -67,4 +67,13 @@
     return [[self elements] objectAtIndex:index];
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[CacaoVector class]])
+        return NO;
+    
+    return [self.elements isEqualToArray:[(CacaoVector *)object elements]];
+
+}
+
 @end

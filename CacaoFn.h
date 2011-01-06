@@ -39,15 +39,25 @@ extern NSString * const FnIdentityPrefix;
     DispatchFunction func;
     NSString * identity;
     NSSet * argNames;
+    NSDictionary * argsDefaultVals;
     CacaoSymbol * restArg;
 }
 
 @property (copy) DispatchFunction func;
 @property (nonatomic, retain) NSString * identity;
 @property (nonatomic, retain) NSSet * argNames;
+@property (nonatomic, retain) NSDictionary * argsDefaultVals;
 @property (nonatomic, retain) CacaoSymbol * restArg;
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc params:(CacaoVector *)theArgs restArg:(CacaoSymbol *)theRestArg;
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc 
+                               args:(CacaoVector *)theArgs 
+                       argsDefaults:(NSDictionary *)theArgsDefaultVals
+                            restArg:(CacaoSymbol *)theRestArg;
+
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc args:(CacaoVector *)theArgs 
+                            restArg:(CacaoSymbol *)theRestArg;
+
++ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc restArg:(CacaoSymbol *)theRestArg;
 
 - (NSString *)printable;
 - (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;

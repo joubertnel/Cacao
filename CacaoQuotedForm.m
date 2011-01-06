@@ -18,4 +18,12 @@
     return [form printable];
 }
 
+- (BOOL)isEqual:(id)object
+{    
+    if ([object isKindOfClass:[CacaoQuotedForm class]])
+        return [self.form isEqual:[(CacaoQuotedForm *)object form]];
+    else
+        return NO;
+}
+
 @end

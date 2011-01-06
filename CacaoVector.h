@@ -32,7 +32,7 @@
 
 
 @interface CacaoVector : NSObject {
-    NSArray * theElements;
+    NSArray * elements;
 }
 
 @property (nonatomic, retain) NSArray * elements;
@@ -43,6 +43,7 @@
 - (NSString *)printable;
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
+- (BOOL)isEqual:(id)object;
 
 
 @end

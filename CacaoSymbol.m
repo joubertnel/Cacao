@@ -80,8 +80,15 @@ static NSMutableDictionary * table = nil;
 
 - (BOOL)isEqualToSymbol:(CacaoSymbol *)otherSymbol
 {
-    return [self.name isEqualToString:otherSymbol.name] && [self.ns isEqualToString:otherSymbol.ns];                                                   
-            
+    return [self.name isEqualToString:otherSymbol.name] && [self.ns isEqualToString:otherSymbol.ns];                                                               
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[CacaoSymbol class]])
+        return NO;
+    
+    return [self isEqualToSymbol:(CacaoSymbol *)object];
 }
 
 - (NSString *)stringValue

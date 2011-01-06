@@ -179,7 +179,14 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         return [CacaoVector vectorWithArray:evaluatedItems];
     }
     else if ([x isKindOfClass:[CacaoQuotedForm class]])
-        return [x form];
+    {
+        BOOL formEvaluatesToItself = ([[x form] isKindOfClass:[NSNumber class]] ||
+                                      [[x form] isKindOfClass:[NSString class]]);
+        if (formEvaluatesToItself)
+            return [x form];
+        else
+            return x;
+    }
     else if (![x isKindOfClass:[NSArray class]])
         return x;      
 
@@ -394,25 +401,69 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     __block CacaoSymbol * restParam = nil;
 
     [params.elements enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        CacaoSymbol * argSym = (CacaoSymbol *)obj;
-        NSString * symName = [argSym name];
-        if ([symName hasPrefix:REST_PARAM_DELIMITER])
+        if ([obj isKindOfClass:[CacaoSymbol class]])
         {
-            restParamDelimiterIndex = idx;
-            if ([symName isEqualToString:REST_PARAM_DELIMITER])
-                restParam = [params objectAtIndex:restParamDelimiterIndex + 1];
-            else 
+            CacaoSymbol * argSym = (CacaoSymbol *)obj;
+            NSString * symName = [argSym name];
+            if ([symName hasPrefix:REST_PARAM_DELIMITER])
             {
-                NSString * restParamName = [symName substringFromIndex:1];
-                restParam = [CacaoSymbol symbolWithName:restParamName inNamespace:[argSym ns]];
+                restParamDelimiterIndex = idx;
+                if ([symName isEqualToString:REST_PARAM_DELIMITER])
+                    restParam = [params objectAtIndex:restParamDelimiterIndex + 1];
+                else 
+                {
+                    NSString * restParamName = [symName substringFromIndex:1];
+                    restParam = [CacaoSymbol symbolWithName:restParamName inNamespace:[argSym ns]];
+                }
+                *stop = YES;
             }
-            *stop = YES;
         }
     }];
     
+    // Build a vector of the named args, and also extract the default values (if any)
     NSRange regularParamsRange = {.location=0};
     regularParamsRange.length = (restParam == nil) ? [params.elements count] : restParamDelimiterIndex;
-    params = [CacaoVector vectorWithArray:[params.elements subarrayWithRange:regularParamsRange]];
+    NSArray * argTokens = [params.elements subarrayWithRange:regularParamsRange];
+    NSMutableArray * argSymbols = [NSMutableArray arrayWithCapacity:[argTokens count]];
+    NSMutableDictionary * argsDefaultVals = [NSMutableDictionary dictionary];
+
+    int i=0;
+    int c=[argTokens count];
+    while (i < c) {
+        CacaoSymbol * argTokenSym = [argTokens objectAtIndex:i];
+        CacaoSymbol * argNameSym = nil;
+
+        if ([argTokenSym.name hasSuffix:@"="])
+        {
+            // This token has a default value - the next token (which is already evaluated)
+            i++;
+            NSObject * defaultValue = [argTokens objectAtIndex:i];
+            NSString * argName = [argTokenSym.name stringByReplacingOccurrencesOfString:@"=" withString:@""];
+            argNameSym = [CacaoSymbol symbolWithName:argName inNamespace:[argTokenSym ns]];            
+            [argsDefaultVals setObject:defaultValue forKey:argNameSym];
+        }
+        else {
+            // This token may or may not have a default value. Split the token by '='
+            // and if a default value was specified, there will be two parts; the first
+            // part is the argument name and the second part is the default value
+            NSArray * argParts = [argTokenSym.name componentsSeparatedByString:@"="];
+            NSString * argName = [argParts objectAtIndex:0];
+            argNameSym = [CacaoSymbol symbolWithName:argName inNamespace:[argTokenSym ns]];            
+            
+            // A default value is specified, but it is not evaluated yet. Evaluate it and add it to 
+            // the default values dictionary.
+            if ([argParts count] == 2)
+            {
+                NSObject * val = [CacaoEnvironment evalText:[argParts objectAtIndex:1] inEnvironment:env];
+                [argsDefaultVals setObject:val forKey:argNameSym];
+            }            
+        }   
+        
+        [argSymbols addObject:argNameSym];        
+        i++;        
+    }
+  
+    params = [CacaoVector vectorWithArray:argSymbols];
     
     
     // Prepare the function
@@ -435,7 +486,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     };
     
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:fnOp
-                                            params:params
+                                              args:params
+                                      argsDefaults:argsDefaultVals
                                            restArg:restParam];
     
     return fn;

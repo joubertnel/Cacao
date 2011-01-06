@@ -32,6 +32,7 @@
 #import "TestCore.h"
 #import "BigInteger.h"
 #import "CacaoVector.h"
+#import "CacaoQuotedForm.h"
 
 
 @implementation TestCore
@@ -63,6 +64,16 @@
                                 @"Incorrect CacaoFn invocation", nil);
 }
 
+- (void)testDefaultArgValsWithStringAndSymbol
+{
+    TEST_TRUE(@"(= [\"alpha\" 'beta] (let [echo (fn[a b='beta] [a b])] (echo a:\"alpha\")))");
+}
+
+- (void)testDefaultArgValsWithSymbol
+{
+    TEST_TRUE(@"(= 'answer (let [echo (fn[a b='answer] b)] (echo a:\"ignored\")))");
+}
+
 - (void)testRestArgs
 {
     
@@ -85,21 +96,22 @@
     BOOL isResultOfCorrectClass;
     
     TEST_TRUE(@"(= 4 '4)");
+    TEST_TRUE(@"(= '\"text\" \"text\")");
     
     expression = @"'unevaluatedSymbol";
     result = [CacaoEnvironment evalText:expression inEnvironment:env];
-    isResultOfCorrectClass = [result isKindOfClass:[CacaoSymbol class]];
+    isResultOfCorrectClass = [result isKindOfClass:[CacaoQuotedForm class]];
     STAssertTrue(isResultOfCorrectClass, nil);
     
     expression = @"'[3 4 more]";
     result = [CacaoEnvironment evalText:expression inEnvironment:env];
-    isResultOfCorrectClass = [result isKindOfClass:[CacaoVector class]];
+    isResultOfCorrectClass = [result isKindOfClass:[CacaoQuotedForm class]];
     STAssertTrue(isResultOfCorrectClass, nil);    
 }
 
 - (void)testMap
 {
-    NSString * expression = @"(let [double (fn[n] (* n 2))] (map fn:double seq:[2 -27 999999]|";
+    NSString * expression = @"(let [double (fn[n] (* n 2))] (map fn:double vec:[2 -27 999999]|";
     CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
     BigInteger * first = [result.elements objectAtIndex:0];
     BigInteger * middle = [result.elements objectAtIndex:1];
