@@ -34,6 +34,9 @@
 #import "CacaoEnvironment.h"
 #import "CacaoSymbol.h"
 
+#define TEST_TRUE(expression) STAssertTrue([[CacaoEnvironment evalText:expression inEnvironment:env] boolValue], nil);
+#define TEST_FALSE(expression) STAssertFalse([[CacaoEnvironment evalText:expression inEnvironment:env] boolValue], nil);
+
 @interface TestBase : SenTestCase {
     CacaoEnvironment * env;
 

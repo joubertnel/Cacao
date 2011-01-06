@@ -45,9 +45,7 @@
 
 - (void)testNestedFn
 {
-    NSString * test = @"(= \"birdy\" (let [func1 (fn[n] n) func2 (fn[m] (func1 n:m))] (func2 m:\"birdy\")))";
-    NSNumber * result = (NSNumber *)[CacaoEnvironment evalText:test inEnvironment:env];
-    STAssertTrue([result boolValue], nil);
+    TEST_TRUE(@"(= \"birdy\" (let [func1 (fn[n] n) func2 (fn[m] (func1 n:m))] (func2 m:\"birdy\")))");
 }
 
 - (void)testMultipleArgs
@@ -86,9 +84,7 @@
     NSObject * result;
     BOOL isResultOfCorrectClass;
     
-    expression = @"(= 4 '4)";
-    result = (NSNumber *)[CacaoEnvironment evalText:expression inEnvironment:env];
-    STAssertTrue([(NSNumber *)result boolValue], nil);
+    TEST_TRUE(@"(= 4 '4)");
     
     expression = @"'unevaluatedSymbol";
     result = [CacaoEnvironment evalText:expression inEnvironment:env];
