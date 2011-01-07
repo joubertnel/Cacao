@@ -12,6 +12,9 @@
 		BE0F24D812A72436005E9444 /* TestCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24D712A72436005E9444 /* TestCore.m */; };
 		BE0F24DC12A72475005E9444 /* TestBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24DB12A72475005E9444 /* TestBase.m */; };
 		BE296A8212A4184200229132 /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
+		BE2B694E12D7C04E000363DB /* CacaoDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B694C12D7C04E000363DB /* CacaoDictionary.h */; };
+		BE2B694F12D7C04E000363DB /* CacaoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B694D12D7C04E000363DB /* CacaoDictionary.m */; };
+		BE2B695012D7C04E000363DB /* CacaoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B694D12D7C04E000363DB /* CacaoDictionary.m */; };
 		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
 		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
 		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
@@ -122,6 +125,8 @@
 		BE0F24D712A72436005E9444 /* TestCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCore.m; sourceTree = "<group>"; };
 		BE0F24DA12A72475005E9444 /* TestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestBase.h; sourceTree = "<group>"; };
 		BE0F24DB12A72475005E9444 /* TestBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestBase.m; sourceTree = "<group>"; };
+		BE2B694C12D7C04E000363DB /* CacaoDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoDictionary.h; sourceTree = "<group>"; };
+		BE2B694D12D7C04E000363DB /* CacaoDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoDictionary.m; sourceTree = "<group>"; };
 		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
@@ -397,6 +402,8 @@
 			children = (
 				BE3BC6FD1290E58D00ED6ADB /* CacaoVector.h */,
 				BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */,
+				BE2B694C12D7C04E000363DB /* CacaoDictionary.h */,
+				BE2B694D12D7C04E000363DB /* CacaoDictionary.m */,
 			);
 			name = Datastructures;
 			sourceTree = "<group>";
@@ -460,6 +467,7 @@
 				BE93D64512C6D28900B42625 /* CacaoCore.h in Headers */,
 				BEA9FC8412C7B72A001875C1 /* CacaoBigInteger.h in Headers */,
 				BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */,
+				BE2B694E12D7C04E000363DB /* CacaoDictionary.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +631,7 @@
 				BE9302F212BED306007A4826 /* CacaoArgumentName.m in Sources */,
 				BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */,
 				BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
+				BE2B694F12D7C04E000363DB /* CacaoDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +676,7 @@
 				BEF44E4E12D3F1CC007E42FB /* BigInteger.m in Sources */,
 				BEF44E4F12D3F1CF007E42FB /* BigDecimal.m in Sources */,
 				BEF44E5012D3F1D2007E42FB /* GMPRational.m in Sources */,
+				BE2B695012D7C04E000363DB /* CacaoDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

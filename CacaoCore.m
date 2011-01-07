@@ -8,8 +8,9 @@
 
 #import "CacaoArgumentName.h"
 #import "CacaoCore.h"
-#import "CacaoSymbol.h"
+#import "CacaoDictionary.h"
 #import "CacaoFn.h"
+#import "CacaoSymbol.h"
 #import "BigInteger.h"
 #import "NSArray+Functional.h"
 
@@ -105,22 +106,57 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         return [CacaoVector vectorWithArray:numbers];
     } args:rangeArgs restArg:nil];
     
+    
     CacaoSymbol * mapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
     CacaoSymbol * mapFnArgSym = [CacaoSymbol symbolWithName:@"fn" inNamespace:nil];
+    CacaoSymbol * mapFilterFnArgSym = [CacaoSymbol symbolWithName:@"filterFn" inNamespace:nil];
     CacaoSymbol * mapSeqArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
-    CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapSeqArgSym, nil]];                                                        
+    CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapFilterFnArgSym, mapSeqArgSym, nil]]; 
+    NSDictionary * mapArgDefaults = [NSDictionary dictionaryWithObjectsAndKeys:[NSNull null], mapFilterFnArgSym, nil];
+    
     CacaoFn * pmapFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         id seq = [argsAndVals objectForKey:mapSeqArgSym];
+
         CacaoFn * fn = [argsAndVals objectForKey:mapFnArgSym];
         NSString * fnArgNameString = [fn.argNames anyObject];
         CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString inNamespace:nil]];
-        __block NSMutableArray * results = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
+
+        CacaoFn * filterFn = [argsAndVals objectForKey:mapFilterFnArgSym];
+        NSString * filterFnArgNameString = [filterFn.argNames anyObject];
+        CacaoArgumentName * filterFnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:filterFnArgNameString inNamespace:nil]];
+        
+        __block NSMutableArray * resultArray;        
+        __block NSMutableDictionary * resultDict; 
+        
+        if (filterFn == nil)
+            resultArray = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
+        else
+            resultDict = [NSMutableDictionary dictionary];
+
         [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
             id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];
-            [results insertObject:r atIndex:idx];            
+            
+            if (filterFn == nil)
+            {
+                [resultArray insertObject:r atIndex:idx];            
+            }
+            else
+            {
+                BOOL notFilteredOut = (BOOL)[filterFn invokeWithArgsAndVals:[NSArray arrayWithObjects:filterFnArgName, r, nil]];
+                if (notFilteredOut)      
+                    [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInteger:idx]];
+            }
+            
+
         }];
-        return [CacaoVector vectorWithArray:results];        
-    } args:mapArgs restArg:nil];
+
+        if (resultDict != nil)
+            return [CacaoDictionary dictionaryWithNSDictionary:resultDict];
+        else
+            return [CacaoVector vectorWithArray:resultArray];        
+
+    } args:mapArgs argsDefaults:mapArgDefaults restArg:nil];
         
     
 

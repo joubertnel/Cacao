@@ -1,8 +1,8 @@
 //
-//  CacaoFn.h
+//  CacaoDictionary.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -29,40 +29,16 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "CacaoSymbol.h"
-#import "CacaoVector.h"
 
-typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
-extern NSString * const FnIdentityPrefix;
 
-@interface CacaoFn : NSObject {
-    DispatchFunction func;
-    NSString * identity;
-    NSSet * argNames;
-    NSDictionary * argsDefaultVals;
-    CacaoSymbol * restArg;
+@interface CacaoDictionary : NSObject {
+    NSDictionary * elements;
 }
 
-@property (copy) DispatchFunction func;
-@property (nonatomic, retain) NSString * identity;
-@property (nonatomic, retain) NSSet * argNames;
-@property (nonatomic, retain) NSDictionary * argsDefaultVals;
-@property (nonatomic, retain) CacaoSymbol * restArg;
+@property (nonatomic, retain) NSDictionary * elements;
 
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc 
-                               args:(CacaoVector *)theArgs 
-                       argsDefaults:(NSDictionary *)theArgsDefaultVals
-                            restArg:(CacaoSymbol *)theRestArg;
-
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc args:(CacaoVector *)theArgs 
-                            restArg:(CacaoSymbol *)theRestArg;
-
-+ (CacaoFn *)fnWithDispatchFunction:(DispatchFunction)theFunc restArg:(CacaoSymbol *)theRestArg;
++ (CacaoDictionary *)dictionaryWithNSDictionary:(NSDictionary *)theElements;
 
 - (NSString *)printable;
-- (id)invokeWithArgsAndVals:(NSArray *)argsAndVals;
-
-
-
 
 @end
