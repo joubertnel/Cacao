@@ -2,7 +2,7 @@
 //  CacaoLispReader.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -31,7 +31,6 @@
 #import <Cocoa/Cocoa.h>
 #import "PushbackReader.h"
 
-//#define symbolPat	@"[:]?([\\D&&[^/]].*/)?([\\D&&[^/]][^/]*)"
 #define symbolPat   @"[:]*?([\\D]*/)?([\\D][^/]*)"
 #define intPat		@"([-+]?)(?:(0)|([1-9][0-9]*)|0[xX]([0-9A-Fa-f]+)|0([0-7]+)|([1-9][0-9]?)[rR]([0-9A-Za-z]+)|0[0-9]+)\\.?"   
 #define ratioPat	@"([-+]?[0-9]+)/([0-9]+)"
@@ -44,6 +43,8 @@ extern unichar CACAO_READER_LIST_COLLAPSE_CHAR;
 extern NSString * CACAO_READER_LIST_COLLAPSE_STRING;
 extern unichar CACAO_READER_VECTOR_START_CHAR;
 extern unichar CACAO_READER_VECTOR_END_CHAR;
+extern unichar CACAO_READER_DICT_START_CHAR;
+extern unichar CACAO_READER_DICT_END_CHAR;
 extern unichar CACAO_READER_QUOTE_CHAR;
 
 @interface CacaoLispReader : NSObject {

@@ -2,7 +2,7 @@
 //  BigInteger.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -119,6 +119,13 @@ static const int MSB_ORDER = 1;
 	return [BigInteger bigIntegerWithValue:theValue base:10];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    PREP_MPZ(number, self);
+    BigInteger * aCopy = [BigInteger bigIntegerWithMPZ:number];
+    END_MPZ(number);
+    return aCopy;
+}
 
 - (NSString *)printable
 {

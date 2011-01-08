@@ -2,9 +2,31 @@
 //  CacaoCore.m
 //  Cacao
 //
-//  Created by Joubert Nel on 12/25/10.
-//  Copyright 2010 Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
+//    Redistribution and use in source and binary forms, with or without modification, are
+//    permitted provided that the following conditions are met:
+//
+//    1. Redistributions of source code must retain the above copyright notice, this list of
+//    conditions and the following disclaimer.
+//
+//    2. Redistributions in binary form must reproduce the above copyright notice, this list
+//    of conditions and the following disclaimer in the documentation and/or other materials
+//    provided with the distribution.
+//
+//    THIS SOFTWARE IS PROVIDED BY JOUBERT NEL "AS IS'' AND ANY EXPRESS OR IMPLIED
+//    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//    FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JOUBERT NEL OR
+//    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+//    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+//    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+//    ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    The views and conclusions contained in the software and documentation are those of the
+//    authors and should not be interpreted as representing official policies, either expressed
+//    or implied, of Joubert Nel.
 
 #import "CacaoArgumentName.h"
 #import "CacaoCore.h"
@@ -109,10 +131,8 @@ static NSString * SYMBOL_NAME_NO = @"NO";
     
     CacaoSymbol * mapSymbol = [CacaoSymbol symbolWithName:@"map" inNamespace:GLOBAL_NAMESPACE];
     CacaoSymbol * mapFnArgSym = [CacaoSymbol symbolWithName:@"fn" inNamespace:nil];
-    CacaoSymbol * mapFilterFnArgSym = [CacaoSymbol symbolWithName:@"filterFn" inNamespace:nil];
     CacaoSymbol * mapSeqArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
-    CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapFilterFnArgSym, mapSeqArgSym, nil]]; 
-    NSDictionary * mapArgDefaults = [NSDictionary dictionaryWithObjectsAndKeys:[NSNull null], mapFilterFnArgSym, nil];
+    CacaoVector * mapArgs = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:mapFnArgSym, mapSeqArgSym, nil]]; 
     
     CacaoFn * pmapFn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         id seq = [argsAndVals objectForKey:mapSeqArgSym];
@@ -120,43 +140,19 @@ static NSString * SYMBOL_NAME_NO = @"NO";
         CacaoFn * fn = [argsAndVals objectForKey:mapFnArgSym];
         NSString * fnArgNameString = [fn.argNames anyObject];
         CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString inNamespace:nil]];
-
-        CacaoFn * filterFn = [argsAndVals objectForKey:mapFilterFnArgSym];
-        NSString * filterFnArgNameString = [filterFn.argNames anyObject];
-        CacaoArgumentName * filterFnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:filterFnArgNameString inNamespace:nil]];
         
-        __block NSMutableArray * resultArray;        
-        __block NSMutableDictionary * resultDict; 
-        
-        if (filterFn == nil)
-            resultArray = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
-        else
-            resultDict = [NSMutableDictionary dictionary];
-
+        __block NSMutableArray * resultArray = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
+ 
         [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
-            id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];
-            
-            if (filterFn == nil)
-            {
-                [resultArray insertObject:r atIndex:idx];            
-            }
-            else
-            {
-                BOOL notFilteredOut = (BOOL)[filterFn invokeWithArgsAndVals:[NSArray arrayWithObjects:filterFnArgName, r, nil]];
-                if (notFilteredOut)      
-                    [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInteger:idx]];
-            }
-            
+            id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];            
+            [resultArray insertObject:r atIndex:idx];                       
 
         }];
 
-        if (resultDict != nil)
-            return [CacaoDictionary dictionaryWithNSDictionary:resultDict];
-        else
-            return [CacaoVector vectorWithArray:resultArray];        
+        return [CacaoVector vectorWithArray:resultArray];        
 
-    } args:mapArgs argsDefaults:mapArgDefaults restArg:nil];
+    } args:mapArgs restArg:nil];
         
     
 

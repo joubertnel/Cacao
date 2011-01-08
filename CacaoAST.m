@@ -67,20 +67,7 @@
     return theNumber;
 }
 
-//+ (id)atomFrom:(NSString *)token
-//{
-//    id theAtom = nil;
-//    theAtom = [CacaoAST makeAtomForStringToken:token];
-//    if (theAtom == nil)
-//    {
-//        theAtom = [CacaoAST makeAtomForNumberToken:token];
-//        if (theAtom == nil)
-//        {
-//            theAtom = [CacaoSymbol symbolWithName:token];
-//        }
-//    }    
-//    return theAtom;
-//}
+
 
 #pragma mark Parsing
 

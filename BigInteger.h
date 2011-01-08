@@ -2,7 +2,7 @@
 //  BigInteger.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -40,7 +40,7 @@ typedef enum {
 
 
 
-@interface BigInteger : NSNumber {
+@interface BigInteger: NSObject <NSCopying> {
     NSData *    mpzData;
     size_t      mpzDataWordCount;
 	int         base;
@@ -58,6 +58,8 @@ typedef enum {
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue base:(int)theBase;
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue;
 
+
+- (id)copyWithZone:(NSZone *)zone;
 
 - (NSString *)printable;
 

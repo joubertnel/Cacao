@@ -2,7 +2,7 @@
 //  CacaoKeyword.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -31,13 +31,15 @@
 #import <Cocoa/Cocoa.h>
 #import "CacaoSymbol.h"
 
-@interface CacaoKeyword : NSObject {
+@interface CacaoKeyword : NSObject <NSCopying> {
     CacaoSymbol * symbol;
 }
 
 @property (nonatomic, retain) CacaoSymbol * symbol;
 
 + (CacaoKeyword *)keywordInternedFromSymbol:(CacaoSymbol *)sym;
+
+- (id)copyWithZone:(NSZone *)zone;
 
 - (NSString *)printable;
 

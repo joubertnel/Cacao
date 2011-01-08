@@ -2,7 +2,7 @@
 //  CacaoKeyword.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -62,9 +62,18 @@ static NSMutableDictionary * table = nil;
         return existingKeywordInTable;
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    CacaoKeyword * aCopy = [[CacaoKeyword allocWithZone:zone] init];
+    [aCopy setSymbol:[self.symbol copy]];
+    return aCopy;
+}
+
+
+
 - (NSString *)printable
 {
-    return [NSString stringWithFormat:@":%@", [symbol printable]];
+    return [NSString stringWithFormat:@"%@", [symbol printable]];
 }
 
 @end

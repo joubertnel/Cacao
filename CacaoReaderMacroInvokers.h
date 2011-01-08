@@ -2,7 +2,7 @@
 // CacaoReaderMacroInvokers.h
 // Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -29,6 +29,7 @@
 //    or implied, of Joubert Nel.
 
 #import "PushbackReader.h"
+#import "CacaoDictionary.h"
 #import "CacaoLispReader.h"
 #import "CacaoQuotedForm.h"
 #import "CacaoVector.h"
@@ -118,6 +119,13 @@ ReaderMacro cacaoVectorReaderMacro = ^(PushbackReader * reader, unichar firstCha
                                                            from:reader];
     CacaoVector * vector = [CacaoVector vectorWithArray:elements];
     return vector;
+};
+
+ReaderMacro cacaoDictionaryReaderMacro = ^(PushbackReader * reader, unichar firstCharacter, ...) {
+    NSArray * keysAndValues = [CacaoLispReader readListDelimitedWith:CACAO_READER_DICT_END_CHAR
+                                                                from:reader];
+    CacaoDictionary * dict = [CacaoDictionary dictionaryWithKeyValueArray:keysAndValues];
+    return dict;
 };
 
 ReaderMacro cacaoQuoteReaderMacro = ^(PushbackReader * reader, unichar firstChar, ...) {

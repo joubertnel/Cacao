@@ -38,6 +38,7 @@
 @property (nonatomic, retain) NSDictionary * elements;
 
 + (CacaoDictionary *)dictionaryWithNSDictionary:(NSDictionary *)theElements;
++ (CacaoDictionary *)dictionaryWithKeyValueArray:(NSArray *)keysAndValues;
 
 - (NSString *)printable;
 

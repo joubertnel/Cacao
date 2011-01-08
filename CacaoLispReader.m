@@ -2,7 +2,7 @@
 //  CacaoLispReader.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -45,6 +45,8 @@ unichar CACAO_READER_LIST_COLLAPSE_CHAR = (unichar)'|';
 NSString * CACAO_READER_LIST_COLLAPSE_STRING = @"|";
 unichar CACAO_READER_VECTOR_START_CHAR = (unichar)'[';
 unichar CACAO_READER_VECTOR_END_CHAR = (unichar)']';
+unichar CACAO_READER_DICT_START_CHAR = (unichar)'{';
+unichar CACAO_READER_DICT_END_CHAR = (unichar)'}';
 unichar CACAO_READER_QUOTE_CHAR = (unichar)'\'';
 
 static unichar CACAO_READER_ARG_VAL_SEPARATOR = (unichar)':';
@@ -67,6 +69,8 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
                     cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_LIST_END_CHAR],
                     cacaoVectorReaderMacro,                 [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_START_CHAR],
                     cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_VECTOR_END_CHAR],
+                    cacaoDictionaryReaderMacro,             [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_DICT_START_CHAR],
+                    cacaoUnmatchedDelimiterReaderMacro,     [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_DICT_END_CHAR],
                     cacaoQuoteReaderMacro,                  [NSNumber numberWithUnsignedShort:(unichar)CACAO_READER_QUOTE_CHAR],
                      nil];
     
