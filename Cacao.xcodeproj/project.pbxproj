@@ -15,6 +15,19 @@
 		BE2B694E12D7C04E000363DB /* CacaoDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B694C12D7C04E000363DB /* CacaoDictionary.h */; };
 		BE2B694F12D7C04E000363DB /* CacaoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B694D12D7C04E000363DB /* CacaoDictionary.m */; };
 		BE2B695012D7C04E000363DB /* CacaoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B694D12D7C04E000363DB /* CacaoDictionary.m */; };
+		BE2B6C4A12D8E2A8000363DB /* CacaoMathFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6C4812D8E2A8000363DB /* CacaoMathFunctionMakers.h */; };
+		BE2B6C4B12D8E2A8000363DB /* CacaoMathFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6C4912D8E2A8000363DB /* CacaoMathFunctionMakers.m */; };
+		BE2B6C4C12D8E2A8000363DB /* CacaoMathFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6C4912D8E2A8000363DB /* CacaoMathFunctionMakers.m */; };
+		BE2B6C5012D8E304000363DB /* CacaoFunctionsMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6C4F12D8E304000363DB /* CacaoFunctionsMaker.h */; };
+		BE2B6C7812D8F127000363DB /* CacaoHigherOrderFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6C7712D8F127000363DB /* CacaoHigherOrderFunctionMakers.m */; };
+		BE2B6C7912D8F127000363DB /* CacaoHigherOrderFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6C7612D8F127000363DB /* CacaoHigherOrderFunctionMakers.h */; };
+		BE2B6C7A12D8F127000363DB /* CacaoHigherOrderFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6C7712D8F127000363DB /* CacaoHigherOrderFunctionMakers.m */; };
+		BE2B6D1812D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D1712D8FD66000363DB /* CacaoSequenceFunctionMakers.m */; };
+		BE2B6D1912D8FD66000363DB /* CacaoSequenceFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6D1612D8FD66000363DB /* CacaoSequenceFunctionMakers.h */; };
+		BE2B6D1A12D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D1712D8FD66000363DB /* CacaoSequenceFunctionMakers.m */; };
+		BE2B6D2312D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */; };
+		BE2B6D2412D8FDFF000363DB /* CacaoComparisonFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6D2112D8FDFF000363DB /* CacaoComparisonFunctionMakers.h */; };
+		BE2B6D2512D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */; };
 		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
 		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
 		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
@@ -127,6 +140,15 @@
 		BE0F24DB12A72475005E9444 /* TestBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestBase.m; sourceTree = "<group>"; };
 		BE2B694C12D7C04E000363DB /* CacaoDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoDictionary.h; sourceTree = "<group>"; };
 		BE2B694D12D7C04E000363DB /* CacaoDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoDictionary.m; sourceTree = "<group>"; };
+		BE2B6C4812D8E2A8000363DB /* CacaoMathFunctionMakers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoMathFunctionMakers.h; sourceTree = "<group>"; };
+		BE2B6C4912D8E2A8000363DB /* CacaoMathFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoMathFunctionMakers.m; sourceTree = "<group>"; };
+		BE2B6C4F12D8E304000363DB /* CacaoFunctionsMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoFunctionsMaker.h; sourceTree = "<group>"; };
+		BE2B6C7612D8F127000363DB /* CacaoHigherOrderFunctionMakers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoHigherOrderFunctionMakers.h; sourceTree = "<group>"; };
+		BE2B6C7712D8F127000363DB /* CacaoHigherOrderFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoHigherOrderFunctionMakers.m; sourceTree = "<group>"; };
+		BE2B6D1612D8FD66000363DB /* CacaoSequenceFunctionMakers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoSequenceFunctionMakers.h; sourceTree = "<group>"; };
+		BE2B6D1712D8FD66000363DB /* CacaoSequenceFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoSequenceFunctionMakers.m; sourceTree = "<group>"; };
+		BE2B6D2112D8FDFF000363DB /* CacaoComparisonFunctionMakers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoComparisonFunctionMakers.h; sourceTree = "<group>"; };
+		BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoComparisonFunctionMakers.m; sourceTree = "<group>"; };
 		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
@@ -333,9 +355,26 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		BE2B6C4712D8E271000363DB /* Function Makers */ = {
+			isa = PBXGroup;
+			children = (
+				BE2B6C4F12D8E304000363DB /* CacaoFunctionsMaker.h */,
+				BE2B6C4812D8E2A8000363DB /* CacaoMathFunctionMakers.h */,
+				BE2B6C4912D8E2A8000363DB /* CacaoMathFunctionMakers.m */,
+				BE2B6C7612D8F127000363DB /* CacaoHigherOrderFunctionMakers.h */,
+				BE2B6C7712D8F127000363DB /* CacaoHigherOrderFunctionMakers.m */,
+				BE2B6D1612D8FD66000363DB /* CacaoSequenceFunctionMakers.h */,
+				BE2B6D1712D8FD66000363DB /* CacaoSequenceFunctionMakers.m */,
+				BE2B6D2112D8FDFF000363DB /* CacaoComparisonFunctionMakers.h */,
+				BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */,
+			);
+			name = "Function Makers";
+			sourceTree = "<group>";
+		};
 		BE3BC17A1290972900ED6ADB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BE2B6C4712D8E271000363DB /* Function Makers */,
 				BE93F79012BBE395007A4826 /* Readers */,
 				BEB2936A128EF3350092F199 /* CacaoAST.h */,
 				BEB2936B128EF3350092F199 /* CacaoAST.m */,
@@ -468,6 +507,11 @@
 				BEA9FC8412C7B72A001875C1 /* CacaoBigInteger.h in Headers */,
 				BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */,
 				BE2B694E12D7C04E000363DB /* CacaoDictionary.h in Headers */,
+				BE2B6C4A12D8E2A8000363DB /* CacaoMathFunctionMakers.h in Headers */,
+				BE2B6C5012D8E304000363DB /* CacaoFunctionsMaker.h in Headers */,
+				BE2B6C7912D8F127000363DB /* CacaoHigherOrderFunctionMakers.h in Headers */,
+				BE2B6D1912D8FD66000363DB /* CacaoSequenceFunctionMakers.h in Headers */,
+				BE2B6D2412D8FDFF000363DB /* CacaoComparisonFunctionMakers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +676,10 @@
 				BE93D64612C6D28900B42625 /* CacaoCore.m in Sources */,
 				BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */,
 				BE2B694F12D7C04E000363DB /* CacaoDictionary.m in Sources */,
+				BE2B6C4B12D8E2A8000363DB /* CacaoMathFunctionMakers.m in Sources */,
+				BE2B6C7A12D8F127000363DB /* CacaoHigherOrderFunctionMakers.m in Sources */,
+				BE2B6D1A12D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */,
+				BE2B6D2512D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +725,10 @@
 				BEF44E4F12D3F1CF007E42FB /* BigDecimal.m in Sources */,
 				BEF44E5012D3F1D2007E42FB /* GMPRational.m in Sources */,
 				BE2B695012D7C04E000363DB /* CacaoDictionary.m in Sources */,
+				BE2B6C4C12D8E2A8000363DB /* CacaoMathFunctionMakers.m in Sources */,
+				BE2B6C7812D8F127000363DB /* CacaoHigherOrderFunctionMakers.m in Sources */,
+				BE2B6D1812D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */,
+				BE2B6D2312D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

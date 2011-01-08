@@ -1,8 +1,8 @@
 //
-//  TestCore.h
+//  CacaoFunctionsMaker.h
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,12 +28,15 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
+#import <Cocoa/Cocoa.h>
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "TestBase.h"
+#import "CacaoArgumentName.h"
+#import "CacaoFn.h"
+#import "CacaoSymbol.h"
 
-@interface TestCore : TestBase {
 
-}
+@protocol CacaoFunctionsMaker
+
++ (NSString *)namespace;
 
 @end

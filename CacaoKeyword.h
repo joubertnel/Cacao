@@ -41,6 +41,8 @@
 
 - (id)copyWithZone:(NSZone *)zone;
 
+- (BOOL)isEqual:(id)object;
+
 - (NSString *)printable;
 
 @end

@@ -1,8 +1,8 @@
 //
-//  TestCore.h
+//  CacaoSequenceFunctionMakers.m
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,12 +28,38 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
+#import "CacaoSequenceFunctionMakers.h"
+#import "BigInteger.h"
+#import "CacaoCore.h"
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "TestBase.h"
 
-@interface TestCore : TestBase {
+@implementation CacaoSequenceFunctionMakers
 
++ (NSString *)namespace
+{
+    return GLOBAL_NAMESPACE;
 }
+
+
++ (NSDictionary *)range
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"range" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * startArgSym = [CacaoSymbol symbolWithName:@"start" inNamespace:nil];
+    CacaoSymbol * endArgSym = [CacaoSymbol symbolWithName:@"end" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects: startArgSym, endArgSym, nil]];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        BigInteger * startNum = [argsAndVals objectForKey:startArgSym];
+        BigInteger * endNum = [argsAndVals objectForKey:endArgSym];
+        BigInteger * i = startNum;
+        NSMutableArray * numbers = [NSMutableArray array];
+        while ([i isLessThan:endNum]) {
+            [numbers addObject:i];
+            i = [i add:[BigInteger bigIntegerWithValue:@"1"]];
+        }
+        return [CacaoVector vectorWithArray:numbers];
+    } args:args restArg:nil];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];
+}
+
 
 @end

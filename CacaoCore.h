@@ -30,6 +30,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * GLOBAL_NAMESPACE;
+
 
 @interface CacaoCore : NSObject {
 

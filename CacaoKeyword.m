@@ -69,7 +69,13 @@ static NSMutableDictionary * table = nil;
     return aCopy;
 }
 
-
+- (BOOL)isEqual:(id)object
+{
+    if (![object isKindOfClass:[CacaoKeyword class]])
+        return NO;
+    
+    return [self.symbol isEqualToSymbol:[(CacaoKeyword *)object symbol]];
+}
 
 - (NSString *)printable
 {

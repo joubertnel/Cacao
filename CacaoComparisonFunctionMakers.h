@@ -1,8 +1,8 @@
 //
-//  TestCore.h
+//  CacaoComparisonFunctionMakers.h
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,11 +28,10 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
+#import <Cocoa/Cocoa.h>
+#import "CacaoFunctionsMaker.h"
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "TestBase.h"
-
-@interface TestCore : TestBase {
+@interface CacaoComparisonFunctionMakers : NSObject <CacaoFunctionsMaker> {
 
 }
 

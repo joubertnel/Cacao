@@ -34,6 +34,7 @@
 
 #import <objc/objc-runtime.h>
 #import <ObjCHiredis/ObjCHiredis.h>
+#import "BigInteger.h"
 #import "CacaoCore.h"
 #import "CacaoEnvironment.h"
 #import "CacaoLispReader.h"
@@ -180,7 +181,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     }
     else if ([x isKindOfClass:[CacaoQuotedForm class]])
     {
-        BOOL formEvaluatesToItself = ([[x form] isKindOfClass:[NSNumber class]] ||
+        BOOL formEvaluatesToItself = ([[x form] isKindOfClass:[BigInteger class]] ||
                                       [[x form] isKindOfClass:[NSString class]]);
         if (formEvaluatesToItself)
             return [x form];

@@ -1,8 +1,8 @@
 //
-//  TestCore.h
+//  CacaoComparisonFunctionMakers.m
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,12 +28,32 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
+#import "CacaoComparisonFunctionMakers.h"
+#import "CacaoCore.h"
+#import "BigInteger.h"
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "TestBase.h"
 
-@interface TestCore : TestBase {
+@implementation CacaoComparisonFunctionMakers
 
++ (NSString *)namespace { return GLOBAL_NAMESPACE; }
+
++ (NSDictionary *)lessThan
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"<" inNamespace:GLOBAL_NAMESPACE];
+    NSString * argName = @"numbers";
+    CacaoSymbol * argSym = [CacaoSymbol symbolWithName:argName inNamespace:nil];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * numbers = [argsAndVals objectForKey:argSym];
+        BigInteger * num1 = [numbers objectAtIndex:0];
+        BigInteger * num2 = [numbers objectAtIndex:1];
+        BOOL isLessThan = [num1 isLessThan:num2];
+        if (isLessThan)
+            return [NSNumber numberWithBool:YES];
+        else 
+            return [NSNumber numberWithBool:NO];
+        
+    } restArg:argSym];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }
 
 @end
