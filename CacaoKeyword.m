@@ -64,9 +64,7 @@ static NSMutableDictionary * table = nil;
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    CacaoKeyword * aCopy = [[CacaoKeyword allocWithZone:zone] init];
-    [aCopy setSymbol:[self.symbol copy]];
-    return aCopy;
+    return [self retain];
 }
 
 - (BOOL)isEqual:(id)object
@@ -77,9 +75,16 @@ static NSMutableDictionary * table = nil;
     return [self.symbol isEqualToSymbol:[(CacaoKeyword *)object symbol]];
 }
 
-- (NSString *)printable
+- (NSString *)stringValue
 {
     return [NSString stringWithFormat:@"%@", [symbol printable]];
 }
+
+- (NSString *)printable
+{
+    return [self stringValue];
+}
+
+
 
 @end

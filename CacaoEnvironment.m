@@ -36,7 +36,9 @@
 #import <ObjCHiredis/ObjCHiredis.h>
 #import "BigInteger.h"
 #import "CacaoCore.h"
+#import "CacaoDictionary.h"
 #import "CacaoEnvironment.h"
+#import "CacaoKeyword.h"
 #import "CacaoLispReader.h"
 #import "PushbackReader.h"
 #import "CacaoArgumentName.h"
@@ -239,6 +241,13 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     {        
         return [CacaoEnvironment fnFromExpression:expression inEnvironment:env];
     }
+    else if ([firstX isKindOfClass:[CacaoKeyword class]])
+    {
+        CacaoSymbol * dictSym = [expression objectAtIndex:1];
+        CacaoDictionary * dict = [CacaoEnvironment eval:dictSym inEnvironment:env];
+        id value = [dict.elements objectForKey:firstX];
+        return value;    
+    }
     else return [CacaoEnvironment evalFunctionCall:x inEnvironment:env];
 
 }
@@ -248,13 +257,15 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalFunctionCall:(NSArray *)x inEnvironment:(CacaoEnvironment *)env
 {
-#if TRACING_DEBUG
+#if DEBUG
     NSLog(@"Eval Function Call:");
     [x enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {        
         NSLog(@"\t%@", [obj printable]);
     }];
     
 #endif
+    
+   
     // X is a function call. Apply the arguments against it. 
     
     NSArray * expressions = [x map:^(id subExpression) {

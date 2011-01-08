@@ -44,5 +44,6 @@
 - (BOOL)isEqual:(id)object;
 
 - (NSString *)printable;
+- (NSString *)stringValue;
 
 @end
