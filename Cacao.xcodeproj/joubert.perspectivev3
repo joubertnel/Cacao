@@ -285,8 +285,10 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
-									<integer>1</integer>
+									<integer>25</integer>
+									<integer>20</integer>
+									<integer>19</integer>
+									<integer>13</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -326,7 +328,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TestDictionaries.m</string>
+								<string>CacaoHigherOrderFunctionMakers.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +336,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TestDictionaries.m</string>
+										<string>CacaoHigherOrderFunctionMakers.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE2B6F2812D97248000363DB</string>
+										<string>BE2B70E912DA4F20000363DB</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -348,7 +350,6 @@
 											<string>BE46BCED12A5B5A000EE904A</string>
 											<string>BE46BCFE12A5B5A000EE904A</string>
 											<string>BE46BD8112A5C8F100EE904A</string>
-											<string>BE62133512A8374000F4D142</string>
 											<string>BE98EFB612AAFAA90056DCD1</string>
 											<string>BE93F8A912BC1237007A4826</string>
 											<string>BE93FA0112BC1A70007A4826</string>
@@ -394,7 +395,6 @@
 											<string>BE2B698B12D7DC14000363DB</string>
 											<string>BE2B698C12D7DC14000363DB</string>
 											<string>BE2B6A5D12D7EE78000363DB</string>
-											<string>BE2B6BCE12D7FD6E000363DB</string>
 											<string>BE2B6BEF12D82BFC000363DB</string>
 											<string>BE2B6BFF12D82C55000363DB</string>
 											<string>BE2B6C3712D8DB00000363DB</string>
@@ -410,7 +410,6 @@
 											<string>BE2B6D5112D910E6000363DB</string>
 											<string>BE2B6D5212D910E6000363DB</string>
 											<string>BE2B6D5312D910E6000363DB</string>
-											<string>BE2B6D5412D910E6000363DB</string>
 											<string>BE2B6D5512D910E6000363DB</string>
 											<string>BE2B6D5612D910E6000363DB</string>
 											<string>BE2B6E3712D95824000363DB</string>
@@ -420,18 +419,22 @@
 											<string>BE2B6EAD12D95ED8000363DB</string>
 											<string>BE2B6EAE12D95ED8000363DB</string>
 											<string>BE2B6EAF12D95ED8000363DB</string>
-											<string>BE2B6EC012D95F03000363DB</string>
 											<string>BE2B6EC412D95F5A000363DB</string>
 											<string>BE2B6ED312D96A9F000363DB</string>
-											<string>BE2B6ED412D96A9F000363DB</string>
-											<string>BE2B6EDE12D96D2D000363DB</string>
 											<string>BE2B6EEE12D96DA0000363DB</string>
 											<string>BE2B6F0912D9708D000363DB</string>
 											<string>BE2B6F0A12D9708D000363DB</string>
-											<string>BE2B6F0B12D9708D000363DB</string>
-											<string>BE2B6F0C12D9708D000363DB</string>
-											<string>BE2B6F2612D97248000363DB</string>
-											<string>BE2B6F2712D97248000363DB</string>
+											<string>BE2B6F4A12D97464000363DB</string>
+											<string>BE2B6F4B12D97464000363DB</string>
+											<string>BE2B6F5412DA08F0000363DB</string>
+											<string>BE2B6F5512DA08F0000363DB</string>
+											<string>BE2B6F5612DA08F0000363DB</string>
+											<string>BE2B6F6412DA098A000363DB</string>
+											<string>BE2B70B412DA2C5A000363DB</string>
+											<string>BE2B70B512DA2C5A000363DB</string>
+											<string>BE2B70E412DA4E56000363DB</string>
+											<string>BE2B70E512DA4E56000363DB</string>
+											<string>BE2B70E812DA4F19000363DB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

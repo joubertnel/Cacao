@@ -54,14 +54,28 @@
         NSString * fnArgNameString = [fn.argNames anyObject];
         CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString inNamespace:nil]];
         
-        __block NSMutableArray * resultArray = [NSMutableArray arrayWithCapacity:[[seq elements] count]];
+        size_t itemCount = [[seq elements] count];
+        __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:itemCount];        
         
         [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
-            id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];            
-            [resultArray insertObject:r atIndex:idx];                       
-            
+            NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];    
+            if (r == nil)
+                r = [NSNull null];
+            [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInt:idx]];
+
         }];
+        
+        id * results = calloc(itemCount, sizeof(NSObject *));
+        
+        for (NSUInteger i=0; i < itemCount; i++) {
+            NSObject * obj = [resultDict objectForKey:[NSNumber numberWithUnsignedInt:i]];
+            results[i] = obj;
+        }            
+        
+        NSArray * resultArray = [NSArray arrayWithObjects:(id const *)results count:itemCount];
+        
+        free(results);
         
         return [CacaoVector vectorWithArray:resultArray];        
         

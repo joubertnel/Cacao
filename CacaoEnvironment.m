@@ -256,7 +256,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalFunctionCall:(NSArray *)x inEnvironment:(CacaoEnvironment *)env
 {
-#if DEBUG
+#if TRACING_DEBUG
     NSLog(@"Eval Function Call:");
     [x enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {        
         NSLog(@"\t%@", [obj printable]);
