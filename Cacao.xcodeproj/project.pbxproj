@@ -28,6 +28,7 @@
 		BE2B6D2312D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */; };
 		BE2B6D2412D8FDFF000363DB /* CacaoComparisonFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6D2112D8FDFF000363DB /* CacaoComparisonFunctionMakers.h */; };
 		BE2B6D2512D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */; };
+		BE2B6DCD12D9556D000363DB /* TestDictionaries.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6DCC12D9556D000363DB /* TestDictionaries.m */; };
 		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
 		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
 		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
@@ -149,6 +150,8 @@
 		BE2B6D1712D8FD66000363DB /* CacaoSequenceFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoSequenceFunctionMakers.m; sourceTree = "<group>"; };
 		BE2B6D2112D8FDFF000363DB /* CacaoComparisonFunctionMakers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoComparisonFunctionMakers.h; sourceTree = "<group>"; };
 		BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoComparisonFunctionMakers.m; sourceTree = "<group>"; };
+		BE2B6DCB12D9556D000363DB /* TestDictionaries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDictionaries.h; sourceTree = "<group>"; };
+		BE2B6DCC12D9556D000363DB /* TestDictionaries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDictionaries.m; sourceTree = "<group>"; };
 		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
 		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
 		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				BE0F24D712A72436005E9444 /* TestCore.m */,
 				BE0F24DA12A72475005E9444 /* TestBase.h */,
 				BE0F24DB12A72475005E9444 /* TestBase.m */,
+				BE2B6DCB12D9556D000363DB /* TestDictionaries.h */,
+				BE2B6DCC12D9556D000363DB /* TestDictionaries.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 				BE0F240B12A6A8CD005E9444 /* TestPlatformIntegration.m in Sources */,
 				BE0F24D812A72436005E9444 /* TestCore.m in Sources */,
 				BE0F24DC12A72475005E9444 /* TestBase.m in Sources */,
+				BE2B6DCD12D9556D000363DB /* TestDictionaries.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

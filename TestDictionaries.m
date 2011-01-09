@@ -1,8 +1,8 @@
 //
-//  CacaoKeyword.m
+//  TestDictionaries.m
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,67 +28,19 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "CacaoKeyword.h"
-
-static NSMutableDictionary * table = nil;
+#import "TestDictionaries.h"
 
 
-@implementation CacaoKeyword
+@implementation TestDictionaries
 
-@synthesize symbol;
-
-+ (void)initialize
+- (void)testKeyAsFunction
 {
-    table = [NSMutableDictionary dictionary];
+    TEST_TRUE(@"(= \"Frederic\" (:first {:first \"Frederic\" :last \"Chopin\"}))");
 }
 
-+ (CacaoKeyword *)keywordFromSymbol:(CacaoSymbol *)sym
+- (void)testAllKeys
 {
-    CacaoKeyword * keyword = [[CacaoKeyword alloc] init];
-    [keyword setSymbol:sym];  
-    return [keyword autorelease];
+    TEST_TRUE(@"(= [:first :last] (allKeys dict:{:first \"Frederic\" :last \"Chopin\"}))");
 }
-
-
-#pragma mark Public interface
-
-+ (CacaoKeyword *)keywordInternedFromSymbol:(CacaoSymbol *)sym
-{
-    CacaoKeyword * existingKeywordInTable = nil;
-    existingKeywordInTable = [table objectForKey:sym];
-    if (existingKeywordInTable == nil)
-    {
-        CacaoKeyword * newKeyword = [CacaoKeyword keywordFromSymbol:sym];
-        [table setObject:newKeyword forKey:newKeyword.symbol];
-        return newKeyword;
-    }
-    else
-        return existingKeywordInTable;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return [self retain];
-}
-
-- (BOOL)isEqual:(id)object
-{
-    if (![object isKindOfClass:[CacaoKeyword class]])
-        return NO;
-    
-    return [self.symbol isEqualToSymbol:[(CacaoKeyword *)object symbol]];
-}
-
-- (NSString *)stringValue
-{
-    return [NSString stringWithFormat:@"%@", [symbol printable]];
-}
-
-- (NSString *)printable
-{
-    return [self stringValue];
-}
-
-
 
 @end

@@ -1,8 +1,8 @@
 //
-//  CacaoKeyword.m
+//  TestDictionaries.h
 //  Cacao
 //
-//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,67 +28,11 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "CacaoKeyword.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "TestBase.h"
 
-static NSMutableDictionary * table = nil;
+@interface TestDictionaries : TestBase {
 
-
-@implementation CacaoKeyword
-
-@synthesize symbol;
-
-+ (void)initialize
-{
-    table = [NSMutableDictionary dictionary];
 }
-
-+ (CacaoKeyword *)keywordFromSymbol:(CacaoSymbol *)sym
-{
-    CacaoKeyword * keyword = [[CacaoKeyword alloc] init];
-    [keyword setSymbol:sym];  
-    return [keyword autorelease];
-}
-
-
-#pragma mark Public interface
-
-+ (CacaoKeyword *)keywordInternedFromSymbol:(CacaoSymbol *)sym
-{
-    CacaoKeyword * existingKeywordInTable = nil;
-    existingKeywordInTable = [table objectForKey:sym];
-    if (existingKeywordInTable == nil)
-    {
-        CacaoKeyword * newKeyword = [CacaoKeyword keywordFromSymbol:sym];
-        [table setObject:newKeyword forKey:newKeyword.symbol];
-        return newKeyword;
-    }
-    else
-        return existingKeywordInTable;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return [self retain];
-}
-
-- (BOOL)isEqual:(id)object
-{
-    if (![object isKindOfClass:[CacaoKeyword class]])
-        return NO;
-    
-    return [self.symbol isEqualToSymbol:[(CacaoKeyword *)object symbol]];
-}
-
-- (NSString *)stringValue
-{
-    return [NSString stringWithFormat:@"%@", [symbol printable]];
-}
-
-- (NSString *)printable
-{
-    return [self stringValue];
-}
-
-
 
 @end
