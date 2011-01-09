@@ -31,6 +31,7 @@
 #import "CacaoSequenceFunctionMakers.h"
 #import "BigInteger.h"
 #import "CacaoCore.h"
+#import "CacaoDictionary.h"
 
 
 @implementation CacaoSequenceFunctionMakers
@@ -57,6 +58,18 @@
             i = [i add:[BigInteger bigIntegerWithValue:@"1"]];
         }
         return [CacaoVector vectorWithArray:numbers];
+    } args:args restArg:nil];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];
+}
+
++ (NSDictionary *)allKeys
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"allKeys" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * dictArgSym = [CacaoSymbol symbolWithName:@"dict" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:dictArgSym, nil]];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoDictionary * dict = (CacaoDictionary *)[argsAndVals objectForKey:dictArgSym];
+        return [CacaoVector vectorWithArray:[dict.elements allKeys]]; 
     } args:args restArg:nil];
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }

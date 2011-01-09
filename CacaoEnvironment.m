@@ -244,12 +244,11 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     else if ([firstX isKindOfClass:[CacaoKeyword class]])
     {
         CacaoSymbol * dictSym = [expression objectAtIndex:1];
-        CacaoDictionary * dict = [CacaoEnvironment eval:dictSym inEnvironment:env];
+        CacaoDictionary * dict = [CacaoEnvironment eval:dictSym inEnvironment:env];        
         id value = [dict.elements objectForKey:firstX];
         return value;    
     }
     else return [CacaoEnvironment evalFunctionCall:x inEnvironment:env];
-
 }
 
 
