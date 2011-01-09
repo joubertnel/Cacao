@@ -62,6 +62,20 @@
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }
 
++ (NSDictionary *)contains
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"contains?" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * itemArgSym = [CacaoSymbol symbolWithName:@"item" inNamespace:nil];
+    CacaoSymbol * seqArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:itemArgSym, seqArgSym, nil]];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * vec = (CacaoVector *)[argsAndVals objectForKey:seqArgSym];
+        id obj = [argsAndVals objectForKey:itemArgSym];
+        return [NSNumber numberWithBool:[vec.elements containsObject:obj]];
+    } args:args restArg:nil];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];
+}
+
 + (NSDictionary *)keys
 {
     CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"keys" inNamespace:GLOBAL_NAMESPACE];
@@ -70,6 +84,18 @@
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         CacaoDictionary * dict = (CacaoDictionary *)[argsAndVals objectForKey:dictArgSym];
         return [CacaoVector vectorWithArray:[dict.elements allKeys]]; 
+    } args:args restArg:nil];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];
+}
+
++ (NSDictionary *)vals
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"vals" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * dictArgSym = [CacaoSymbol symbolWithName:@"dict" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:dictArgSym, nil]];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoDictionary * dict = (CacaoDictionary *)[argsAndVals objectForKey:dictArgSym];
+        return [CacaoVector vectorWithArray:[dict.elements allValues]];
     } args:args restArg:nil];
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }

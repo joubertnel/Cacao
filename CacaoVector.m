@@ -72,8 +72,16 @@
     if (![object isKindOfClass:[CacaoVector class]])
         return NO;
     
-    return [self.elements isEqualToArray:[(CacaoVector *)object elements]];
-
+    CacaoVector * other = (CacaoVector *)object;
+    __block BOOL isEqual = YES;    
+    [self.elements enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (![other.elements containsObject:obj])
+        {
+            isEqual = NO;
+            *stop = YES;
+        }
+    }];
+    return isEqual;
 }
 
 @end

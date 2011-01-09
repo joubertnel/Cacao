@@ -38,9 +38,22 @@
     TEST_TRUE(@"(= \"Frederic\" (:first {:first \"Frederic\" :last \"Chopin\"}))");
 }
 
-- (void)testAllKeys
+- (void)testKeys
 {
     TEST_TRUE(@"(= [:first :last] (keys dict:{:first \"Frederic\" :last \"Chopin\" :age 34}))");
 }
+
+- (void)testVals
+{
+    TEST_TRUE(@"(= [\"Frederic\" 34] (vals dict:{:first \"Frederic\" :age 34}))");
+}
+
+- (void)contains
+{
+    TEST_TRUE(@"(contains? item:34 vec:(vals dict:{:first \"Frederic\" :age 34}))");
+    TEST_TRUE(@"(contains? item::first vec:(keys dict:{:first \"Frederic\" :last \"Chopin\"}))");
+}
+
+
 
 @end
