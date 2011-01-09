@@ -62,9 +62,9 @@
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }
 
-+ (NSDictionary *)allKeys
++ (NSDictionary *)keys
 {
-    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"allKeys" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"keys" inNamespace:GLOBAL_NAMESPACE];
     CacaoSymbol * dictArgSym = [CacaoSymbol symbolWithName:@"dict" inNamespace:nil];
     CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:dictArgSym, nil]];
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {

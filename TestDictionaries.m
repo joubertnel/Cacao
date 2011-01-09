@@ -40,7 +40,7 @@
 
 - (void)testAllKeys
 {
-    TEST_TRUE(@"(= [:first :last] (allKeys dict:{:first \"Frederic\" :last \"Chopin\"}))");
+    TEST_TRUE(@"(= [:first :last] (keys dict:{:first \"Frederic\" :last \"Chopin\" :age 34}))");
 }
 
 @end

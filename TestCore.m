@@ -122,7 +122,6 @@
 }
 
 
-
 - (void)testMap
 {
     NSString * expression = @"(let [double (fn[n] (* n 2))] (map fn:double vec:[2 -27 999999]|";
