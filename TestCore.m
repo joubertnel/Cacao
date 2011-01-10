@@ -84,7 +84,7 @@
     NSString * expression = @"(range start:4 end:100)";
     CacaoVector * result = (CacaoVector *)[CacaoEnvironment evalText:expression inEnvironment:env];
     BigInteger * first = (BigInteger *)[result objectAtIndex:0];
-    BigInteger * last = (BigInteger *)[result.elements lastObject];
+    BigInteger * last = (BigInteger *)[result objectAtIndex:((100-1) - 4)];
     STAssertTrue([first isEqual:[BigInteger bigIntegerWithValue:@"4"]], nil);
     STAssertTrue([last isEqual:[BigInteger bigIntegerWithValue:@"99"]], nil);
 }

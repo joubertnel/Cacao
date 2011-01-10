@@ -50,8 +50,9 @@
     CacaoSymbol * argSym = [CacaoSymbol symbolWithName:argName inNamespace:nil];
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         BigInteger * sum = [BigInteger bigIntegerWithValue:@"0"];
-        CacaoVector * numbers = [argsAndVals objectForKey:argSym];
-        for (BigInteger * number in numbers.elements)
+        CacaoVector * numbersVec = [argsAndVals objectForKey:argSym];
+        NSArray * numbers = [numbersVec elements];
+        for (BigInteger * number in numbers)
             sum = [sum add:number];
         return sum;
     } restArg:argSym];   
@@ -65,10 +66,10 @@
     CacaoSymbol * argSym = [CacaoSymbol symbolWithName:argName inNamespace:nil];
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         CacaoVector * numbers = [argsAndVals objectForKey:argSym];
-        BigInteger * answer = [numbers.elements objectAtIndex:0];
+        BigInteger * answer = [numbers objectAtIndex:0];
         NSUInteger numberCount = numbers.count;
         for (NSUInteger i=1; i < numberCount; i++) {
-            BigInteger * num = [numbers.elements objectAtIndex:i];
+            BigInteger * num = [numbers objectAtIndex:i];
             answer = [answer subtract:num];
         }
         return answer;        
@@ -84,8 +85,9 @@
     CacaoSymbol * argSym = [CacaoSymbol symbolWithName:argName inNamespace:nil];
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {        
         BigInteger * answer = [BigInteger bigIntegerWithValue:@"1"];
-        CacaoVector * numbers = [argsAndVals objectForKey:argSym];
-        for (BigInteger * number in numbers.elements)
+        CacaoVector * numbersVec = [argsAndVals objectForKey:argSym];
+        NSArray * numbers = [numbersVec elements];
+        for (BigInteger * number in numbers)
             answer = [answer multiply:number];
         return answer;
     } restArg:argSym]; 

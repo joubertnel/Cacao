@@ -34,7 +34,7 @@ extern int const CACAO_PRINTABLE_INDENTATION;
 
 @interface NSArray (CacaoPrintable)
 
-- (NSString *)printableWithIndentation:(int)indent;
-- (NSString *)printable;
+//- (NSString *)printableWithIndentation:(int)indent;
+//- (NSString *)printable;
 
 @end

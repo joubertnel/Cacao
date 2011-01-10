@@ -6,7 +6,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -175,11 +175,21 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         return [[env find:x] getMappingValue:x];
     else if ([x isKindOfClass:[CacaoVector class]])
     {
-        // If x is a vector, evaluate each item in the vector and return a new vector of the resuls
-        NSArray * evaluatedItems = [[x elements] map:^(id object) {
-            return [CacaoEnvironment eval:object inEnvironment:env];
-        }];        
-        return [CacaoVector vectorWithArray:evaluatedItems];
+        // If x is a vector and all its elements have been materialized (vectors are lazy)
+        // the evaluate each materialized item and return a new vector of results.
+        CacaoVector * vec = (CacaoVector *)x;
+        if ([vec isFullyMaterialized])
+        {
+            NSArray * elements = [vec elements];
+            NSArray * evaluatedItems = [elements map:^(id object) {
+                return [CacaoEnvironment eval:object inEnvironment:env];
+            }];        
+            return [CacaoVector vectorWithArray:evaluatedItems];
+        }
+        else {
+            // This vector needs to remain lazy, so simply return it. 
+            return vec;
+        }
     }
     else if ([x isKindOfClass:[CacaoQuotedForm class]])
     {
@@ -433,8 +443,8 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     
     // Build a vector of the named args, and also extract the default values (if any)
     NSRange regularParamsRange = {.location=0};
-    regularParamsRange.length = (restParam == nil) ? [params.elements count] : restParamDelimiterIndex;
-    NSArray * argTokens = [params.elements subarrayWithRange:regularParamsRange];
+    regularParamsRange.length = (restParam == nil) ? [params count] : restParamDelimiterIndex;
+    NSArray * argTokens = [params subarrayWithRange:regularParamsRange];
     NSMutableArray * argSymbols = [NSMutableArray arrayWithCapacity:[argTokens count]];
     NSMutableDictionary * argsDefaultVals = [NSMutableDictionary dictionary];
 

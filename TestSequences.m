@@ -28,10 +28,10 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "TestDictionaries.h"
+#import "TestSequences.h"
 
 
-@implementation TestDictionaries
+@implementation TestSequences
 
 - (void)testKeyAsFunction
 {

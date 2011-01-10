@@ -29,8 +29,9 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "CacaoSymbol.h"
 #import "CacaoVector.h"
+#import "CacaoSymbol.h"
+
 
 typedef NSObject * (^DispatchFunction)(NSDictionary * argsAndVals);
 extern NSString * const FnIdentityPrefix;

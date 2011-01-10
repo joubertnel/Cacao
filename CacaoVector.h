@@ -2,7 +2,7 @@
 //  CacaoVector.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -30,20 +30,32 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 
-@interface CacaoVector : NSObject {
-    NSArray * elements;
+@interface CacaoVector : NSObject  {
+    NSMutableArray * materializingItems;
+    NSArray * materializedItems;
+    BOOL isFullyMaterialized;
+    LazyGenerator generator;
 }
 
-@property (nonatomic, retain) NSArray * elements;
+@property (nonatomic, retain) NSMutableArray * materializingItems;
+@property (nonatomic, retain) NSArray * materializedItems;
+@property (nonatomic, assign) BOOL isFullyMaterialized;
+@property (copy) LazyGenerator generator;
 
++ (CacaoVector *)vectorWithFirstItem:(id)first subsequentGenerator:(LazyGenerator)generator;
 + (CacaoVector *)vectorWithArray:(NSArray *)theElements;
 
+- (NSArray *)elements;
 
-- (NSString *)printable;
+
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
+- (BOOL)containsObject:(id)object;
+- (NSArray *)subarrayWithRange:(NSRange)range;
 - (BOOL)isEqual:(id)object;
+- (void)writeToFile:(NSString *)path;
 
 
 @end

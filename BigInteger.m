@@ -127,7 +127,12 @@ static const int MSB_ORDER = 1;
     return aCopy;
 }
 
-- (NSString *)printable
+- (void)writeToFile:(NSString *)path
+{
+    [self.stringValue writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (NSString *)stringValue
 {
     PREP_MPZ(number, self);   
     char * numStr = mpz_get_str(NULL, self.base, number);    
@@ -135,7 +140,7 @@ static const int MSB_ORDER = 1;
     
     NSString * readable = [NSString stringWithCString:numStr encoding:NSASCIIStringEncoding];
     free(numStr);
-    return [readable autorelease];
+    return readable;
 }
 
 

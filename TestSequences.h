@@ -1,8 +1,8 @@
 //
-//  CacaoAST.h
+//  TestDictionaries.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,29 +28,11 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
+#import <SenTestingKit/SenTestingKit.h>
+#import "TestBase.h"
 
-#import "CacaoSymbol.h"
-#import "NSArray+Functional.h"
-#import "NSArray+CacaoPrintable.h"
-#import "CacaoNil.h"
-#import "CacaoNilNotCallableException.h"
-#import "CacaoVector.h"
+@interface TestSequences : TestBase {
 
-@interface CacaoAST : NSObject {
-    NSString * source;
-    NSArray * tokens;
-    NSArray * tree;
 }
-
-@property (nonatomic, retain) NSString *source;
-@property (nonatomic, retain) NSArray *tokens;
-@property (nonatomic, retain) NSArray *tree;
-
-- (void)tokenize;
-
-- (void)explore;
-- (NSString *)toString;
-
 
 @end

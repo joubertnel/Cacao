@@ -61,7 +61,8 @@ typedef enum {
 
 - (id)copyWithZone:(NSZone *)zone;
 
-- (NSString *)printable;
+- (void)writeToFile:(NSString *)path;
+- (NSString *)stringValue;
 
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;

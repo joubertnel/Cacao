@@ -2,7 +2,7 @@
 //  CacaoVector.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -33,55 +33,221 @@
 
 @implementation CacaoVector
 
-@synthesize elements;
+@synthesize materializingItems;
+@synthesize materializedItems;
+@synthesize isFullyMaterialized;
+@synthesize generator;
+
+
+
+#pragma mark Life cycle
+
++ (CacaoVector *)vectorWithFirstItem:(id)first subsequentGenerator:(LazyGenerator)theGenerator
+{
+    CacaoVector * vec = [[CacaoVector alloc] init];
+    [vec setMaterializingItems:[NSMutableArray arrayWithObject:first]];
+    [vec setGenerator:theGenerator];
+    return [vec autorelease];
+}
 
 + (CacaoVector *)vectorWithArray:(NSArray *)theElements
 {
-    CacaoVector * vector = [[CacaoVector alloc] init];
-    [vector setElements:theElements];
-    
-    return [vector autorelease];
+    CacaoVector * vec = [[CacaoVector alloc] init];
+    [vec setMaterializedItems:theElements];
+    [vec setIsFullyMaterialized:YES];
+    return [vec autorelease];
 }
 
-- (NSString *)printable
+
+#pragma mark Laziness
+
+
+- (void)materializeUpTo:(NSUInteger)targetIndex
 {
-    NSMutableString * printableElements = [NSMutableString string];
-    for (id e in [self elements])    
+    if (!isFullyMaterialized)
     {
-        if (printableElements.length > 0)
-            [printableElements appendFormat:@" %@", [e printable]];
-        else
-            [printableElements appendFormat:@"%@", [e printable]]; 
+        NSUInteger nextIndex = [materializingItems count];
+        BOOL stop = NO;
+        while ((targetIndex >= nextIndex) && (stop == NO)) {
+            id prev = [materializingItems lastObject];
+            id newObj = generator(prev, nextIndex, &stop);
+            if (newObj != nil)
+                [materializingItems addObject:newObj];
+            
+            if (stop)
+            {
+                [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
+                isFullyMaterialized = YES;
+            }
+            
+            nextIndex++;                              
+        }
     }
-
-    return [NSString stringWithFormat:@"[%@]", printableElements];
 }
+
+- (void)materializeAll
+{
+    if (!isFullyMaterialized)
+    {
+        NSUInteger nextIndex = [materializingItems count];
+        BOOL stop = NO;
+        while (stop == NO)
+        {
+            id newObj = generator(nil, nextIndex, &stop);
+            if (newObj)
+                [materializingItems addObject:newObj];
+            
+            if (stop)
+            {
+                [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
+                isFullyMaterialized = YES;
+            }
+            else {
+                nextIndex++;
+            }
+        }
+    }
+}
+
+
+- (NSArray *)elements
+{
+    if (!isFullyMaterialized)
+        [self materializeAll];
+    
+    return materializedItems;
+}
+
 
 - (NSUInteger)count
 {
-    return [[self elements] count];
+    if (!isFullyMaterialized)
+        [self materializeAll];
+    
+    return [materializedItems count];
 }
+
+
+#pragma mark Other array-like behavior
 
 - (id)objectAtIndex:(NSUInteger)index
 {
-    return [[self elements] objectAtIndex:index];
+    if (isFullyMaterialized)
+        return [materializedItems objectAtIndex:index];
+    
+    if (index >= [materializingItems count])
+        [self materializeUpTo:index];
+    
+    return [materializingItems objectAtIndex:index];
+}
+
+- (BOOL)containsObject:(id)object
+{
+    if (isFullyMaterialized)
+        return [self.materializedItems containsObject:object];
+    
+    // Test to see whether the array of intermediates 
+    // contains the object. If not, we'll systematically
+    // materialize the rest of the items until we find a match.
+    
+    BOOL isInIntermediates = [self.materializingItems containsObject:object];
+    if (isInIntermediates)
+        return YES;
+    
+    NSUInteger nextIndex = [materializingItems count];
+    BOOL stop = NO;
+    while (stop == NO)
+    {
+        id prev = [materializingItems lastObject];
+        id newObj = generator(prev, nextIndex, &stop);
+        if (newObj != nil)
+            [materializingItems addObject:newObj];
+        
+        if (stop)
+        {
+            [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
+            isFullyMaterialized = YES;
+        }
+        
+        if ([newObj isEqual:object])
+            return YES;
+        
+        nextIndex++;
+    }
+    
+    return NO;
+}
+
+- (NSArray *)subarrayWithRange:(NSRange)range
+{
+    NSUInteger index = range.location + range.length;
+    if (isFullyMaterialized)
+        return [materializedItems subarrayWithRange:range];
+    else {
+        [self materializeUpTo:index];
+        return [materializingItems subarrayWithRange:range];
+    }
+}
+
+- (void)writeToFile:(NSString *)path
+{
+    [@"[" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    
+    NSUInteger nextIndex = 0;
+    BOOL stop = NO;
+    while (stop == NO) {
+        
+        id prevObj = nil;
+        id nextObj = nil;
+        
+        if (isFullyMaterialized)
+        {
+            if (nextIndex < [self count])
+                prevObj = [materializedItems objectAtIndex:nextIndex];
+            else
+                stop = YES;
+        } 
+        else      
+        {
+            prevObj = [materializingItems lastObject];
+            nextObj = generator(prevObj, nextIndex, &stop);
+            if (nextObj)
+                [materializingItems addObject:nextObj];
+            
+            if (stop)
+            {
+                isFullyMaterialized = YES;
+                [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
+            }
+ 
+        }
+              
+        if (prevObj) {
+            [prevObj performSelector:@selector(writeToFile:) withObject:path];
+            [@" " writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        }
+        nextIndex++;        
+    }
+    
+    [@"]" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (BOOL)isEqual:(id)object
 {
-    if (![object isKindOfClass:[CacaoVector class]])
-        return NO;
-    
-    CacaoVector * other = (CacaoVector *)object;
-    __block BOOL isEqual = YES;    
-    [self.elements enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if (![other.elements containsObject:obj])
-        {
-            isEqual = NO;
-            *stop = YES;
-        }
-    }];
-    return isEqual;
+    return YES;
+//    if (![object isKindOfClass:[CacaoVector class]])
+//        return NO;
+//    
+//    CacaoVector * other = (CacaoVector *)object;
+//    __block BOOL isEqual = YES;    
+//    [self.elements enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        if (![other.elements containsObject:obj])
+//        {
+//            isEqual = NO;
+//            *stop = YES;
+//        }
+//    }];
+//    return isEqual;
 }
 
 @end

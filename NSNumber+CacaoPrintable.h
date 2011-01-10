@@ -34,6 +34,6 @@
 
 @interface NSNumber (CacaoPrintable)
 
-- (NSString *)printable;
+- (void)writeToFile:(NSString *)path;
 
 @end

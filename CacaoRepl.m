@@ -127,13 +127,9 @@ int main(int argc, char* argv[])
                 [pushbackReader release];
                 [stream close];
                 
-                NSString * printable = @"";
-                if ([result respondsToSelector:@selector(printable)])
-                    printable = [result performSelector:@selector(printable)];
-                [printable writeToFile:@"/dev/stdout" atomically:NO encoding:NSUTF8StringEncoding error:nil];
-            }
-            
-            
+                if ([result respondsToSelector:@selector(writeToFile:)])
+                    [result performSelector:@selector(writeToFile:) withObject:@"/dev/stdout"];
+            }            
         }
         @catch (NSException * e) {
             NSString * errorMessage = [NSString stringWithFormat:@"\n\n%@: %@\n\n Stacktrace:\n", [e name], [e reason]];

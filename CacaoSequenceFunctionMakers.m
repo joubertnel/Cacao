@@ -32,6 +32,7 @@
 #import "BigInteger.h"
 #import "CacaoCore.h"
 #import "CacaoDictionary.h"
+#import "CacaoVector.h"
 
 
 @implementation CacaoSequenceFunctionMakers
@@ -39,6 +40,23 @@
 + (NSString *)namespace
 {
     return GLOBAL_NAMESPACE;
+}
+
++ (NSDictionary *)get
+{
+    CacaoSymbol * sym = [CacaoSymbol symbolWithName:@"get" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * idxArgSym = [CacaoSymbol symbolWithName:@"i" inNamespace:nil];
+    CacaoSymbol * vecArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:idxArgSym, vecArgSym, nil]];
+    
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * vec = [argsAndVals objectForKey:vecArgSym];        
+        BigInteger * index = [argsAndVals objectForKey:idxArgSym];
+        NSUInteger i = [[index stringValue] longLongValue];
+        return [vec objectAtIndex:i];
+    } args:args restArg:nil];
+    
+    return [NSDictionary dictionaryWithObject:fn forKey:sym];
 }
 
 
@@ -51,13 +69,22 @@
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         BigInteger * startNum = [argsAndVals objectForKey:startArgSym];
         BigInteger * endNum = [argsAndVals objectForKey:endArgSym];
-        BigInteger * i = startNum;
-        NSMutableArray * numbers = [NSMutableArray array];
-        while ([i isLessThan:endNum]) {
-            [numbers addObject:i];
-            i = [i add:[BigInteger bigIntegerWithValue:@"1"]];
-        }
-        return [CacaoVector vectorWithArray:numbers];
+        BigInteger * step = [BigInteger bigIntegerWithValue:@"1"];
+        
+        LazyGenerator rangeNextGenerator = ^(id previous, NSUInteger index, BOOL *stop) {
+            BigInteger * previousNum = (BigInteger *)previous;
+            BigInteger * nextNum = [previousNum add:step];
+            
+            if ([nextNum isLessThan:endNum])
+                return nextNum;            
+            else {
+                *stop = YES;
+                return nil;
+            }
+        };      
+        
+        CacaoVector * lazyVec = [CacaoVector vectorWithFirstItem:startNum subsequentGenerator:rangeNextGenerator];
+        return lazyVec;
     } args:args restArg:nil];
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }
@@ -71,7 +98,7 @@
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         CacaoVector * vec = (CacaoVector *)[argsAndVals objectForKey:seqArgSym];
         id obj = [argsAndVals objectForKey:itemArgSym];
-        return [NSNumber numberWithBool:[vec.elements containsObject:obj]];
+        return [NSNumber numberWithBool:[vec containsObject:obj]];
     } args:args restArg:nil];
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }

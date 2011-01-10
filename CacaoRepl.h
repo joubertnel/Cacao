@@ -29,7 +29,6 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
-#import "CacaoAST.h"
 #import "CacaoEnvironment.h"
 #import "NSObject+CacaoPrintable.h"
 #import "CacaoLispReader.h"

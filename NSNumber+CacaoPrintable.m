@@ -34,14 +34,22 @@
 @implementation NSNumber (CacaoPrintable)
 
 
-- (NSString *)printable;
+- (void)writeToFile:(NSString *)path
 {    
     if (CFGetTypeID(self) == CFBooleanGetTypeID())
     {
-        return ([self boolValue] == YES) ? @"YES" : @"NO";
-            
+        if ([self boolValue] == YES)
+        {
+            [@"YES" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        }
+        else {
+            [@"NO" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        }            
     }
-    else return [self stringValue];
+    else {
+        [[self stringValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    }
+
 }
 
 @end
