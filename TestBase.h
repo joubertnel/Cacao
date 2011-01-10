@@ -30,7 +30,6 @@
 
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "CacaoAST.h"
 #import "CacaoEnvironment.h"
 #import "CacaoSymbol.h"
 

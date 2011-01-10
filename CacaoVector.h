@@ -28,7 +28,7 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 

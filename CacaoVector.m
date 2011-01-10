@@ -66,6 +66,10 @@
 {
     if (!isFullyMaterialized)
     {
+        // materialize up to one element after the requested index, so that we can detect
+        // whether the end of the lazy vector has been reached 
+        targetIndex++;
+        
         NSUInteger nextIndex = [materializingItems count];
         BOOL stop = NO;
         while ((targetIndex >= nextIndex) && (stop == NO)) {
@@ -136,7 +140,7 @@
         return [materializedItems objectAtIndex:index];
     
     if (index >= [materializingItems count])
-        [self materializeUpTo:index];
+        [self materializeUpTo:index]; 
     
     return [materializingItems objectAtIndex:index];
 }
@@ -218,8 +222,7 @@
             {
                 isFullyMaterialized = YES;
                 [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
-            }
- 
+            } 
         }
               
         if (prevObj) {
@@ -234,20 +237,61 @@
 
 - (BOOL)isEqual:(id)object
 {
-    return YES;
-//    if (![object isKindOfClass:[CacaoVector class]])
-//        return NO;
-//    
-//    CacaoVector * other = (CacaoVector *)object;
-//    __block BOOL isEqual = YES;    
-//    [self.elements enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        if (![other.elements containsObject:obj])
-//        {
-//            isEqual = NO;
-//            *stop = YES;
-//        }
-//    }];
-//    return isEqual;
+    if (![object isKindOfClass:[CacaoVector class]])
+        return NO;
+    
+    CacaoVector * other = (CacaoVector *)object;
+    
+    if ([self isFullyMaterialized] && [other isFullyMaterialized])
+    {
+        return [self.materializedItems isEqual:other.materializedItems];
+    }
+    
+    // First see whether there are differences in the intermediates that have already been materialized    
+    NSUInteger thisVecItemCount = [self.materializingItems count];
+    NSUInteger otherVecItemCount = [other.materializingItems count];
+    NSUInteger maxCommonIndex = (thisVecItemCount >= otherVecItemCount) ? otherVecItemCount-1 : thisVecItemCount-1;
+    
+    
+    NSRange commonRangeOfIntermediates = {.location=0, .length=maxCommonIndex+1};
+    NSArray * thisVecIntermediatesToCompare = [self.materializingItems subarrayWithRange:commonRangeOfIntermediates];
+    NSArray * otherVecIntermediatesToCompare = [other.materializingItems subarrayWithRange:commonRangeOfIntermediates];
+    
+    BOOL areIntermediatesEqual = [thisVecIntermediatesToCompare isEqual:otherVecIntermediatesToCompare];
+    if (!areIntermediatesEqual)
+        return NO;
+    
+    // So far, the materialized items of the two vectors are the same, now evaluate the remaining items
+    // lazily until we hit a difference. If we have fully materialized both vectors without hitting
+    // differences, the two vectors are equal.
+ 
+    NSUInteger nextIndex = maxCommonIndex + 1;
+    BOOL vecsAreEqual = YES;
+    while (vecsAreEqual) {
+      
+        @try {
+            [self materializeUpTo:nextIndex];
+        }
+        @catch (NSException *e) {}
+        
+        @try {
+            [other materializeUpTo:nextIndex];
+        }
+        @catch (NSException * e) {}        
+
+        vecsAreEqual = [[self objectAtIndex:nextIndex] isEqualTo:[other objectAtIndex:nextIndex]];
+        
+        if (self.isFullyMaterialized != other.isFullyMaterialized)
+            vecsAreEqual = NO;
+        else 
+        {
+            if (self.isFullyMaterialized && other.isFullyMaterialized)
+                break;
+            
+             nextIndex++;
+        }  
+      }
+    return vecsAreEqual;    
 }
 
 @end
