@@ -77,6 +77,7 @@ static NSString * SYMBOL_NAME_NO = @"NO";
             if ([result isKindOfClass:[NSDictionary class]])
                 [globalMappings addEntriesFromDictionary:(NSDictionary*)result];
         }
+        free(methods);
     }   
        
     return globalMappings;
