@@ -29,6 +29,7 @@
 //    or implied, of Joubert Nel.
 
 #import <Foundation/Foundation.h>
+#import "BigInteger.h"
 
 typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 

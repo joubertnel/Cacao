@@ -179,6 +179,11 @@ static const int MSB_ORDER = 1;
     return ([self compare:number] == NSOrderedDescending);
 }
 
+- (BOOL)isGreaterThan:(BigInteger *)number
+{
+    return ([self compare:number] == NSOrderedAscending);
+}
+
 
 #pragma mark Arithmetic 
 

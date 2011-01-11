@@ -54,6 +54,13 @@
 - (void)testIntegerLessThan
 {
     TEST_TRUE(@"(< 123456789 1234567890)");
+    TEST_FALSE(@"(< 5 2)");
+}
+
+- (void)testIntegerGreaterThan
+{
+    TEST_TRUE(@"(> 10000 -3432)");
+    TEST_FALSE(@"(> 0 989898923879487239847293847)");
 }
 
 - (void)testBigIntegerInequality

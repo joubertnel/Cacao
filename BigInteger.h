@@ -66,6 +66,7 @@ typedef enum {
 
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;
+- (BOOL)isGreaterThan:(BigInteger *)number;
 
 - (BigInteger *)add:(BigInteger *)anotherNumber;
 - (BigInteger *)subtract:(BigInteger *)anotherNumber;

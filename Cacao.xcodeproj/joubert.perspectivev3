@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BE2B775A12DBA30A000363DB</string>
+						<string>BE2B77D512DCE192000363DB</string>
 						<key>history</key>
 						<array>
 							<string>BE2B762312DB911D000363DB</string>
@@ -256,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BE2B775B12DBA30A000363DB</string>
+						<string>BE2B77D612DCE192000363DB</string>
 						<key>history</key>
 						<array>
 							<string>BE2B73F112DA8404000363DB</string>
@@ -283,46 +283,6 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>BE2B720912DA7173000363DB</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>CacaoRepl.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>BE2B720A12DA7173000363DB</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>CacaoRepl.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>BE2B775C12DBA30A000363DB</string>
-						<key>history</key>
-						<array>
-							<string>BE2B724812DA7432000363DB</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {894, 627}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>203 826 894 668 0 0 2560 1578 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
 				<string>BE2B712C12DA664E000363DB</string>
 				<key>PBXProjectModuleLabel</key>
 				<string>BigInteger.h</string>
@@ -337,7 +297,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>BE2B775D12DBA30A000363DB</string>
+						<string>BE2B77D712DCE192000363DB</string>
 						<key>history</key>
 						<array>
 							<string>BE2B724912DA7432000363DB</string>
@@ -447,9 +407,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>35</integer>
-									<integer>19</integer>
-									<integer>13</integer>
+									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -471,7 +430,7 @@
 							<real>265</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>1106 238 1363 1338 0 0 2560 1578 </string>
+						<string>797 238 1363 1338 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -489,7 +448,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>BE2652C3128DBF470088DC0A</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>CacaoCore.m</string>
+								<string>TestMath.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -497,11 +456,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>BE2652C4128DBF470088DC0A</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>CacaoCore.m</string>
+										<string>TestMath.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>BE2B775912DBA30A000363DB</string>
+										<string>BE2B77D412DCE192000363DB</string>
 										<key>history</key>
 										<array>
 											<string>BE2E8750129259F20048AE63</string>
@@ -547,8 +506,6 @@
 											<string>BE2B6EAD12D95ED8000363DB</string>
 											<string>BE2B6EAE12D95ED8000363DB</string>
 											<string>BE2B6ED312D96A9F000363DB</string>
-											<string>BE2B6F0912D9708D000363DB</string>
-											<string>BE2B6F0A12D9708D000363DB</string>
 											<string>BE2B6F4B12D97464000363DB</string>
 											<string>BE2B6F5412DA08F0000363DB</string>
 											<string>BE2B70B412DA2C5A000363DB</string>
@@ -560,40 +517,42 @@
 											<string>BE2B71EE12DA70B0000363DB</string>
 											<string>BE2B71F112DA70B0000363DB</string>
 											<string>BE2B71F212DA70B0000363DB</string>
-											<string>BE2B723212DA7432000363DB</string>
 											<string>BE2B723412DA7432000363DB</string>
 											<string>BE2B723512DA7432000363DB</string>
 											<string>BE2B729C12DA799D000363DB</string>
 											<string>BE2B72B412DA79CB000363DB</string>
 											<string>BE2B72BB12DA7A06000363DB</string>
 											<string>BE2B75B812DAA3ED000363DB</string>
-											<string>BE2B75E112DAA576000363DB</string>
-											<string>BE2B75E312DAA576000363DB</string>
 											<string>BE2B75E512DAA576000363DB</string>
-											<string>BE2B75EF12DAA620000363DB</string>
 											<string>BE2B75F212DAA620000363DB</string>
 											<string>BE2B75F312DAA620000363DB</string>
 											<string>BE2B75FA12DAA6C8000363DB</string>
-											<string>BE2B75FC12DAA6C8000363DB</string>
-											<string>BE2B75FD12DAA6C8000363DB</string>
 											<string>BE2B75FE12DAA6C8000363DB</string>
-											<string>BE2B760012DAA6C8000363DB</string>
 											<string>BE2B760112DAA6C8000363DB</string>
 											<string>BE2B760212DAA6C8000363DB</string>
-											<string>BE2B760312DAA6C8000363DB</string>
 											<string>BE2B760412DAA6C8000363DB</string>
 											<string>BE2B760512DAA6C8000363DB</string>
 											<string>BE2B76A312DB9827000363DB</string>
 											<string>BE2B76A412DB9827000363DB</string>
 											<string>BE2B76A512DB9827000363DB</string>
 											<string>BE2B76D012DB9A83000363DB</string>
-											<string>BE2B773F12DB9FF1000363DB</string>
-											<string>BE2B774012DB9FF1000363DB</string>
-											<string>BE2B774112DB9FF1000363DB</string>
-											<string>BE2B775512DBA30A000363DB</string>
-											<string>BE2B775612DBA30A000363DB</string>
-											<string>BE2B775712DBA30A000363DB</string>
-											<string>BE2B775812DBA30A000363DB</string>
+											<string>BE2B776212DBC1A0000363DB</string>
+											<string>BE2B776312DBC1A0000363DB</string>
+											<string>BE2B777C12DBC2EA000363DB</string>
+											<string>BE2B778512DBC338000363DB</string>
+											<string>BE2B779912DCDDE5000363DB</string>
+											<string>BE2B779A12DCDDE5000363DB</string>
+											<string>BE2B77A612DCDECE000363DB</string>
+											<string>BE2B77A712DCDECE000363DB</string>
+											<string>BE2B77C312DCE12B000363DB</string>
+											<string>BE2B77C412DCE12B000363DB</string>
+											<string>BE2B77C512DCE12B000363DB</string>
+											<string>BE2B77C612DCE12B000363DB</string>
+											<string>BE2B77C712DCE12B000363DB</string>
+											<string>BE2B77C812DCE12B000363DB</string>
+											<string>BE2B77C912DCE12B000363DB</string>
+											<string>BE2B77D212DCE192000363DB</string>
+											<string>BE2B77D312DCE192000363DB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -609,7 +568,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1076, 1064}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1106 238 1363 1338 0 0 2560 1578 </string>
+								<string>797 238 1363 1338 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -688,7 +647,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {1076, 202}}</string>
 										<key>RubberWindowFrame</key>
-										<string>1106 238 1363 1338 0 0 2560 1578 </string>
+										<string>797 238 1363 1338 0 0 2560 1578 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -916,13 +875,12 @@
 		<string>BE2B73F812DA8404000363DB</string>
 		<string>BE3BC3BA1290B01A00ED6ADB</string>
 		<string>BE2B712C12DA664E000363DB</string>
-		<string>BE2B720912DA7173000363DB</string>
 		<string>BE2B711B12DA6531000363DB</string>
 		<string>BE2B766F12DB9595000363DB</string>
 		<string>/Users/joubert/dev/j/Cacao/Cacao.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1106 238 1363 1338 0 0 2560 1578 </string>
+	<string>797 238 1363 1338 0 0 2560 1578 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

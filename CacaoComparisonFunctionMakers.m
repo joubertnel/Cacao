@@ -56,4 +56,22 @@
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];
 }
 
++ (NSDictionary *)greaterThan
+{
+    CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@">" inNamespace:GLOBAL_NAMESPACE];
+    NSString * argName = @"numbers";
+    CacaoSymbol * argSym = [CacaoSymbol symbolWithName:argName inNamespace:nil];
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * numbers = [argsAndVals objectForKey:argSym];
+        BigInteger * num1 = [numbers objectAtIndex:0];
+        BigInteger * num2 = [numbers objectAtIndex:1];
+        BOOL isGreaterThan = [num1 isGreaterThan:num2];
+        if (isGreaterThan)
+            return [NSNumber numberWithBool:YES];
+        else 
+            return [NSNumber numberWithBool:NO];
+    } restArg:argSym];
+    return [NSDictionary dictionaryWithObject:fn forKey:symbol];    
+}
+
 @end
