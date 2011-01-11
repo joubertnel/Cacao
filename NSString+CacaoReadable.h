@@ -1,8 +1,8 @@
 //
-//  NSNumber+Printable.m
+//  NSString+Printable.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,28 +28,14 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "NSNumber+CacaoPrintable.h"
+#import <Cocoa/Cocoa.h>
+#import "NSArray+CacaoReadable.h"
 
 
-@implementation NSNumber (CacaoPrintable)
+@interface NSString (CacaoReadable) <CacaoReadable>
 
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
 
-- (void)writeToFile:(NSString *)path
-{    
-    if (CFGetTypeID(self) == CFBooleanGetTypeID())
-    {
-        if ([self boolValue] == YES)
-        {
-            [@"YES" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-        }
-        else {
-            [@"NO" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-        }            
-    }
-    else {
-        [[self stringValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-    }
-
-}
 
 @end

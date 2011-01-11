@@ -79,15 +79,16 @@ static NSMutableDictionary * table = nil;
     return [self.symbol isEqualToSymbol:[(CacaoKeyword *)object symbol]];
 }
 
-- (NSString *)stringValue
+- (void)writeToFile:(NSString *)path
 {
-    return [NSString stringWithFormat:@"%@", [symbol printable]];
+    [self.symbol writeToFile:path];
 }
 
-- (NSString *)printable
+- (NSString *)readableValue;
 {
-    return [self stringValue];
+    return [self.symbol readableValue];
 }
+
 
 
 

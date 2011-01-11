@@ -52,7 +52,7 @@
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
         CacaoVector * vec = [argsAndVals objectForKey:vecArgSym];        
         BigInteger * index = [argsAndVals objectForKey:idxArgSym];
-        NSUInteger i = [[index stringValue] longLongValue];
+        NSUInteger i = [[index readableValue] longLongValue];
         return [vec objectAtIndex:i];
     } args:args restArg:nil];
     

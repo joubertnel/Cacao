@@ -118,7 +118,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         else {
             // theVar hasn't been found in the environment or any of its parent environments
         
-            NSString * errorMessage = [NSString stringWithFormat:@"'%@' not found in the environment.", [theVar printable]];
+            NSString * errorMessage = [NSString stringWithFormat:@"'%@' not found in the environment.", [theVar readableValue]];
             [CacaoSymbolNotFoundException raise:[CacaoSymbolNotFoundException name]
                                          format:errorMessage];
             return nil;
@@ -210,7 +210,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
     CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
     
     // Test whether firstX refers to a Cocoa static class method
-    NSArray * qualifiedClassMethod = [[firstX stringValue] pathComponents];
+    NSArray * qualifiedClassMethod = [[firstX readableValue] pathComponents];
     if ([qualifiedClassMethod count] == 2)
     {
         Class theClass = NSClassFromString([qualifiedClassMethod objectAtIndex:0]);
@@ -223,31 +223,31 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
         }
     }
     
-    if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_DEF])
+    if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_DEF])
     {
         return [CacaoEnvironment evalDefExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_LET])
+    else if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_LET])
     {        
         return [CacaoEnvironment evalLetExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_IF])
+    else if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_IF])
     {
         return [CacaoEnvironment evalIfExpression:expression inEnvironment:env];        
     }
-    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_EQUALS])
+    else if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_EQUALS])
     {
         return [CacaoEnvironment evalBooleanExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_INSTANCING])
+    else if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_INSTANCING])
     {
         return [CacaoEnvironment evalCocoaInstancingExpression:expression inEnvironment:env];
     }
-    else if ([[firstX.stringValue substringToIndex:1] isEqualToString:SPECIAL_FORM_TEXT_MEMBERACCESS])
+    else if ([[firstX.readableValue substringToIndex:1] isEqualToString:SPECIAL_FORM_TEXT_MEMBERACCESS])
     {
         return [CacaoEnvironment evalCocoaMethodCallExpression:expression inEnvironment:env];
     }
-    else if ([firstX.stringValue isEqualToString:SPECIAL_FORM_TEXT_FN])
+    else if ([firstX.readableValue isEqualToString:SPECIAL_FORM_TEXT_FN])
     {        
         return [CacaoEnvironment fnFromExpression:expression inEnvironment:env];
     }
@@ -518,7 +518,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 {
     CacaoSymbol * firstX = (CacaoSymbol *)[expression objectAtIndex:0];
     id cocoaInstance = [CacaoEnvironment eval:[expression objectAtIndex:1] inEnvironment:env];
-    NSString * methodName = [firstX.stringValue substringFromIndex:1];                
+    NSString * methodName = [firstX.readableValue substringFromIndex:1];                
     
     SEL methodSelector = NSSelectorFromString(methodName);
     if (YES) //[cocoaInstance respondsToSelector:methodSelector])

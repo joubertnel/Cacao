@@ -29,9 +29,13 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
+
+extern const NSString * CACAO_DICT_START_CHAR;
+extern const NSString * CACAO_DICT_END_CHAR;
 
 
-@interface CacaoDictionary : NSObject {
+@interface CacaoDictionary : NSObject <CacaoReadable> {
     NSDictionary * elements;
 }
 
@@ -40,6 +44,7 @@
 + (CacaoDictionary *)dictionaryWithNSDictionary:(NSDictionary *)theElements;
 + (CacaoDictionary *)dictionaryWithKeyValueArray:(NSArray *)keysAndValues;
 
-- (NSString *)printable;
+- (void)writeToFile:(NSString *)path;
+- (NSString *)readableValue;
 
 @end

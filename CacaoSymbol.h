@@ -29,9 +29,9 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 
-
-@interface CacaoSymbol : NSObject <NSCopying> {
+@interface CacaoSymbol : NSObject <NSCopying, CacaoReadable> {
     NSString * name;
     NSString * ns;
     int cacaoHash;
@@ -48,8 +48,8 @@
 - (BOOL)isEqualToSymbol:(CacaoSymbol *)otherSymbol;
 - (BOOL)isEqual:(id)object;
 
-- (NSString *)stringValue;
-- (NSString *)printable;
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
 - (id)copyWithZone:(NSZone *)zone;
 
 

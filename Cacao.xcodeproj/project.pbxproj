@@ -30,18 +30,19 @@
 		BE2B6D2512D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */; };
 		BE2B6DCD12D9556D000363DB /* TestSequences.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6DCC12D9556D000363DB /* TestSequences.m */; };
 		BE2B725612DA7457000363DB /* CacaoVector.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC6FE1290E58D00ED6ADB /* CacaoVector.m */; };
-		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */; };
-		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
-		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */; };
-		BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */; };
-		BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */; };
-		BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */; };
-		BE3BC3161290A5B500ED6ADB /* NSArray+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */; };
-		BE3BC3171290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */; };
-		BE3BC3181290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */; };
-		BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */; };
-		BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */; };
-		BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */; };
+		BE2B78A212DCEC23000363DB /* CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B78A112DCEC23000363DB /* CacaoReadable.h */; };
+		BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC2E81290A34E00ED6ADB /* NSString+CacaoReadable.h */; };
+		BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoReadable.m */; };
+		BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC2E91290A34E00ED6ADB /* NSString+CacaoReadable.m */; };
+		BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoReadable.h */; };
+		BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoReadable.m */; };
+		BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoReadable.m */; };
+		BE3BC3161290A5B500ED6ADB /* NSArray+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3141290A5B500ED6ADB /* NSArray+CacaoReadable.h */; };
+		BE3BC3171290A5B500ED6ADB /* NSArray+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoReadable.m */; };
+		BE3BC3181290A5B500ED6ADB /* NSArray+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3151290A5B500ED6ADB /* NSArray+CacaoReadable.m */; };
+		BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC3481290AA3100ED6ADB /* NSObject+CacaoReadable.h */; };
+		BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoReadable.m */; };
+		BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC3491290AA3100ED6ADB /* NSObject+CacaoReadable.m */; };
 		BE3BC4CB1290BF2400ED6ADB /* CacaoSymbolNotFoundException.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3BC4C91290BF2400ED6ADB /* CacaoSymbolNotFoundException.h */; };
 		BE3BC4CC1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */; };
 		BE3BC4CD1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */; };
@@ -64,9 +65,9 @@
 		BE61EF02129B79E200E7A7DD /* CacaoFn.h in Headers */ = {isa = PBXBuildFile; fileRef = BE61EF00129B79E200E7A7DD /* CacaoFn.h */; };
 		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
 		BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
-		BE62163612A8A04900F4D142 /* NSValue+CacaoPrintable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE62163412A8A04900F4D142 /* NSValue+CacaoPrintable.h */; };
-		BE62163712A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */; };
-		BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */; };
+		BE62163612A8A04900F4D142 /* NSValue+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE62163412A8A04900F4D142 /* NSValue+CacaoReadable.h */; };
+		BE62163712A8A04900F4D142 /* NSValue+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoReadable.m */; };
+		BE62163812A8A04900F4D142 /* NSValue+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoReadable.m */; };
 		BE93011312BD4492007A4826 /* CacaoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93011112BD4492007A4826 /* CacaoUtil.h */; };
 		BE93011412BD4492007A4826 /* CacaoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93011212BD4492007A4826 /* CacaoUtil.m */; };
 		BE93011512BD4492007A4826 /* CacaoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93011212BD4492007A4826 /* CacaoUtil.m */; };
@@ -149,14 +150,15 @@
 		BE2B6D2212D8FDFF000363DB /* CacaoComparisonFunctionMakers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoComparisonFunctionMakers.m; sourceTree = "<group>"; };
 		BE2B6DCB12D9556D000363DB /* TestSequences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSequences.h; sourceTree = "<group>"; };
 		BE2B6DCC12D9556D000363DB /* TestSequences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSequences.m; sourceTree = "<group>"; };
-		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoPrintable.h"; sourceTree = "<group>"; };
-		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoPrintable.m"; sourceTree = "<group>"; };
-		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoPrintable.h"; sourceTree = "<group>"; };
-		BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+CacaoPrintable.m"; sourceTree = "<group>"; };
-		BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CacaoPrintable.h"; sourceTree = "<group>"; };
-		BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CacaoPrintable.m"; sourceTree = "<group>"; };
-		BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CacaoPrintable.h"; sourceTree = "<group>"; };
-		BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE2B78A112DCEC23000363DB /* CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoReadable.h; sourceTree = "<group>"; };
+		BE3BC2E81290A34E00ED6ADB /* NSString+CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CacaoReadable.h"; sourceTree = "<group>"; };
+		BE3BC2E91290A34E00ED6ADB /* NSString+CacaoReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CacaoReadable.m"; sourceTree = "<group>"; };
+		BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+CacaoReadable.h"; sourceTree = "<group>"; };
+		BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+CacaoReadable.m"; sourceTree = "<group>"; };
+		BE3BC3141290A5B500ED6ADB /* NSArray+CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CacaoReadable.h"; sourceTree = "<group>"; };
+		BE3BC3151290A5B500ED6ADB /* NSArray+CacaoReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CacaoReadable.m"; sourceTree = "<group>"; };
+		BE3BC3481290AA3100ED6ADB /* NSObject+CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CacaoReadable.h"; sourceTree = "<group>"; };
+		BE3BC3491290AA3100ED6ADB /* NSObject+CacaoReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CacaoReadable.m"; sourceTree = "<group>"; };
 		BE3BC4C91290BF2400ED6ADB /* CacaoSymbolNotFoundException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoSymbolNotFoundException.h; sourceTree = "<group>"; };
 		BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoSymbolNotFoundException.m; sourceTree = "<group>"; };
 		BE3BC60A1290CD2400ED6ADB /* CacaoNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoNil.h; sourceTree = "<group>"; };
@@ -169,8 +171,8 @@
 		BE46BBBF12A59D3C00EE904A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BE61EF00129B79E200E7A7DD /* CacaoFn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoFn.h; sourceTree = "<group>"; };
 		BE61EF01129B79E200E7A7DD /* CacaoFn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoFn.m; sourceTree = "<group>"; };
-		BE62163412A8A04900F4D142 /* NSValue+CacaoPrintable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+CacaoPrintable.h"; sourceTree = "<group>"; };
-		BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CacaoPrintable.m"; sourceTree = "<group>"; };
+		BE62163412A8A04900F4D142 /* NSValue+CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+CacaoReadable.h"; sourceTree = "<group>"; };
+		BE62163512A8A04900F4D142 /* NSValue+CacaoReadable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+CacaoReadable.m"; sourceTree = "<group>"; };
 		BE93011112BD4492007A4826 /* CacaoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoUtil.h; sourceTree = "<group>"; };
 		BE93011212BD4492007A4826 /* CacaoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoUtil.m; sourceTree = "<group>"; };
 		BE93014412BD4AFA007A4826 /* CacaoKeyword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoKeyword.h; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		BE265300128DC3F70088DC0A /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				BE2B78A112DCEC23000363DB /* CacaoReadable.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -405,16 +408,16 @@
 				BE98F04812AB0EBA0056DCD1 /* PushbackReader.m */,
 				BEB2997F128F577B0092F199 /* NSArray+Functional.h */,
 				BEB29980128F577B0092F199 /* NSArray+Functional.m */,
-				BE3BC2E81290A34E00ED6ADB /* NSString+CacaoPrintable.h */,
-				BE3BC2E91290A34E00ED6ADB /* NSString+CacaoPrintable.m */,
-				BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoPrintable.h */,
-				BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoPrintable.m */,
-				BE3BC3141290A5B500ED6ADB /* NSArray+CacaoPrintable.h */,
-				BE3BC3151290A5B500ED6ADB /* NSArray+CacaoPrintable.m */,
-				BE3BC3481290AA3100ED6ADB /* NSObject+CacaoPrintable.h */,
-				BE3BC3491290AA3100ED6ADB /* NSObject+CacaoPrintable.m */,
-				BE62163412A8A04900F4D142 /* NSValue+CacaoPrintable.h */,
-				BE62163512A8A04900F4D142 /* NSValue+CacaoPrintable.m */,
+				BE3BC2E81290A34E00ED6ADB /* NSString+CacaoReadable.h */,
+				BE3BC2E91290A34E00ED6ADB /* NSString+CacaoReadable.m */,
+				BE3BC3021290A3D600ED6ADB /* NSNumber+CacaoReadable.h */,
+				BE3BC3031290A3D600ED6ADB /* NSNumber+CacaoReadable.m */,
+				BE3BC3141290A5B500ED6ADB /* NSArray+CacaoReadable.h */,
+				BE3BC3151290A5B500ED6ADB /* NSArray+CacaoReadable.m */,
+				BE3BC3481290AA3100ED6ADB /* NSObject+CacaoReadable.h */,
+				BE3BC3491290AA3100ED6ADB /* NSObject+CacaoReadable.m */,
+				BE62163412A8A04900F4D142 /* NSValue+CacaoReadable.h */,
+				BE62163512A8A04900F4D142 /* NSValue+CacaoReadable.m */,
 				BE93F94612BC163D007A4826 /* RegexKitLite.h */,
 				BE93F94712BC163D007A4826 /* RegexKitLite.m */,
 			);
@@ -478,10 +481,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB29982128F577B0092F199 /* NSArray+Functional.h in Headers */,
-				BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoPrintable.h in Headers */,
-				BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoPrintable.h in Headers */,
-				BE3BC3161290A5B500ED6ADB /* NSArray+CacaoPrintable.h in Headers */,
-				BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoPrintable.h in Headers */,
+				BE3BC2EA1290A34E00ED6ADB /* NSString+CacaoReadable.h in Headers */,
+				BE3BC3041290A3D600ED6ADB /* NSNumber+CacaoReadable.h in Headers */,
+				BE3BC3161290A5B500ED6ADB /* NSArray+CacaoReadable.h in Headers */,
+				BE3BC34A1290AA3100ED6ADB /* NSObject+CacaoReadable.h in Headers */,
 				BE3BC4CB1290BF2400ED6ADB /* CacaoSymbolNotFoundException.h in Headers */,
 				BE3BC60C1290CD2400ED6ADB /* CacaoNil.h in Headers */,
 				BE3BC65E1290CF4900ED6ADB /* CacaoNilNotCallableException.h in Headers */,
@@ -492,7 +495,7 @@
 				BE445FB712A57EDF00D1E47C /* BigInteger.h in Headers */,
 				BE445FB912A57EDF00D1E47C /* BigDecimal.h in Headers */,
 				BE445FBB12A57EDF00D1E47C /* GMPRational.h in Headers */,
-				BE62163612A8A04900F4D142 /* NSValue+CacaoPrintable.h in Headers */,
+				BE62163612A8A04900F4D142 /* NSValue+CacaoReadable.h in Headers */,
 				BE98F04912AB0EBA0056DCD1 /* PushbackReader.h in Headers */,
 				BE93F79312BBE3AD007A4826 /* CacaoLispReader.h in Headers */,
 				BE93F94812BC163D007A4826 /* RegexKitLite.h in Headers */,
@@ -509,6 +512,7 @@
 				BE2B6C7912D8F127000363DB /* CacaoHigherOrderFunctionMakers.h in Headers */,
 				BE2B6D1912D8FD66000363DB /* CacaoSequenceFunctionMakers.h in Headers */,
 				BE2B6D2412D8FDFF000363DB /* CacaoComparisonFunctionMakers.h in Headers */,
+				BE2B78A212DCEC23000363DB /* CacaoReadable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,10 +652,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB29983128F577B0092F199 /* NSArray+Functional.m in Sources */,
-				BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
-				BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
-				BE3BC3171290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
-				BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */,
+				BE3BC2EB1290A34E00ED6ADB /* NSString+CacaoReadable.m in Sources */,
+				BE3BC3051290A3D600ED6ADB /* NSNumber+CacaoReadable.m in Sources */,
+				BE3BC3171290A5B500ED6ADB /* NSArray+CacaoReadable.m in Sources */,
+				BE3BC34B1290AA3100ED6ADB /* NSObject+CacaoReadable.m in Sources */,
 				BE3BC4CC1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */,
 				BE3BC60D1290CD2400ED6ADB /* CacaoNil.m in Sources */,
 				BE3BC65F1290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
@@ -662,7 +666,7 @@
 				BE445FB812A57EDF00D1E47C /* BigInteger.m in Sources */,
 				BE445FBA12A57EDF00D1E47C /* BigDecimal.m in Sources */,
 				BE445FBC12A57EDF00D1E47C /* GMPRational.m in Sources */,
-				BE62163712A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
+				BE62163712A8A04900F4D142 /* NSValue+CacaoReadable.m in Sources */,
 				BE98F04A12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79412BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
 				BE93F94912BC163D007A4826 /* RegexKitLite.m in Sources */,
@@ -699,15 +703,15 @@
 				BEB29823128F376B0092F199 /* CacaoSymbol.m in Sources */,
 				BEB2996D128F52CC0092F199 /* CacaoEnvironment.m in Sources */,
 				BEB29981128F577B0092F199 /* NSArray+Functional.m in Sources */,
-				BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoPrintable.m in Sources */,
-				BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoPrintable.m in Sources */,
-				BE3BC3181290A5B500ED6ADB /* NSArray+CacaoPrintable.m in Sources */,
-				BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoPrintable.m in Sources */,
+				BE3BC2EC1290A34E00ED6ADB /* NSString+CacaoReadable.m in Sources */,
+				BE3BC3061290A3D600ED6ADB /* NSNumber+CacaoReadable.m in Sources */,
+				BE3BC3181290A5B500ED6ADB /* NSArray+CacaoReadable.m in Sources */,
+				BE3BC34C1290AA3100ED6ADB /* NSObject+CacaoReadable.m in Sources */,
 				BE3BC4CD1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m in Sources */,
 				BE3BC60E1290CD2400ED6ADB /* CacaoNil.m in Sources */,
 				BE3BC6601290CF4900ED6ADB /* CacaoNilNotCallableException.m in Sources */,
 				BE61EF04129B79E200E7A7DD /* CacaoFn.m in Sources */,
-				BE62163812A8A04900F4D142 /* NSValue+CacaoPrintable.m in Sources */,
+				BE62163812A8A04900F4D142 /* NSValue+CacaoReadable.m in Sources */,
 				BE98F04B12AB0EBA0056DCD1 /* PushbackReader.m in Sources */,
 				BE93F79512BBE3AD007A4826 /* CacaoLispReader.m in Sources */,
 				BE93F94A12BC163D007A4826 /* RegexKitLite.m in Sources */,

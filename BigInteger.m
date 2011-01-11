@@ -129,10 +129,10 @@ static const int MSB_ORDER = 1;
 
 - (void)writeToFile:(NSString *)path
 {
-    [self.stringValue writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
-- (NSString *)stringValue
+- (NSString *)readableValue
 {
     PREP_MPZ(number, self);   
     char * numStr = mpz_get_str(NULL, self.base, number);    

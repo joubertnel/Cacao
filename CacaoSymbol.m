@@ -91,14 +91,14 @@ static NSMutableDictionary * table = nil;
     return [self isEqualToSymbol:(CacaoSymbol *)object];
 }
 
-- (NSString *)stringValue
+- (NSString *)readableValue
 {
     return self.name;
 }
 
-- (NSString *)printable
+- (void)writeToFile:(NSString *)path
 {
-    return [self stringValue];
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (id)copyWithZone:(NSZone *)zone

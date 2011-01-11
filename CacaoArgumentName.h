@@ -29,10 +29,11 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 #import "CacaoSymbol.h"
 
 
-@interface CacaoArgumentName : NSObject {
+@interface CacaoArgumentName : NSObject <CacaoReadable> {
     CacaoSymbol * symbol;
 }
 
@@ -40,6 +41,8 @@
 
 + (CacaoArgumentName *)argumentNameInternedFromSymbol:(CacaoSymbol *)sym;
 
-- (NSString *)printable;
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
+
 
 @end

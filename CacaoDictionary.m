@@ -31,6 +31,8 @@
 #import "CacaoDictionary.h"
 #import "NSArray+Functional.h"
 
+const NSString * CACAO_DICT_START_CHAR = @"{";
+const NSString * CACAO_DICT_END_CHAR = @"}";
 
 @implementation CacaoDictionary
 
@@ -50,14 +52,19 @@
     return [dict autorelease];
 }
 
-- (NSString *)printable
+
+- (void)writeToFile:(NSString *)path
+{
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (NSString *)readableValue
 {
     __block NSMutableString * kvPairs = [NSMutableString string];
     [self.elements enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [kvPairs appendFormat:@"%@ %@ ", [key printable], [obj printable]];
+        [kvPairs appendFormat:@"%@ %@ ", [key readableValue], [obj readableValue]];
     }];
-    
-    return [NSString stringWithFormat:@"{ %@}", kvPairs];
+    return [NSString stringWithFormat:@"%@ %@ %@}", CACAO_DICT_START_CHAR, kvPairs, CACAO_DICT_END_CHAR];
 }
 
 @end

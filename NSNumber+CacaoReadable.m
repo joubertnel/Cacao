@@ -1,8 +1,8 @@
 //
-//  NSObject+Printable.m
+//  NSNumber+Printable.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,26 +28,32 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "NSObject+CacaoPrintable.h"
+#import "NSNumber+CacaoReadable.h"
+
+NSString * BOOL_YES = @"YES";
+NSString * BOOL_NO = @"NO";
+
+@implementation NSNumber (CacaoReadable)
 
 
-@implementation NSObject (CacaoPrintable)
-
-- (NSString *)printableWithIndentation:(int)indent
-{        
-    NSMutableString * _printable = [NSMutableString string];    
-    
-    if ([self respondsToSelector:@selector(printable)])
+- (NSString *)readableValue
+{
+    if (CFGetTypeID(self) == CFBooleanGetTypeID())
     {
-        NSMutableString * _textualRepresentation = [NSMutableString stringWithString:[self performSelector:@selector(printable)]];
-        for (int i=0; i < indent; i++)
+        if ([self boolValue] == YES)
         {
-            [_printable appendString:@" "];
+            return BOOL_YES;
         }
-        [_printable appendString:_textualRepresentation];        
+        else {
+            return BOOL_NO;
+        }            
     }
-    
-    return _printable;
+    else return [self stringValue];
+}
+
+- (void)writeToFile:(NSString *)path
+{    
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end

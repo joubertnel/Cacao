@@ -29,14 +29,15 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 
-
-@interface CacaoNil : NSObject {
+@interface CacaoNil : NSObject <CacaoReadable> {
 
 }
 
 + (CacaoNil *)nilObject;
 
-- (NSString *)printable;
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
 
 @end

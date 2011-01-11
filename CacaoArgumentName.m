@@ -60,9 +60,14 @@ static NSMutableDictionary * table = nil;
         return existingArgumentNameInTable;
 }
 
-- (NSString *)printable
+- (void)writeToFile:(NSString *)path
 {
-    return [self.symbol printable];
+    [self.symbol writeToFile:path];
+}
+
+- (NSString *)readableValue
+{
+    return [self.symbol readableValue];
 }
 
 @end

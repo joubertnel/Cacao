@@ -1,8 +1,8 @@
 //
-//  NSArray+Printable.m
+//  NSValue+CacaoPrintable.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,34 +28,13 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "NSArray+CacaoPrintable.h"
+#import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 
-int const CACAO_PRINTABLE_INDENTATION = 2;
+@interface NSValue (CacaoReadable) <CacaoReadable> 
 
-@implementation NSArray (CacaoPrintable)
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
 
-
-- (NSString *)printableTreeComponent:(id)treeComponent indented:(int)indent
-{
-    return [treeComponent printableWithIndentation:(indent + CACAO_PRINTABLE_INDENTATION)];
-}
-
-- (NSString *)printableWithIndentation:(int)indent
-{
-    NSMutableString * printable = [NSMutableString string];
-    for (id component in self)
-    {
-        NSString * printableComponent = [self printableTreeComponent:component indented:indent];        
-        [printable appendString:printableComponent];
-        [printable appendString:@"\n"];
-    }
-    
-    return printable;
-}
-
-- (NSString *)printable
-{
-    return [self printableWithIndentation:4];
-}
 
 @end

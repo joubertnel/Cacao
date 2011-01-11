@@ -40,12 +40,10 @@
 
 - (void)testKeys
 {
-    // TEST_TRUE(@"(= [:first :last] (keys dict:{:first \"Frederic\" :last \"Chopin\" :age 34}))");
 }
 
 - (void)testVals
 {
-    // TEST_TRUE(@"(= [\"Frederic\" 34] (vals dict:{:first \"Frederic\" :age 34}))");
 }
 
 - (void)contains

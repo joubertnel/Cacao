@@ -29,6 +29,7 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 #import "gmp.h"
 
 
@@ -40,7 +41,7 @@ typedef enum {
 
 
 
-@interface BigInteger: NSObject <NSCopying> {
+@interface BigInteger: NSObject <NSCopying, CacaoReadable> {
     NSData *    mpzData;
     size_t      mpzDataWordCount;
 	int         base;
@@ -58,11 +59,10 @@ typedef enum {
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue base:(int)theBase;
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue;
 
-
 - (id)copyWithZone:(NSZone *)zone;
 
 - (void)writeToFile:(NSString *)path;
-- (NSString *)stringValue;
+- (NSString *)readableValue;
 
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;

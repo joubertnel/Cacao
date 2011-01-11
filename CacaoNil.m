@@ -38,9 +38,14 @@
     return [[[CacaoNil alloc] init] autorelease];
 }
 
-- (NSString *)printable
+- (NSString *)readableValue
 {
     return @"nil";
+}
+
+- (void)writeToFile:(NSString *)path
+{
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end

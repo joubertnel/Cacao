@@ -1,8 +1,8 @@
 //
-//  NSValue+CacaoPrintable.m
+//  NSObject+Printable.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,22 +28,36 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import "NSValue+CacaoPrintable.h"
+#import "NSObject+CacaoReadable.h"
 
 
-@implementation NSValue (CacaoPrintable)
+@implementation NSObject (CacaoReadable)
 
-- (NSString *)printable
-{
-    NSString * printRepresenation = nil;
+- (NSString *)printableWithIndentation:(int)indent
+{        
+    NSMutableString * _printable = [NSMutableString string];    
     
-    if (strcmp([self objCType], @encode(NSRange)) == 0)
+    if ([self respondsToSelector:@selector(printable)])
     {
-        NSRange range = [self rangeValue];
-        printRepresenation = [NSString stringWithFormat:@"{:location %lu :length %lu}", range.location, range.length];        
+        NSMutableString * _textualRepresentation = [NSMutableString stringWithString:[self performSelector:@selector(printable)]];
+        for (int i=0; i < indent; i++)
+        {
+            [_printable appendString:@" "];
+        }
+        [_printable appendString:_textualRepresentation];        
     }
+    
+    return _printable;
+}
 
-    return printRepresenation;
+- (NSString *)readableValue
+{
+    return [self description];
+}
+
+- (void)writeToFile:(NSString *)path
+{
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end

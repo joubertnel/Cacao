@@ -1,8 +1,8 @@
 //
-//  NSValue+CacaoPrintable.h
+//  NSValue+CacaoPrintable.m
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -28,12 +28,27 @@
 //    authors and should not be interpreted as representing official policies, either expressed
 //    or implied, of Joubert Nel.
 
-#import <Cocoa/Cocoa.h>
+#import "NSValue+CacaoReadable.h"
 
 
-@interface NSValue (CacaoPrintable) 
+@implementation NSValue (CacaoReadable)
 
-- (NSString *)printable;
+- (NSString *)readableValue
+{
+    NSString * printRepresenation = nil;
+    
+    if (strcmp([self objCType], @encode(NSRange)) == 0)
+    {
+        NSRange range = [self rangeValue];
+        printRepresenation = [NSString stringWithFormat:@"{:location %lu :length %lu}", range.location, range.length];        
+    }
 
+    return printRepresenation;
+}
+
+- (void)writeToFile:(NSString *)path
+{
+    [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+}
 
 @end

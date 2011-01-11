@@ -1,8 +1,8 @@
 //
-//  NSArray+Printable.h
+//  NSObject+Printable.h
 //  Cacao
 //
-//    Copyright 2010, Joubert Nel. All rights reserved.
+//    Copyright 2010, 2011, Joubert Nel. All rights reserved.
 //
 //    Redistribution and use in source and binary forms, with or without modification, are
 //    permitted provided that the following conditions are met:
@@ -29,12 +29,14 @@
 //    or implied, of Joubert Nel.
 
 #import <Cocoa/Cocoa.h>
+#import "CacaoReadable.h"
 
-extern int const CACAO_PRINTABLE_INDENTATION;
+@interface NSObject (CacaoReadable) <CacaoReadable>
 
-@interface NSArray (CacaoPrintable)
+- (NSString *)printableWithIndentation:(int)indent;
 
-//- (NSString *)printableWithIndentation:(int)indent;
-//- (NSString *)printable;
+- (NSString *)readableValue;
+- (void)writeToFile:(NSString *)path;
+
 
 @end

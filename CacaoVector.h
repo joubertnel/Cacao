@@ -59,4 +59,5 @@ typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 - (void)writeToFile:(NSString *)path;
 
 
+
 @end

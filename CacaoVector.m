@@ -235,6 +235,7 @@
     [@"]" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
+
 - (BOOL)isEqual:(id)object
 {
     if (![object isKindOfClass:[CacaoVector class]])
