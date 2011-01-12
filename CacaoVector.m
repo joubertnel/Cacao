@@ -193,48 +193,6 @@
     }
 }
 
-- (void)writeToFile:(NSString *)path
-{
-    [@"[" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-    
-    NSUInteger nextIndex = 0;
-    BOOL stop = NO;
-    while (stop == NO) {
-        
-        id prevObj = nil;
-        id nextObj = nil;
-        
-        if (isFullyMaterialized)
-        {
-            if (nextIndex < [self count])
-                prevObj = [materializedItems objectAtIndex:nextIndex];
-            else
-                stop = YES;
-        } 
-        else      
-        {
-            prevObj = [materializingItems lastObject];
-            nextObj = generator(prevObj, nextIndex, &stop);
-            if (nextObj)
-                [materializingItems addObject:nextObj];
-            
-            if (stop)
-            {
-                isFullyMaterialized = YES;
-                [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
-            } 
-        }
-              
-        if (prevObj) {
-            [prevObj performSelector:@selector(writeToFile:) withObject:path];
-            [@" " writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-        }
-        nextIndex++;        
-    }
-    
-    [@"]" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
-}
-
 
 - (BOOL)isEqual:(id)object
 {
@@ -293,6 +251,66 @@
         }  
       }
     return vecsAreEqual;    
+}
+
+#pragma mark CacaoReadable protocol
+
+- (NSString *)readableValue
+{
+    NSMutableString * readable = [NSString string];    
+    NSUInteger index = 0;    
+    while (YES) {
+        @try {
+            id object = [self objectAtIndex:index];
+            [readable appendFormat:@"%@ ", [object readableValue]];
+            index++;
+        }
+        @catch (NSException * e) {}
+    }    
+    return [NSString stringWithFormat:@"[%@]", readable];
+}
+
+
+- (void)writeToFile:(NSString *)path
+{
+    [@"[" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    
+    NSUInteger nextIndex = 0;
+    BOOL stop = NO;
+    while (stop == NO) {
+        
+        id prevObj = nil;
+        id nextObj = nil;
+        
+        if (isFullyMaterialized)
+        {
+            if (nextIndex < [self count])
+                prevObj = [materializedItems objectAtIndex:nextIndex];
+            else
+                stop = YES;
+        } 
+        else      
+        {
+            prevObj = [materializingItems lastObject];
+            nextObj = generator(prevObj, nextIndex, &stop);
+            if (nextObj)
+                [materializingItems addObject:nextObj];
+            
+            if (stop)
+            {
+                isFullyMaterialized = YES;
+                [self setMaterializedItems:[NSArray arrayWithArray:materializingItems]];
+            } 
+        }
+        
+        if (prevObj) {
+            [prevObj performSelector:@selector(writeToFile:) withObject:path];
+            [@" " writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        }
+        nextIndex++;        
+    }
+    
+    [@"]" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
 }
 
 @end

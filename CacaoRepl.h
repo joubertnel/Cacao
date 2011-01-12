@@ -30,7 +30,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CacaoEnvironment.h"
-#import "NSObject+CacaoPrintable.h"
+#import "NSObject+CacaoReadable.h"
 #import "CacaoLispReader.h"
 
 @interface CacaoRepl : NSObject {

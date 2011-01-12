@@ -101,8 +101,7 @@ int main(int argc, char* argv[])
             
             line = readline("? ");
             if (!line)
-                break;
-            
+                break;            
             
             NSString * cacaoReplInput = [NSString stringWithUTF8String:stripwhite(line)];            
             if ([cacaoReplInput length] > 0)

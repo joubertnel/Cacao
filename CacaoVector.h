@@ -29,11 +29,12 @@
 //    or implied, of Joubert Nel.
 
 #import <Foundation/Foundation.h>
+#import "CacaoReadable.h"
 #import "BigInteger.h"
 
 typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 
-@interface CacaoVector : NSObject  {
+@interface CacaoVector : NSObject <CacaoReadable> {
     NSMutableArray * materializingItems;
     NSArray * materializedItems;
     BOOL isFullyMaterialized;
@@ -56,6 +57,9 @@ typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
 - (BOOL)containsObject:(id)object;
 - (NSArray *)subarrayWithRange:(NSRange)range;
 - (BOOL)isEqual:(id)object;
+
+#pragma mark CacaoReadable protocol
+- (NSString *)readableValue;
 - (void)writeToFile:(NSString *)path;
 
 
