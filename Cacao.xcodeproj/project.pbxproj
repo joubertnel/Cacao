@@ -104,6 +104,13 @@
 		BECDF7CB12A18031006AE86C /* CacaoSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB29822128F376B0092F199 /* CacaoSymbol.m */; };
 		BECDF7CC12A18035006AE86C /* CacaoEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB2996B128F52CC0092F199 /* CacaoEnvironment.h */; };
 		BECDF7CD12A18039006AE86C /* CacaoEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB2996C128F52CC0092F199 /* CacaoEnvironment.m */; };
+		BED3357812DD4DD400313E13 /* Inspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED3357712DD4DD400313E13 /* Inspector.xib */; };
+		BED3358012DD50C100313E13 /* InspectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BED3357F12DD50C100313E13 /* InspectionNode.m */; };
+		BED3358112DD50C100313E13 /* InspectionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = BED3357E12DD50C100313E13 /* InspectionNode.h */; };
+		BED3358212DD50C100313E13 /* InspectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BED3357F12DD50C100313E13 /* InspectionNode.m */; };
+		BED3358612DD54E600313E13 /* CacaoInspectables.m in Sources */ = {isa = PBXBuildFile; fileRef = BED3358512DD54E600313E13 /* CacaoInspectables.m */; };
+		BED3358712DD54E600313E13 /* CacaoInspectables.h in Headers */ = {isa = PBXBuildFile; fileRef = BED3358412DD54E600313E13 /* CacaoInspectables.h */; };
+		BED3358812DD54E600313E13 /* CacaoInspectables.m in Sources */ = {isa = PBXBuildFile; fileRef = BED3358512DD54E600313E13 /* CacaoInspectables.m */; };
 		BEF44C7812D3BCDA007E42FB /* CacaoQuotedForm.h in Headers */ = {isa = PBXBuildFile; fileRef = BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */; };
 		BEF44C7912D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
 		BEF44C7A12D3BCDA007E42FB /* CacaoQuotedForm.m in Sources */ = {isa = PBXBuildFile; fileRef = BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */; };
@@ -206,6 +213,11 @@
 		BEB29980128F577B0092F199 /* NSArray+Functional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Functional.m"; sourceTree = "<group>"; };
 		BECDF77512A17936006AE86C /* TestMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMath.h; sourceTree = "<group>"; };
 		BECDF77612A17936006AE86C /* TestMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMath.m; sourceTree = "<group>"; };
+		BED3357712DD4DD400313E13 /* Inspector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Inspector.xib; sourceTree = "<group>"; };
+		BED3357E12DD50C100313E13 /* InspectionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectionNode.h; sourceTree = "<group>"; };
+		BED3357F12DD50C100313E13 /* InspectionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionNode.m; sourceTree = "<group>"; };
+		BED3358412DD54E600313E13 /* CacaoInspectables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoInspectables.h; sourceTree = "<group>"; };
+		BED3358512DD54E600313E13 /* CacaoInspectables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacaoInspectables.m; sourceTree = "<group>"; };
 		BEDDE09E12A444AC00B0EF6C /* BigInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigInteger.h; sourceTree = "<group>"; };
 		BEDDE09F12A444AC00B0EF6C /* BigInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigInteger.m; sourceTree = "<group>"; };
 		BEDDE0A012A444AC00B0EF6C /* BigDecimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDecimal.h; sourceTree = "<group>"; };
@@ -260,6 +272,7 @@
 		0867D691FE84028FC02AAC07 /* Cacao */ = {
 			isa = PBXGroup;
 			children = (
+				BED3357612DD4DA200313E13 /* Inspector */,
 				BEB29381128EF96C0092F199 /* Tests */,
 				BE265300128DC3F70088DC0A /* Protocols */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
@@ -473,6 +486,18 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		BED3357612DD4DA200313E13 /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				BED3357712DD4DD400313E13 /* Inspector.xib */,
+				BED3358412DD54E600313E13 /* CacaoInspectables.h */,
+				BED3358512DD54E600313E13 /* CacaoInspectables.m */,
+				BED3357E12DD50C100313E13 /* InspectionNode.h */,
+				BED3357F12DD50C100313E13 /* InspectionNode.m */,
+			);
+			name = Inspector;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -513,6 +538,8 @@
 				BE2B6D1912D8FD66000363DB /* CacaoSequenceFunctionMakers.h in Headers */,
 				BE2B6D2412D8FDFF000363DB /* CacaoComparisonFunctionMakers.h in Headers */,
 				BE2B78A212DCEC23000363DB /* CacaoReadable.h in Headers */,
+				BED3358112DD50C100313E13 /* InspectionNode.h in Headers */,
+				BED3358712DD54E600313E13 /* CacaoInspectables.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +638,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				BED3357812DD4DD400313E13 /* Inspector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +708,8 @@
 				BE2B6C7A12D8F127000363DB /* CacaoHigherOrderFunctionMakers.m in Sources */,
 				BE2B6D1A12D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */,
 				BE2B6D2512D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */,
+				BED3358212DD50C100313E13 /* InspectionNode.m in Sources */,
+				BED3358812DD54E600313E13 /* CacaoInspectables.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +759,8 @@
 				BE2B6D1812D8FD66000363DB /* CacaoSequenceFunctionMakers.m in Sources */,
 				BE2B6D2312D8FDFF000363DB /* CacaoComparisonFunctionMakers.m in Sources */,
 				BE2B725612DA7457000363DB /* CacaoVector.m in Sources */,
+				BED3358012DD50C100313E13 /* InspectionNode.m in Sources */,
+				BED3358612DD54E600313E13 /* CacaoInspectables.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
