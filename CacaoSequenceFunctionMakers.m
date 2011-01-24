@@ -67,23 +67,22 @@
     CacaoSymbol * endArgSym = [CacaoSymbol symbolWithName:@"end" inNamespace:nil];
     CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects: startArgSym, endArgSym, nil]];
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-        BigInteger * startNum = [argsAndVals objectForKey:startArgSym];
-        BigInteger * endNum = [argsAndVals objectForKey:endArgSym];
-        BigInteger * step = [BigInteger bigIntegerWithValue:@"1"];
+        NSUInteger startNum = [(BigInteger *)[argsAndVals objectForKey:startArgSym] unsignedIntegerValue];
+        NSUInteger endNum = [(BigInteger *)[argsAndVals objectForKey:endArgSym] unsignedIntegerValue];
+        NSUInteger step = 1;
         
-        LazyGenerator rangeNextGenerator = ^(id previous, NSUInteger index, BOOL *stop) {
-            BigInteger * previousNum = (BigInteger *)previous;
-            BigInteger * nextNum = [previousNum add:step];
-            
-            if ([nextNum isLessThan:endNum])
-                return nextNum;            
+        LazyGenerator numberGenerator = ^(NSUInteger index, BOOL *stop) {
+            NSUInteger numberAtIndex = startNum + step * index;
+            if (numberAtIndex < endNum)
+                return [BigInteger bigIntegerWithUIntValue:numberAtIndex];            
             else {
                 *stop = YES;
                 return nil;
             }
         };      
         
-        CacaoVector * lazyVec = [CacaoVector vectorWithFirstItem:startNum subsequentGenerator:rangeNextGenerator];
+        CacaoVector * lazyVec = [CacaoVector vectorWithFirstItem:[BigInteger bigIntegerWithUIntValue:startNum]
+                                             subsequentGenerator:numberGenerator];
         return lazyVec;
     } args:args restArg:nil];
     return [NSDictionary dictionaryWithObject:fn forKey:symbol];

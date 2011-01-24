@@ -58,6 +58,7 @@ typedef enum {
 + (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz;
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue base:(int)theBase;
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue;
++ (BigInteger *)bigIntegerWithUIntValue:(NSUInteger)theValue;
 
 - (id)copyWithZone:(NSZone *)zone;
 
@@ -67,11 +68,13 @@ typedef enum {
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;
 - (BOOL)isGreaterThan:(BigInteger *)number;
+- (NSUInteger)unsignedIntegerValue;
 
 - (BigInteger *)add:(BigInteger *)anotherNumber;
 - (BigInteger *)subtract:(BigInteger *)anotherNumber;
 - (BigInteger *)multiply:(BigInteger *)anotherNumber;
 - (BigInteger *)divide:(BigInteger *)divisor;
+- (BigInteger *)increment;
 
 
 @end

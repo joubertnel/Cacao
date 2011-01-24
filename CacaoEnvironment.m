@@ -372,7 +372,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 + (id)evalLetExpression:(NSArray *)expression inEnvironment:(CacaoEnvironment *)env
 {
-    CacaoVector *bindings = [CacaoVector vectorWithArray:[expression objectAtIndex:1]];
+    CacaoVector *bindings = [expression objectAtIndex:1]; //[CacaoVector vectorWithArray:[expression objectAtIndex:1]];
     NSRange bodyRange;
     bodyRange.location = 2;
     bodyRange.length = expression.count - bodyRange.location;

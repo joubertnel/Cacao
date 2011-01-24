@@ -30,28 +30,33 @@
 
 #import <Foundation/Foundation.h>
 #import "CacaoReadable.h"
-#import "BigInteger.h"
 
-typedef NSObject * (^LazyGenerator)(id previous, NSUInteger index, BOOL *stop);
+
+typedef NSObject * (^LazyGenerator)(NSUInteger index, BOOL *stop);
+
 
 @interface CacaoVector : NSObject <CacaoReadable> {
-    NSMutableArray * materializingItems;
-    NSArray * materializedItems;
     BOOL isFullyMaterialized;
-    LazyGenerator generator;
+    
+@private
+    NSMutableDictionary * _materializedItems;
+    NSMutableSet * _itemsSet;
+    LazyGenerator _generator;    
 }
 
-@property (nonatomic, retain) NSMutableArray * materializingItems;
-@property (nonatomic, retain) NSArray * materializedItems;
-@property (nonatomic, assign) BOOL isFullyMaterialized;
+
+@property (nonatomic, retain) NSMutableDictionary * materializedItems;
+@property (nonatomic, retain) NSMutableSet * itemsSet;
 @property (copy) LazyGenerator generator;
+@property (nonatomic, assign) BOOL isFullyMaterialized;
+
 
 + (CacaoVector *)vectorWithFirstItem:(id)first subsequentGenerator:(LazyGenerator)generator;
 + (CacaoVector *)vectorWithArray:(NSArray *)theElements;
 
+
+- (void)setObject:(id)object atIndex:(NSUInteger)index;
 - (NSArray *)elements;
-
-
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
 - (BOOL)containsObject:(id)object;

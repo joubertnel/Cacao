@@ -31,6 +31,7 @@
 #import "BigInteger.h"
 
 static const int MSB_ORDER = 1;
+static BigInteger * _unitValue;
 
 #pragma mark MPZ (GMP Arbitrary Precision Integer) macros
 
@@ -82,6 +83,13 @@ static const int MSB_ORDER = 1;
 
 #pragma mark Lifetime management
 
++ (void)initialize
+{
+    // We set this for the lifetime of the runtime (i.e. when the class starts up)
+    // to speed up functions such as increment and decrement by not unnecessarily
+    // allocating new objects. 
+    _unitValue = [[BigInteger bigIntegerWithValue:@"1"] retain];
+}
 
 + (BigInteger *)bigIntegerWithMPZ:(mpz_t)mpz base:(int)theBase
 {    
@@ -117,6 +125,11 @@ static const int MSB_ORDER = 1;
 + (BigInteger *)bigIntegerWithValue:(NSString *)theValue
 {
 	return [BigInteger bigIntegerWithValue:theValue base:10];
+}
+
++ (BigInteger *)bigIntegerWithUIntValue:(NSUInteger)theValue
+{
+    return [BigInteger bigIntegerWithValue:[NSString stringWithFormat:@"%d", theValue]];
 }
 
 - (id)copyWithZone:(NSZone *)zone
@@ -184,6 +197,11 @@ static const int MSB_ORDER = 1;
     return ([self compare:number] == NSOrderedAscending);
 }
 
+- (NSUInteger)unsignedIntegerValue
+{
+    return (NSUInteger)[[self readableValue] integerValue];
+}
+
 
 #pragma mark Arithmetic 
 
@@ -223,6 +241,10 @@ static const int MSB_ORDER = 1;
     return answer;
 }
 
+- (BigInteger *)increment
+{
+    return [self add:_unitValue];
+}
 
 
 
