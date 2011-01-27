@@ -78,11 +78,20 @@
 
 - (void)materializeUpTo:(NSUInteger)targetIndex
 {
-    NSUInteger index = 0;
-    while (!isFullyMaterialized && index < targetIndex)
+    if (!isFullyMaterialized)
     {
-        [self objectAtIndex:index];
-        index++;
+        NSRange range = {.location=0, .length=targetIndex+1};
+        NSIndexSet * indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        
+        [indexSet enumerateIndexesWithOptions:NSEnumerationConcurrent usingBlock:^(NSUInteger idx, BOOL *stop) {
+            if (isFullyMaterialized)
+            {
+                *stop = YES;
+            }
+            else {
+                [self objectAtIndex:idx];
+            }        
+        }];    
     }
 }
 
@@ -138,11 +147,7 @@
         [self setObject:obj atIndex:index];
         return obj;
     }
-    
 
-    [NSException exceptionWithName:@"OutOfBoundsException" 
-                            reason:[NSString stringWithFormat:@"Index %d outside of vector bounds.", index]
-                          userInfo:nil];
     return nil;
 }
 

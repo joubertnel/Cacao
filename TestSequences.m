@@ -61,6 +61,11 @@
     TEST_TRUE(@"(= 99 (get i:95 vec:(range start:4 end:100)))");
 }
 
+- (void)testHigherOrderFunctionsOnLazyVectors
+{
+    TEST_TRUE(@"(= 100020001 (get i:10000 vec:(map fn:(fn [n] (* n n)) vec:(range start:1 end:10000000))))");
+}
+
 
 
 @end

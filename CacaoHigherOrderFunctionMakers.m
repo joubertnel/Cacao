@@ -52,32 +52,60 @@
         
         CacaoFn * fn = [argsAndVals objectForKey:fnArgSym];
         NSString * fnArgNameString = [fn.argNames anyObject];
-        CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString inNamespace:nil]];
+        CacaoArgumentName * fnArgName = [CacaoArgumentName argumentNameInternedFromSymbol:[CacaoSymbol symbolWithName:fnArgNameString 
+                                                                                                          inNamespace:nil]];
         
-        size_t itemCount = [[seq elements] count];
-        __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:itemCount];        
-        
-        [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([seq isFullyMaterialized])
+        {
+            size_t itemCount = [seq count];
+            __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:itemCount];        
             
-            NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];    
-            if (r == nil)
-                r = [NSNull null];
-            [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInt:idx]];
+            [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent 
+                                             usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];    
+                if (r == nil)
+                    r = [NSNull null];
+                [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInt:idx]];
 
-        }];
-        
-        id * results = calloc(itemCount, sizeof(NSObject *));
-        
-        for (NSUInteger i=0; i < itemCount; i++) {
-            NSObject * obj = [resultDict objectForKey:[NSNumber numberWithUnsignedInt:i]];
-            results[i] = obj;
-        }            
-        
-        NSArray * resultArray = [NSArray arrayWithObjects:(id const *)results count:itemCount];
-        
-        free(results);
-        
-        return [CacaoVector vectorWithArray:resultArray];        
+            }];
+            
+            id * results = calloc(itemCount, sizeof(NSObject *));
+            
+            for (NSUInteger i=0; i < itemCount; i++) {
+                NSObject * obj = [resultDict objectForKey:[NSNumber numberWithUnsignedInt:i]];
+                results[i] = obj;
+            }            
+            
+            NSArray * resultArray = [NSArray arrayWithObjects:(id const *)results count:itemCount];
+            
+            free(results);
+            
+            return [CacaoVector vectorWithArray:resultArray];        
+        }
+        else 
+        {
+            LazyGenerator mapGenerator = ^(NSUInteger index, BOOL *stop) {
+                id seqItem = [seq objectAtIndex:index];
+                if (seqItem)
+                {
+                    id r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, seqItem, nil]];
+                    if (r == nil)
+                        r = [NSNull null];
+                    return r;                
+                }
+                else {
+                    *stop = YES;
+                    return nil;
+                }
+            };
+            
+            id firstItem = mapGenerator(0, nil);
+            
+            CacaoVector * lazyResultVector = [CacaoVector vectorWithFirstItem:firstItem 
+                                                          subsequentGenerator:mapGenerator];
+            return lazyResultVector;
+        }
         
     } args:args restArg:nil];
     
