@@ -62,6 +62,21 @@
 }
 
 
++ (NSDictionary *)count
+{
+    CacaoSymbol * sym = [CacaoSymbol symbolWithName:@"count" inNamespace:GLOBAL_NAMESPACE];
+    CacaoSymbol * vecArgSym = [CacaoSymbol symbolWithName:@"vec" inNamespace:nil];
+    CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:vecArgSym, nil]];
+    
+    CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
+        CacaoVector * vec = [argsAndVals objectForKey:vecArgSym];
+        return [BigInteger bigIntegerWithUIntValue:[vec count]];
+    } args:args restArg:nil];
+    
+    return [NSDictionary dictionaryWithObject:fn forKey:sym];
+}
+
+
 + (NSDictionary *)range
 {
     CacaoSymbol * symbol = [CacaoSymbol symbolWithName:@"range" inNamespace:GLOBAL_NAMESPACE];

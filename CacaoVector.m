@@ -55,7 +55,7 @@
 + (CacaoVector *)vectorWithFirstItem:(id)first subsequentGenerator:(LazyGenerator)theGenerator
 {
     CacaoVector * vec = [[CacaoVector alloc] init];    
-    [vec setObject:first atIndex:0];
+    [vec setObject:first atIndex:0];    
     [vec setGenerator:theGenerator];
     return [vec autorelease];
 }
@@ -67,10 +67,22 @@
     [theElements enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {        
         [vec setObject:obj atIndex:idx];
     }];
-    
-    
     [vec setIsFullyMaterialized:YES];
     return [vec autorelease];
+}
+
++ (CacaoVector *)vectorWithDictionary:(NSDictionary *)theIndexedElements
+{
+    CacaoVector * vec = [[CacaoVector alloc] init];
+    [vec setMaterializedItems:[NSMutableDictionary dictionaryWithDictionary:theIndexedElements]];
+    [vec setItemsSet:[NSMutableSet setWithArray:[theIndexedElements allValues]]];
+    [vec setIsFullyMaterialized:YES];
+    return [vec autorelease];
+}
+
+- (id)makeKeyForIndex:(NSUInteger)index
+{
+    return [NSValue valueWithBytes:&index objCType:@encode(NSUInteger)];
 }
 
 
@@ -97,7 +109,7 @@
 
 - (void)setObject:(id)object atIndex:(NSUInteger)index
 {
-    [self.materializedItems setObject:object forKey:[NSNumber numberWithUnsignedInt:index]];
+    [self.materializedItems setObject:object forKey:[self makeKeyForIndex:index]];
     [self.itemsSet addObject:object];
 }
 
@@ -105,8 +117,7 @@
 - (void)materializeAll
 {
     if (!isFullyMaterialized)
-    {
-        
+    {        
         NSUInteger nextIndex = 0;
         BOOL stop = NO;
         while (stop == NO)
@@ -138,10 +149,19 @@
     return [self.materializedItems count];
 }
 
+- (void)force
+{
+    [self materializeAll];
+}
+
 - (id)materializeObjectAtIndex:(NSUInteger)index
 {
-    id obj = _generator(index, &isFullyMaterialized);
+    BOOL reachedTheEnd = NO;
+    id obj = _generator(index, &reachedTheEnd);
     
+    if (reachedTheEnd)
+        [self setIsFullyMaterialized:YES];
+
     if (obj)
     {
         [self setObject:obj atIndex:index];
@@ -154,8 +174,8 @@
 #pragma mark Other array-like behavior
 
 - (id)objectAtIndex:(NSUInteger)index
-{
-    id obj = [self.materializedItems objectForKey:[NSNumber numberWithUnsignedInt:index]];
+{    
+    id obj = [self.materializedItems objectForKey:[self makeKeyForIndex:index]];
     if (obj)
         return obj;
     
@@ -196,7 +216,7 @@
     
     NSMutableArray * sortedKeys = [NSMutableArray arrayWithCapacity:range.length];
     for (NSUInteger i = range.location; i <= lastIndex; i++) {
-        [sortedKeys addObject:[NSNumber numberWithUnsignedInt:i]];
+        [sortedKeys addObject:[self makeKeyForIndex:i]];
     }
     
     return [self.materializedItems objectsForKeys:sortedKeys notFoundMarker:[CacaoNil nilObject]];
@@ -245,27 +265,33 @@
     
 }
 
+
+
 #pragma mark CacaoReadable protocol
 
 - (NSString *)readableValue
 {
-    NSMutableString * readable = [NSString string];    
+    NSMutableString * readable = [NSMutableString string];    
     NSUInteger index = 0;    
-    while (YES) {
-        @try {
-            id object = [self objectAtIndex:index];
-            [readable appendFormat:@"%@ ", [object readableValue]];
-            index++;
-        }
-        @catch (NSException * e) {}
+    while (index < [self count]) 
+    {
+        id object = [self objectAtIndex:index];
+        [readable appendFormat:@"%@ ", [object readableValue]];
+        index++;
     }    
     return [NSString stringWithFormat:@"[%@]", readable];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"CacaoVector: %@", nil];
 }
 
 
 - (void)writeToFile:(NSString *)path
 {
     [@"[" writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
+
     
     NSUInteger nextIndex = 0;
     BOOL stop = NO;

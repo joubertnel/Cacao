@@ -64,6 +64,7 @@ typedef enum {
 
 - (void)writeToFile:(NSString *)path;
 - (NSString *)readableValue;
+- (NSString *)description;
 
 - (BOOL)isEqual:(id)object;
 - (BOOL)isLessThan:(BigInteger *)number;

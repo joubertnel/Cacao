@@ -53,11 +53,13 @@ typedef NSObject * (^LazyGenerator)(NSUInteger index, BOOL *stop);
 
 + (CacaoVector *)vectorWithFirstItem:(id)first subsequentGenerator:(LazyGenerator)generator;
 + (CacaoVector *)vectorWithArray:(NSArray *)theElements;
++ (CacaoVector *)vectorWithDictionary:(NSDictionary *)theIndexedElements;
 
 
 - (void)setObject:(id)object atIndex:(NSUInteger)index;
 - (NSArray *)elements;
 - (NSUInteger)count;
+- (void)force;
 - (id)objectAtIndex:(NSUInteger)index;
 - (BOOL)containsObject:(id)object;
 - (NSArray *)subarrayWithRange:(NSRange)range;
@@ -65,6 +67,7 @@ typedef NSObject * (^LazyGenerator)(NSUInteger index, BOOL *stop);
 
 #pragma mark CacaoReadable protocol
 - (NSString *)readableValue;
+- (NSString *)description;
 - (void)writeToFile:(NSString *)path;
 
 

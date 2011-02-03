@@ -49,6 +49,7 @@
 - (BOOL)isEqual:(id)object;
 
 - (NSString *)readableValue;
+- (NSString *)description;
 - (void)writeToFile:(NSString *)path;
 - (id)copyWithZone:(NSZone *)zone;
 

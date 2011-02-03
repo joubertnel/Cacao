@@ -59,11 +59,14 @@
     TEST_TRUE(@"(= (range start:5 end:80) (range start:5 end:80))");
     TEST_FALSE(@"(= (range start:5 end:800) (range start:3 end:40))");
     TEST_TRUE(@"(= 99 (get i:95 vec:(range start:4 end:100)))");
+    TEST_TRUE(@"(= 1 (let [r (range start:1 end:10) c (count vec:r)] (get i:0 vec:r|");
+    TEST_TRUE(@"(= 2 (let [r (range start:1 end:10) c (count vec:r)] (get i:1 vec:r|");
 }
 
 - (void)testHigherOrderFunctionsOnLazyVectors
 {
     TEST_TRUE(@"(= 100020001 (get i:10000 vec:(map fn:(fn [n] (* n n)) vec:(range start:1 end:10000000))))");
+    TEST_TRUE(@"(= 10 (get i:9 vec:(let [r (range start:1 end:10000)] r (map fn:(fn [n] n) vec:r))))");
 }
 
 

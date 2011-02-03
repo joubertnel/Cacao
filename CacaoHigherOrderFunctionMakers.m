@@ -48,7 +48,7 @@
     CacaoVector * args = [CacaoVector vectorWithArray:[NSArray arrayWithObjects:fnArgSym, seqArgSym, nil]]; 
     
     CacaoFn * fn = [CacaoFn fnWithDispatchFunction:^(NSDictionary * argsAndVals) {
-        id seq = [argsAndVals objectForKey:seqArgSym];
+        CacaoVector * seq = (CacaoVector *)[argsAndVals objectForKey:seqArgSym];
         
         CacaoFn * fn = [argsAndVals objectForKey:fnArgSym];
         NSString * fnArgNameString = [fn.argNames anyObject];
@@ -57,31 +57,17 @@
         
         if ([seq isFullyMaterialized])
         {
-            size_t itemCount = [seq count];
-            __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:itemCount];        
+            __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:[seq count]];  
             
-            [[seq elements] enumerateObjectsWithOptions:NSEnumerationConcurrent 
-                                             usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                
-                NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];    
+            [seq.materializedItems enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
+                NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];
                 if (r == nil)
-                    r = [NSNull null];
-                [resultDict setObject:r forKey:[NSNumber numberWithUnsignedInt:idx]];
-
-            }];
+                    r = [NSNull null];                               
+                [resultDict setObject:r forKey:key];
+            }];            
             
-            id * results = calloc(itemCount, sizeof(NSObject *));
             
-            for (NSUInteger i=0; i < itemCount; i++) {
-                NSObject * obj = [resultDict objectForKey:[NSNumber numberWithUnsignedInt:i]];
-                results[i] = obj;
-            }            
-            
-            NSArray * resultArray = [NSArray arrayWithObjects:(id const *)results count:itemCount];
-            
-            free(results);
-            
-            return [CacaoVector vectorWithArray:resultArray];        
+            return [CacaoVector vectorWithDictionary:resultDict];
         }
         else 
         {

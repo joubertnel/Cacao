@@ -96,6 +96,11 @@ static NSMutableDictionary * table = nil;
     return self.name;
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"CacaoSymbol: %@", [self readableValue]];
+}
+
 - (void)writeToFile:(NSString *)path
 {
     [[self readableValue] writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];

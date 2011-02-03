@@ -156,6 +156,11 @@ static BigInteger * _unitValue;
     return readable;
 }
 
+- (NSString *)description
+{
+    return [self readableValue];
+}
+
 
 #pragma mark Equality
 
