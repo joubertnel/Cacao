@@ -57,17 +57,16 @@
         
         if ([seq isFullyMaterialized])
         {
-            __block NSMutableDictionary * resultDict = [NSMutableDictionary dictionaryWithCapacity:[seq count]];  
+            __block CacaoVector * resultVector = [CacaoVector vectorWithDictionary:[NSDictionary dictionary]];
             
             [seq.materializedItems enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, id obj, BOOL *stop) {
                 NSObject * r = [fn invokeWithArgsAndVals:[NSArray arrayWithObjects:fnArgName, obj, nil]];
                 if (r == nil)
                     r = [NSNull null];                               
-                [resultDict setObject:r forKey:key];
+                [resultVector.materializedItems setObject:r forKey:key];
             }];            
             
-            
-            return [CacaoVector vectorWithDictionary:resultDict];
+            return resultVector;
         }
         else 
         {

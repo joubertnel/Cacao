@@ -284,7 +284,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"CacaoVector: %@", nil];
+    return [NSString stringWithFormat:@"CacaoVector: %@...", [[self objectAtIndex:0] readableValue]];
 }
 
 
