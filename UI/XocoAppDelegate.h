@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * XCEvalNotificationName;
 
 @interface XocoAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow * window;    
@@ -21,7 +22,6 @@
 @property (nonatomic, retain) IBOutlet NSMutableArray * cacaoMemory;
 
 
-- (IBAction)evalInput:(id)sender;
 
 
 

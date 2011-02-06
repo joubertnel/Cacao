@@ -7,8 +7,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface XocoInputTextViewDelegate : NSObject <NSTextViewDelegate> {
+@interface XocoInputTextViewDelegate : NSObject <NSTextDelegate> {
 
 }
+
+
 
 @end

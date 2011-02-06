@@ -14,6 +14,7 @@
 #import "NSTextView+XocoOutput.h"
 
 
+NSString * XCEvalNotificationName = @"XCEvalNotificationName";
 CacaoEnvironment * globalEnv;
 
 @implementation XocoAppDelegate
@@ -26,10 +27,10 @@ CacaoEnvironment * globalEnv;
     globalEnv = [CacaoEnvironment globalEnvironment];
     [self.window makeFirstResponder:inputView];
     
-    XCMemorable * memorable = [[XCMemorable alloc] init];
-    [memorable setDisplayName:@"Test"];
-    [cacaoMemory addObject:memorable];
-    [memorable release];
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(evalNotification:) 
+                                                 name:XCEvalNotificationName 
+                                               object:nil];
     
 }
 
@@ -49,7 +50,8 @@ CacaoEnvironment * globalEnv;
     return [NSString stringWithFormat:@"%@\n", outputText];
 }
 
-- (IBAction)evalInput:(id)sender
+
+- (void)evalNotification:(NSNotification *)aNotification
 {
     NSString * inputText = [inputView string];
     BOOL isInputTextNonBlank = [[inputText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] > 0;
@@ -111,5 +113,7 @@ CacaoEnvironment * globalEnv;
     [window makeFirstResponder:inputView];    
     [inputView setNeedsDisplay:YES];
 }
+
+
 
 @end
