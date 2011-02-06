@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'Cacao' target in the 'Cacao' project.
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-#endif

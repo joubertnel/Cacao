@@ -9,20 +9,25 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Repl.xcscheme</key>
+		<key>Xoco.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>Tests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>8DC2EF4F0486A6940098B216</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE058FBE12FB48940002F146</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE0ECFA912FEBF3A00C7166B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
