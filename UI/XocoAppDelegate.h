@@ -15,11 +15,11 @@ extern NSString * XCEvalNotificationName;
     IBOutlet NSTextView * inputView;
     IBOutlet NSTextView * outputView;
     
-    NSMutableArray * cacaoMemory;
+    NSTreeController * cacaoMemoryTreeController;
 }
 
 @property (assign) IBOutlet NSWindow * window;
-@property (nonatomic, retain) IBOutlet NSMutableArray * cacaoMemory;
+@property (nonatomic, retain) IBOutlet NSTreeController * cacaoMemoryTreeController;
 
 
 

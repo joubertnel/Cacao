@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+//extern NSString * XCMemorable
 
 @interface XCMemorable : NSObject {
-    NSString * _displayName;
-    NSArray * _children;
+    NSString * _description;
+    NSDictionary * _userInfo;
 }
 
-@property (assign) NSString * displayName;
-@property (nonatomic, retain) NSArray * children;
+@property (copy) NSString * description;
+@property (nonatomic, retain) NSDictionary * userInfo;
+
++ (NSTreeNode *)treeNodeWithDescription:(NSString *)aDescription userInfo:(NSDictionary *)theUserInfo;
 
 @end

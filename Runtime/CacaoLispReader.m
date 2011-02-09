@@ -227,16 +227,16 @@ static NSCharacterSet * additionalWhitespaceCharacterSet = nil;
 		
         NSString * firstCharOfNumber = [theString stringByMatching:intPat capture:1];
 		BOOL negate = [firstCharOfNumber isEqualToString:@"-"];
-		NSString *n;
-		int base = 10;
-		if ((n = [theString stringByMatching:intPat capture:3]) != nil)
-			base = 10;
-		else if ((n = [theString stringByMatching:intPat capture:4]) != nil)
-			base = 16;
-		else if ((n = [theString stringByMatching:intPat capture:5]) != nil)
-			base = 8;
-		else if ((n = [theString stringByMatching:intPat capture:7]) != nil)
-			base = [[theString stringByMatching:intPat capture:6] intValue];		
+		NSString *n = [theString stringByMatching:intPat capture:3];
+//		int base = 10;
+//		if ((n = [theString stringByMatching:intPat capture:3]) != nil)
+//			base = 10;
+//		else if ((n = [theString stringByMatching:intPat capture:4]) != nil)
+//			base = 16;
+//		else if ((n = [theString stringByMatching:intPat capture:5]) != nil)
+//			base = 8;
+//		else if ((n = [theString stringByMatching:intPat capture:7]) != nil)
+//			base = [[theString stringByMatching:intPat capture:6] intValue];		
 		if (n == nil)
 			return nil;
         BigInteger *bn = [BigInteger bigIntegerWithValue:n];

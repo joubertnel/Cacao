@@ -15,29 +15,42 @@
 
 
 NSString * XCEvalNotificationName = @"XCEvalNotificationName";
-CacaoEnvironment * globalEnv;
+static CacaoEnvironment * globalEnv;
+
+// We use a dictionary to keep track of memory tree category tree nodes
+static NSString * memoryTreeFunctionsNodeKey = @"memoryTreeCategoryFunctions";
+static NSString * memoryTreeVarsNodeKey = @"memory2TreeCategoryVars";
+static NSDictionary * memoryTreeCategoryNodes;
+
 
 @implementation XocoAppDelegate
 
 @synthesize window;
-@synthesize cacaoMemory;
+@synthesize cacaoMemoryTreeController;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application 
-    globalEnv = [CacaoEnvironment globalEnvironment];
-    [self.window makeFirstResponder:inputView];
+
+#pragma mark Utilities
+
+- (void)buildMemoryBrowserCategories
+{
+    // Functions Node
+    NSTreeNode * fnsTreeNode = [XCMemorable treeNodeWithDescription:@"Functions" userInfo:nil];
+    [cacaoMemoryTreeController addObject:fnsTreeNode];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(evalNotification:) 
-                                                 name:XCEvalNotificationName 
-                                               object:nil];
+    // Vars Node
+    NSTreeNode * varsTreeNode = [XCMemorable treeNodeWithDescription:@"Vars" userInfo:nil];
+    [cacaoMemoryTreeController addObject:varsTreeNode];
     
+    memoryTreeCategoryNodes = [NSDictionary dictionaryWithObjectsAndKeys:
+                            fnsTreeNode, memoryTreeFunctionsNodeKey,
+                            varsTreeNode, memoryTreeVarsNodeKey, nil];
 }
+
 
 - (void)appendToOutput:(NSString *)theText
 {
-    NSRange endRange = {.location=[[outputView textStorage] length], .length=0};
-    [outputView replaceCharactersInRange:endRange withString:theText];
+//    NSRange endRange = {.location=[[outputView textStorage] length], .length=0};
+//    [outputView replaceCharactersInRange:endRange withString:theText];
 }
 
 - (NSString *)makeFormattedInputText:(NSString *)inputText
@@ -45,11 +58,40 @@ CacaoEnvironment * globalEnv;
     return [NSString stringWithFormat:@"? %@\n", inputText];
 }
 
-- (NSString *)makeFormattedOutputText:(NSString *)outputText
+
+#pragma mark Life Cycle
+
+- (void)dealloc
 {
-    return [NSString stringWithFormat:@"%@\n", outputText];
+    [memoryTreeCategoryNodes release];
+    [super dealloc];
 }
 
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    globalEnv = [CacaoEnvironment globalEnvironment];
+    [self buildMemoryBrowserCategories];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(evalNotification:) 
+                                                 name:XCEvalNotificationName 
+                                               object:nil];    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newDefVarNotification:) 
+                                                 name:CacaoNewDefVarNotificationName
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newDefFunctionNotification:) 
+                                                 name:CacaoNewDefFunctionNotificationName
+                                               object:nil];
+    
+    [self.window makeFirstResponder:inputView];
+}
+
+
+
+#pragma mark Notification Processing
 
 - (void)evalNotification:(NSNotification *)aNotification
 {
@@ -112,6 +154,26 @@ CacaoEnvironment * globalEnv;
     [inputView setString:@""];    
     [window makeFirstResponder:inputView];    
     [inputView setNeedsDisplay:YES];
+}
+
+- (void)newDefVarNotification:(NSNotification *)aNotification
+{
+    CacaoSymbol * varSymbolName = [[aNotification userInfo] valueForKey:CacaoNewDefNotificationVarSymbolNameKey];
+    
+    NSTreeNode * varBrowsable = [XCMemorable treeNodeWithDescription:[varSymbolName name] userInfo:nil];
+    NSTreeNode * varsCategory = [memoryTreeCategoryNodes valueForKey:memoryTreeVarsNodeKey];
+    [[varsCategory mutableChildNodes] addObject:varBrowsable];
+    [cacaoMemoryTreeController rearrangeObjects];
+}
+
+- (void)newDefFunctionNotification:(NSNotification *)aNotification
+{    
+    CacaoSymbol * fnSymbolName = [[aNotification userInfo] valueForKey:CacaoNewDefNotificationVarSymbolNameKey];
+    NSTreeNode * fnBrowsable = [XCMemorable treeNodeWithDescription:[fnSymbolName name]
+                                                           userInfo:nil];
+    NSTreeNode * functionsCategory = [memoryTreeCategoryNodes valueForKey:memoryTreeFunctionsNodeKey];
+    [[functionsCategory mutableChildNodes] addObject:fnBrowsable];  
+    [cacaoMemoryTreeController rearrangeObjects];
 }
 
 

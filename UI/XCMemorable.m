@@ -11,7 +11,17 @@
 
 @implementation XCMemorable
 
-@synthesize displayName = _displayName;
-@synthesize children = _children;
+@synthesize description = _description;
+@synthesize userInfo = _userInfo;
+
++ (NSTreeNode *)treeNodeWithDescription:(NSString *)aDescription userInfo:(NSDictionary *)theUserInfo
+{
+    XCMemorable * memorable = [[XCMemorable alloc] init];
+    [memorable setDescription:aDescription];
+    [memorable setUserInfo:theUserInfo];
+    NSTreeNode * node = [NSTreeNode treeNodeWithRepresentedObject:memorable];
+    [memorable release];
+    return node;    
+}
 
 @end

@@ -9,13 +9,8 @@
 /* Begin PBXBuildFile section */
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		BE058FD412FB48D00002F146 /* Xoco.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE058FD312FB48D00002F146 /* Xoco.xib */; };
-		BE058FF312FB49FC0002F146 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE058FF212FB49FC0002F146 /* main.m */; };
 		BE05904112FBBBB40002F146 /* XocoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE05904012FBBBB40002F146 /* XocoAppDelegate.m */; };
 		BE05907B12FBC09A0002F146 /* XocoInputTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE05907A12FBC09A0002F146 /* XocoInputTextViewDelegate.m */; };
-		BE05909C12FC3C7B0002F146 /* BigInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDDE09F12A444AC00B0EF6C /* BigInteger.m */; };
-		BE0590A512FC3C940002F146 /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
-		BE0590AC12FC3CAB0002F146 /* CacaoNilNotCallableException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC65D1290CF4900ED6ADB /* CacaoNilNotCallableException.m */; };
-		BE0590AD12FC3CAB0002F146 /* CacaoSymbolNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3BC4CA1290BF2400ED6ADB /* CacaoSymbolNotFoundException.m */; };
 		BE0590B012FC3CCD0002F146 /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
 		BE05933D12FC88BA0002F146 /* XCMemorable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE05933C12FC88BA0002F146 /* XCMemorable.m */; };
 		BE05939212FC93830002F146 /* NSTextView+XocoOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BE05939112FC93830002F146 /* NSTextView+XocoOutput.m */; };
@@ -26,11 +21,11 @@
 		BE0ECFC212FEBFD400C7166B /* TestCore.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24D712A72436005E9444 /* TestCore.m */; };
 		BE0ECFC312FEBFD400C7166B /* TestBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0F24DB12A72475005E9444 /* TestBase.m */; };
 		BE0ECFC412FEBFD400C7166B /* TestSequences.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B6DCC12D9556D000363DB /* TestSequences.m */; };
-		BE0ECFD312FEC41A00C7166B /* CacaoLispReader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93F79212BBE3AD007A4826 /* CacaoLispReader.m */; };
 		BE0ECFD812FEC53700C7166B /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE46BB9712A59B6400EE904A /* libgmp.dylib */; };
 		BE0ECFDE12FECE4B00C7166B /* CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE0ECFDC12FECE4B00C7166B /* CacaoReadable.h */; };
 		BE0ECFDF12FECE4B00C7166B /* CacaoVisualOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = BE0ECFDD12FECE4B00C7166B /* CacaoVisualOutput.h */; };
 		BE0ECFE112FED01200C7166B /* Cacao_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = BE0ECFE012FED00D00C7166B /* Cacao_Prefix.pch */; };
+		BE0ECFF212FEE78D00C7166B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0ECFF112FEE78D00C7166B /* main.m */; };
 		BE2B694E12D7C04E000363DB /* CacaoDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B694C12D7C04E000363DB /* CacaoDictionary.h */; };
 		BE2B694F12D7C04E000363DB /* CacaoDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2B694D12D7C04E000363DB /* CacaoDictionary.m */; };
 		BE2B6C4A12D8E2A8000363DB /* CacaoMathFunctionMakers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2B6C4812D8E2A8000363DB /* CacaoMathFunctionMakers.h */; };
@@ -68,6 +63,7 @@
 		BE61EF03129B79E200E7A7DD /* CacaoFn.m in Sources */ = {isa = PBXBuildFile; fileRef = BE61EF01129B79E200E7A7DD /* CacaoFn.m */; };
 		BE62163612A8A04900F4D142 /* NSValue+CacaoReadable.h in Headers */ = {isa = PBXBuildFile; fileRef = BE62163412A8A04900F4D142 /* NSValue+CacaoReadable.h */; };
 		BE62163712A8A04900F4D142 /* NSValue+CacaoReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = BE62163512A8A04900F4D142 /* NSValue+CacaoReadable.m */; };
+		BE6938211302021300051A34 /* Cacao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Cacao.framework */; };
 		BE93011312BD4492007A4826 /* CacaoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93011112BD4492007A4826 /* CacaoUtil.h */; };
 		BE93011412BD4492007A4826 /* CacaoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BE93011212BD4492007A4826 /* CacaoUtil.m */; };
 		BE93014612BD4AFA007A4826 /* CacaoKeyword.h in Headers */ = {isa = PBXBuildFile; fileRef = BE93014412BD4AFA007A4826 /* CacaoKeyword.h */; };
@@ -103,8 +99,6 @@
 		BE058FBF12FB48940002F146 /* Xoco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xoco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE058FC112FB48940002F146 /* Xoco-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Xoco-Info.plist"; sourceTree = "<group>"; };
 		BE058FD312FB48D00002F146 /* Xoco.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Xoco.xib; sourceTree = "<group>"; };
-		BE058FF112FB49FC0002F146 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		BE058FF212FB49FC0002F146 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE05903F12FBBBB40002F146 /* XocoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XocoAppDelegate.h; sourceTree = "<group>"; };
 		BE05904012FBBBB40002F146 /* XocoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XocoAppDelegate.m; sourceTree = "<group>"; };
 		BE05907912FBC09A0002F146 /* XocoInputTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XocoInputTextViewDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +118,8 @@
 		BE0ECFDC12FECE4B00C7166B /* CacaoReadable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoReadable.h; sourceTree = "<group>"; };
 		BE0ECFDD12FECE4B00C7166B /* CacaoVisualOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacaoVisualOutput.h; sourceTree = "<group>"; };
 		BE0ECFE012FED00D00C7166B /* Cacao_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cacao_Prefix.pch; sourceTree = "<group>"; };
+		BE0ECFF012FEE78C00C7166B /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		BE0ECFF112FEE78D00C7166B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE0F240912A6A8CD005E9444 /* TestPlatformIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPlatformIntegration.h; sourceTree = "<group>"; };
 		BE0F240A12A6A8CD005E9444 /* TestPlatformIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPlatformIntegration.m; sourceTree = "<group>"; };
 		BE0F24D612A72436005E9444 /* TestCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCore.h; sourceTree = "<group>"; };
@@ -211,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE6938211302021300051A34 /* Cacao.framework in Frameworks */,
 				BE0590B012FC3CCD0002F146 /* libgmp.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +227,6 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* Cacao.framework */,
 				BE058FBF12FB48940002F146 /* Xoco.app */,
 				BE0ECFAA12FEBF3A00C7166B /* CacaoTests.octest */,
 			);
@@ -240,6 +236,7 @@
 		0867D691FE84028FC02AAC07 /* Cacao */ = {
 			isa = PBXGroup;
 			children = (
+				8DC2EF5B0486A6940098B216 /* Cacao.framework */,
 				BE058FD212FB48B10002F146 /* UI */,
 				08FB77AEFE84172EC02AAC07 /* Runtime */,
 				BE0ECFB212FEBF3A00C7166B /* RuntimeTests */,
@@ -321,6 +318,8 @@
 		BE058FD212FB48B10002F146 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				BE0ECFF012FEE78C00C7166B /* main.h */,
+				BE0ECFF112FEE78D00C7166B /* main.m */,
 				BE058FD312FB48D00002F146 /* Xoco.xib */,
 				BE05903F12FBBBB40002F146 /* XocoAppDelegate.h */,
 				BE05904012FBBBB40002F146 /* XocoAppDelegate.m */,
@@ -426,8 +425,6 @@
 				BE61EF01129B79E200E7A7DD /* CacaoFn.m */,
 				BEF44C7612D3BCDA007E42FB /* CacaoQuotedForm.h */,
 				BEF44C7712D3BCDA007E42FB /* CacaoQuotedForm.m */,
-				BE058FF112FB49FC0002F146 /* main.h */,
-				BE058FF212FB49FC0002F146 /* main.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -711,15 +708,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE058FF312FB49FC0002F146 /* main.m in Sources */,
 				BE05904112FBBBB40002F146 /* XocoAppDelegate.m in Sources */,
 				BE05907B12FBC09A0002F146 /* XocoInputTextViewDelegate.m in Sources */,
-				BE05909C12FC3C7B0002F146 /* BigInteger.m in Sources */,
-				BE0590A512FC3C940002F146 /* CacaoLispReader.m in Sources */,
-				BE0590AC12FC3CAB0002F146 /* CacaoNilNotCallableException.m in Sources */,
-				BE0590AD12FC3CAB0002F146 /* CacaoSymbolNotFoundException.m in Sources */,
 				BE05933D12FC88BA0002F146 /* XCMemorable.m in Sources */,
 				BE05939212FC93830002F146 /* NSTextView+XocoOutput.m in Sources */,
+				BE0ECFF212FEE78D00C7166B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,7 +725,6 @@
 				BE0ECFC212FEBFD400C7166B /* TestCore.m in Sources */,
 				BE0ECFC312FEBFD400C7166B /* TestBase.m in Sources */,
 				BE0ECFC412FEBFD400C7166B /* TestSequences.m in Sources */,
-				BE0ECFD312FEC41A00C7166B /* CacaoLispReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,7 +767,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
+				GCC_PREFIX_HEADER = Runtime/Cacao_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = Info.plist;
@@ -804,7 +796,7 @@
 				GCC_ENABLE_OBJC_GC = required;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Cacao_Prefix.pch;
+				GCC_PREFIX_HEADER = Runtime/Cacao_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -1009,6 +1001,7 @@
 				BE0ECFBE12FEBF3A00C7166B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

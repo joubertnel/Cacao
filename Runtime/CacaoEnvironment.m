@@ -57,6 +57,10 @@ static NSString * SPECIAL_FORM_TEXT_FN = @"fn";
 static const short fnParamsIndex = 1; // index of function args in a 'fn' form
 static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' form
 
+NSString * CacaoNewDefNotificationVarSymbolNameKey = @"CacaoNewDefNotificationVarNameKey";
+NSString * CacaoNewDefNotificationVarValueKey = @"CacaoNewDefNotificationVarValueKey";
+NSString * CacaoNewDefVarNotificationName = @"CacaoNewDefVarNotificationName";
+NSString * CacaoNewDefFunctionNotificationName = @"CacaoNewDefFunctionNotificationName";
 
 @implementation CacaoEnvironment
 
@@ -65,8 +69,6 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 
 
 #pragma mark Lifecycle
-
-
 
 
 + (CacaoEnvironment *)environmentWith:(NSDictionary *)paramsAndArgs outerEnvironment:(CacaoEnvironment *)theOuter
@@ -106,7 +108,7 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 }
 
 
-#pragma mark Locate symbols in the environment
+#pragma mark Locate and set symbols in the environment
 
 - (id)find:(CacaoSymbol *)theVar
 {
@@ -148,8 +150,26 @@ static const short fnBodyIndex = 2;  // index where body forms start in a 'fn' f
 }
 
 - (void)setVar:(id)theVar to:(id)theValue
-{
+{    
     [self.mappingTable setObject:theValue forKey:theVar];
+    
+    // Notify consumers of Cacao that something new was defined
+    NSString * notificationName;
+    if ([theValue isMemberOfClass:[CacaoFn class]])
+    {
+        notificationName = CacaoNewDefFunctionNotificationName;
+    }
+    else
+    {
+        notificationName = CacaoNewDefVarNotificationName;
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                theVar, CacaoNewDefNotificationVarSymbolNameKey,
+                                                                theValue, CacaoNewDefNotificationVarValueKey, nil]];
+
 }
 
 

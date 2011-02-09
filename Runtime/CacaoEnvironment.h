@@ -42,6 +42,10 @@
 #import "CacaoNilNotCallableException.h"
 #import "CacaoSymbolNotFoundException.h"
 
+extern NSString * CacaoNewDefNotificationVarSymbolNameKey;
+extern NSString * CacaoNewDefNotificationVarValueKey;
+extern NSString * CacaoNewDefVarNotificationName;
+extern NSString * CacaoNewDefFunctionNotificationName;
 
 @interface CacaoEnvironment : NSObject {
     NSMutableDictionary * mappingTable;
